@@ -5,11 +5,6 @@ using UnityEngine;
 public class PickupSpawner : MonoBehaviour {
 
 	public Weapon spawningWeapon;
-
-	//considering trying this?
-	// public BasicPistol basicPistol = new BasicPistol();
-	// public BasicKnife basicKnife = new BasicKnife();
-
 	public BasicPistol basicPistol;
 	public BasicKnife basicKnife;
 
@@ -24,13 +19,7 @@ public class PickupSpawner : MonoBehaviour {
 		//we had it like this once and I thought it worked...
 		basicPistol = new BasicPistol();
 		basicKnife = new BasicKnife();
-		if(Random.Range(0, 1) < .5){
-			spawningWeapon = basicPistol;
-			gameObject.GetComponent<SpriteRenderer>().sprite = pistolSpr;
-		}else{
-			spawningWeapon = basicKnife;
-			gameObject.GetComponent<SpriteRenderer>().sprite = knifeSpr;
-		}
+		
 	}
 	
 	// Update is called once per frame
@@ -39,6 +28,13 @@ public class PickupSpawner : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
+		if(Random.Range(0.0f, 1.0f) < 0.5f){
+			spawningWeapon = basicPistol;
+			gameObject.GetComponent<SpriteRenderer>().sprite = pistolSpr;
+		}else{
+			spawningWeapon = basicKnife;
+			gameObject.GetComponent<SpriteRenderer>().sprite = knifeSpr;
+		}
 		Debug.Log(col.gameObject.name + " could pick up the " + spawningWeapon.nameOf);
 	}
 

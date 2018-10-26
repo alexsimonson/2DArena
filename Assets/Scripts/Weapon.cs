@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Weapon : MonoBehaviour{
+public class Weapon {
 	[SerializeField] public string nameOf;
 	[SerializeField] public int damage;
 	[SerializeField] public int type;
