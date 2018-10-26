@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212139981537128720}
   - component: {fileID: 50686784747146536}
   - component: {fileID: 61530181105938848}
-  - component: {fileID: 114081164221587704}
+  - component: {fileID: 114678691782320994}
   m_Layer: 0
   m_Name: PlayerSprite
   m_TagString: Untagged
@@ -57,7 +57,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -88,7 +88,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3, y: 3}
   m_EdgeRadius: 0
---- !u!114 &114081164221587704
+--- !u!114 &114678691782320994
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1585523149284782}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a0080a12169d3b4e9ca2dc7a60b4719, type: 3}
+  m_Script: {fileID: 11500000, guid: ddef03cf59b29594385901f8f25ba56b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212139981537128720
