@@ -78,11 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e7fd031afa6be14da435c961aeafe3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawningWeapon: {fileID: 0}
-  basicPistol: {fileID: 0}
-  basicKnife: {fileID: 0}
-  pistolSpr: {fileID: 0}
-  knifeSpr: {fileID: 0}
+  pistolSpr: {fileID: 21300000, guid: 177721c1831b60c438733306a05c457d, type: 3}
+  knifeSpr: {fileID: 21300000, guid: dd2807c1ff0a539408ec7b7efe74ca4f, type: 3}
 --- !u!212 &212543775836995376
 SpriteRenderer:
   m_ObjectHideFlags: 1
