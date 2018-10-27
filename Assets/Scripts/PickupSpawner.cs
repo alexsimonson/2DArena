@@ -30,10 +30,10 @@ public class PickupSpawner : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D col){
 		if(Random.Range(0.0f, 1.0f) < 0.5f){
 			spawningWeapon = basicPistol;
-			gameObject.GetComponent<SpriteRenderer>().sprite = pistolSpr;
+			gameObject.GetComponent<SpriteRenderer>().sprite = basicPistol.icon;
 		}else{
 			spawningWeapon = basicKnife;
-			gameObject.GetComponent<SpriteRenderer>().sprite = knifeSpr;
+			gameObject.GetComponent<SpriteRenderer>().sprite = basicKnife.icon;
 		}
 		Debug.Log(col.gameObject.name + " could pick up the " + spawningWeapon.nameOf);
 	}
