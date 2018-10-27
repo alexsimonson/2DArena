@@ -19,6 +19,9 @@ public class PickupSpawner : MonoBehaviour {
 		if(Random.Range(0.0f, 1.0f) < 0.5f){
 			spawnedWeapon = basicPistol;
 			gameObject.GetComponent<SpriteRenderer>().sprite = basicPistol.icon;
+			//this line is necessary because the gun should face right when spawned on ground, but also looking is weird without
+			gameObject.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, -90);
+			
 		}else{
 			spawnedWeapon = basicKnife;
 			gameObject.GetComponent<SpriteRenderer>().sprite = basicKnife.icon;
