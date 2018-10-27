@@ -13,6 +13,11 @@ public class PlayerControl : MonoBehaviour {
 	public Fist fist;
 
 	private GameObject interactInRange = null;
+
+	private GameObject weaponSlot;
+	private Vector2 weaponSlotLocation;
+
+	private bool isAttacking = false;
 	
 	// Use this for initialization
 	void Start () {
@@ -20,6 +25,9 @@ public class PlayerControl : MonoBehaviour {
 		bc = GetComponent<BoxCollider2D>();
 		fist = new Fist();
 		inHands = fist;
+		weaponSlot = transform.GetChild(0).gameObject;
+		weaponSlotLocation = weaponSlot.transform.localPosition;
+		weaponSlot.GetComponent<SpriteRenderer>().sprite = inHands.icon;
 	}
 	
 	// Update is called once per frame
@@ -46,21 +54,46 @@ public class PlayerControl : MonoBehaviour {
 		Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         diff.Normalize();
 		float rotationZ = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-		
 		transform.rotation = Quaternion.Euler(0f, 0f, rotationZ -90);
 	}
 
 	void Attack(){
-		if(Input.GetButtonDown("Fire1")){
+		if(Input.GetButtonDown("Fire1") && isAttacking != true){
 			//this should determine what type of weapon is being used and then attack accordingly
 			Debug.Log("Attack");
+			isAttacking = true;
+
 			if(inHands.type==0){
 				Debug.Log("Attacking with a stab weapon: " + inHands.nameOf);
+				StartCoroutine(Stab());
+				
 			}else if(inHands.type==1){
 				Debug.Log("Attacking with a shoot weapon: " + inHands.nameOf);
 			}
 
 		}
+		
+	}
+
+	private IEnumerator Stab(){
+			Vector2 stabLocation = Vector2.up * 200.0f;
+			Vector2 startStabLocation = weaponSlotLocation;
+
+
+				weaponSlot.transform.localPosition = Vector3.Slerp(startStabLocation, stabLocation, Time.deltaTime);
+
+				yield return new WaitForSeconds(0.2f);
+				Debug.Log("this is happening");
+
+				
+			
+				
+			//}
+			weaponSlot.transform.localPosition = weaponSlotLocation;
+			isAttacking = false;
+			//weaponSlot.transform.position = weaponSlotLocation;
+
+		
 	}
 
 	void ThrowWeapon(){
@@ -70,6 +103,7 @@ public class PlayerControl : MonoBehaviour {
 			//this should spawn a game object spawner essentially in the game
 			Debug.Log("Throwing weapon: " + inHands.nameOf);
 			inHands=fist;
+			weaponSlot.GetComponent<SpriteRenderer>().sprite = inHands.icon;
 			Debug.Log("Now you're left with your fists");
 		}
 	}
@@ -78,7 +112,7 @@ public class PlayerControl : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.E)){
 			if(colObj!=null){
 				if(colObj.tag=="Pickup"){
-					PickupGun(colObj);
+					PickupWeapon(colObj);
 				}else{
 					Debug.Log("NO Pickup AVAILABLE");
 				}
@@ -89,11 +123,13 @@ public class PlayerControl : MonoBehaviour {
 		}
 	}
 
-	void PickupGun(GameObject colObj){
+	void PickupWeapon(GameObject colObj){
 		Weapon sw = colObj.GetComponent<PickupSpawner>().spawnedWeapon;
 		Debug.Log("Swapping " + inHands.nameOf + " for " + sw.nameOf);
 		inHands = sw;
+		weaponSlot.GetComponent<SpriteRenderer>().sprite = inHands.icon;
 		Debug.Log("Current equipped weapon: " + inHands.nameOf);
+
 	}
 	
 	void OnTriggerEnter2D(Collider2D col){

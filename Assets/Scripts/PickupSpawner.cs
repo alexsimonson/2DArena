@@ -37,13 +37,7 @@ public class PickupSpawner : MonoBehaviour {
 		// }
 
 
-		if(Random.Range(0.0f, 1.0f) < 0.5f){
-			spawnedWeapon = basicPistol;
-			gameObject.GetComponent<SpriteRenderer>().sprite = basicPistol.icon;
-		}else{
-			spawnedWeapon = basicKnife;
-			gameObject.GetComponent<SpriteRenderer>().sprite = basicKnife.icon;
-		}
+		
 		Debug.Log(col.gameObject.name + " could pick up the " + spawnedWeapon.nameOf);
 	}
 
