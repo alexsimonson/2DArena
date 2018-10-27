@@ -23,9 +23,10 @@ GameObject:
   - component: {fileID: 50627150338454134}
   - component: {fileID: 61280899358494040}
   - component: {fileID: 114140499731208044}
+  - component: {fileID: 114500404277528544}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,6 +131,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   botShouldAttack: 1
+--- !u!114 &114500404277528544
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1220385511592172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 185dd4a5507b87e4da53bf983acf2a46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 100
 --- !u!212 &212913770379634268
 SpriteRenderer:
   m_ObjectHideFlags: 1

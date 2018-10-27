@@ -83,10 +83,10 @@ public class PlayerControl : MonoBehaviour {
 			Vector2 startStabLocation = weaponSlotLocation;
 
 			weaponSlot.transform.localPosition = Vector3.Slerp(startStabLocation, stabLocation, Time.deltaTime);
-
+			weaponSlot.GetComponent<BoxCollider2D>().enabled = true;
 			yield return new WaitForSeconds(0.2f);
 			Debug.Log("this is happening");
-
+			weaponSlot.GetComponent<BoxCollider2D>().enabled = false;
 			weaponSlot.transform.localPosition = weaponSlotLocation;
 			isAttacking = false;
 			//weaponSlot.transform.position = weaponSlotLocation;
