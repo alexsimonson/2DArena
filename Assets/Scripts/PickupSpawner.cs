@@ -16,7 +16,13 @@ public class PickupSpawner : MonoBehaviour {
 		//we had it like this once and I thought it worked...
 		basicPistol = new BasicPistol();
 		basicKnife = new BasicKnife();
-		
+		if(Random.Range(0.0f, 1.0f) < 0.5f){
+			spawnedWeapon = basicPistol;
+			gameObject.GetComponent<SpriteRenderer>().sprite = basicPistol.icon;
+		}else{
+			spawnedWeapon = basicKnife;
+			gameObject.GetComponent<SpriteRenderer>().sprite = basicKnife.icon;
+		}
 	}
 	
 	// Update is called once per frame

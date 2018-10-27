@@ -76,18 +76,16 @@ public class PlayerControl : MonoBehaviour {
 
 	void InteractWith(GameObject colObj){
 		if(Input.GetKeyDown(KeyCode.E)){
-			Debug.Log("E PRESSED");	
-			if(colObj.tag=="Pickup"){
-				PickupGun(colObj);
-			}else{
-				Debug.Log("NO Pickup AVAILABLE");
-			}
-		// 	if(interactInRange!=null){
-		// 		Debug.Log("Tag of thing: " + interactInRange.gameObject.tag);
+			if(colObj!=null){
+				if(colObj.tag=="Pickup"){
+					PickupGun(colObj);
+				}else{
+					Debug.Log("NO Pickup AVAILABLE");
+				}
 
-		// 	}else{
-		// 		Debug.Log("Nothing in range to pickup");
-		// 	}
+			}else{
+				Debug.Log("Nothing in range");
+			}
 		}
 	}
 

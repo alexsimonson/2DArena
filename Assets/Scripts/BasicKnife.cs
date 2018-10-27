@@ -7,7 +7,7 @@ public class BasicKnife : Weapon {
 		nameOf = "Basic Knife";
 		damage = 10;
 		type = 0;
-		icon = Resources.Load<Sprite>("Sprites/BasicKnifeSpr");
+		icon = Resources.Load<Sprite>("Sprites/ShitDaggerSpr");
 	}
 	
 }
