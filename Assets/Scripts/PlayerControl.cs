@@ -48,10 +48,6 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	void LookRotation(){
-		// Vector2 playerLocation = gameObject.transform.position;
-		// Vector2 mouseLocation = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-		// Vector2 direction = (playerLocation-mouseLocation);
-
 		Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         diff.Normalize();
 		float rotationZ = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
@@ -59,55 +55,32 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	void Attack(){
-		Debug.Log("Is Attacking: " + isAttacking);
 		if(Input.GetButtonDown("Fire1") && isAttacking != true){
-			//this should determine what type of weapon is being used and then attack accordingly
-			Debug.Log("Attack");
 			isAttacking = true;
-
 			if(inHands.type==0){
 				Debug.Log("Attacking with a stab weapon: " + inHands.nameOf);
 				StartCoroutine(Stab());
-				
 			}else if(inHands.type==1){
 				Debug.Log("Attacking with a shoot weapon: " + inHands.nameOf);
 				StartCoroutine(Shoot());
 			}
-
 		}
-		
 	}
 
 	private IEnumerator Stab(){
 			Vector2 stabLocation = Vector2.up * 200.0f;
 			Vector2 startStabLocation = weaponSlotLocation;
-
 			weaponSlot.transform.localPosition = Vector3.Slerp(startStabLocation, stabLocation, Time.deltaTime);
 			weaponSlot.GetComponent<BoxCollider2D>().enabled = true;
 			yield return new WaitForSeconds(0.2f);
-			Debug.Log("this is happening");
 			weaponSlot.GetComponent<BoxCollider2D>().enabled = false;
 			weaponSlot.transform.localPosition = weaponSlotLocation;
 			isAttacking = false;
-			//weaponSlot.transform.position = weaponSlotLocation;
-
-		
 	}
 
 	private IEnumerator Shoot(){
-			// Vector2 stabLocation = Vector2.up * 200.0f;
-			// Vector2 startStabLocation = weaponSlotLocation;
-
-			// weaponSlot.transform.localPosition = Vector3.Slerp(startStabLocation, stabLocation, Time.deltaTime);
-
-			yield return new WaitForSeconds(0.2f);
-			// Debug.Log("this is happening");
-
-			// weaponSlot.transform.localPosition = weaponSlotLocation;
+			yield return new WaitForSeconds(0.2f);			
 			isAttacking = false;
-			//weaponSlot.transform.position = weaponSlotLocation;
-
-		
 	}
 
 	void ThrowWeapon(){
@@ -118,7 +91,6 @@ public class PlayerControl : MonoBehaviour {
 			Debug.Log("Throwing weapon: " + inHands.nameOf);
 			inHands=fist;
 			weaponSlot.GetComponent<SpriteRenderer>().sprite = inHands.icon;
-			Debug.Log("Now you're left with your fists");
 		}
 	}
 
@@ -130,7 +102,6 @@ public class PlayerControl : MonoBehaviour {
 				}else{
 					Debug.Log("NO Pickup AVAILABLE");
 				}
-
 			}else{
 				Debug.Log("Nothing in range");
 			}
@@ -156,13 +127,5 @@ public class PlayerControl : MonoBehaviour {
 
 	void OnTriggerStay2D(Collider2D col){
 		interactInRange = col.gameObject;
-
-		// InteractWith(colObj);
-		// if(Input.GetKeyDown(KeyCode.E)){
-		// 	if(colObj.tag=="Pickup"){
-		// 		Debug.Log("Picking up object");
-		// 		PickupGun(colObj);
-		// 	}
-		// }
 	}
 }
