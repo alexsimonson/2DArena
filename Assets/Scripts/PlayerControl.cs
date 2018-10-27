@@ -23,12 +23,11 @@ public class PlayerControl : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 		MoveDirection();
 		LookRotation();
-		if(Input.GetButton("Fire1")){
-			Attack();
-		}
+		Attack();
+		InteractWith(interactInRange);
 		if(Input.GetKeyDown(KeyCode.G)){
 			ThrowWeapon();
 		}
@@ -75,14 +74,21 @@ public class PlayerControl : MonoBehaviour {
 		}
 	}
 
-	void InteractWith(){
-		if(interactInRange!=null){
-			Debug.Log("Tag of thing: " + interactInRange.gameObject.tag);
+	void InteractWith(GameObject colObj){
+		if(Input.GetKeyDown(KeyCode.E)){
+			Debug.Log("E PRESSED");	
+			if(colObj.tag=="Pickup"){
+				PickupGun(colObj);
+			}else{
+				Debug.Log("NO Pickup AVAILABLE");
+			}
+		// 	if(interactInRange!=null){
+		// 		Debug.Log("Tag of thing: " + interactInRange.gameObject.tag);
 
-		}else{
-			Debug.Log("Nothing in range to pickup");
+		// 	}else{
+		// 		Debug.Log("Nothing in range to pickup");
+		// 	}
 		}
-		
 	}
 
 	void PickupGun(GameObject colObj){
@@ -97,16 +103,18 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	void OnTriggerExit2D(Collider2D col){
-		
+		interactInRange = null;
 	}
 
 	void OnTriggerStay2D(Collider2D col){
-		GameObject colObj = col.gameObject;
-		if(Input.GetKeyDown(KeyCode.E)){
-			if(colObj.tag=="Pickup"){
-				Debug.Log("Picking up object");
-				PickupGun(colObj);
-			}
-		}
+		interactInRange = col.gameObject;
+
+		// InteractWith(colObj);
+		// if(Input.GetKeyDown(KeyCode.E)){
+		// 	if(colObj.tag=="Pickup"){
+		// 		Debug.Log("Picking up object");
+		// 		PickupGun(colObj);
+		// 	}
+		// }
 	}
 }

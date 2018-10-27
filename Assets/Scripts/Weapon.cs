@@ -13,4 +13,11 @@ public class Weapon {
 		icon = Resources.Load<Sprite>("Sprites/DefaultSpr");
 		
 	}
+
+	public void Attack(){
+		if(type==0){
+			//melee weapon
+			
+		}
+	}
 }
