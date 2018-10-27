@@ -28,6 +28,7 @@ public class PlayerControl : MonoBehaviour {
 		weaponSlot = transform.GetChild(0).gameObject;
 		weaponSlotLocation = weaponSlot.transform.localPosition;
 		weaponSlot.GetComponent<SpriteRenderer>().sprite = inHands.icon;
+		weaponSlot.GetComponent<SpriteRenderer>().sortingLayerName = "Weapons";
 	}
 	
 	// Update is called once per frame
@@ -58,6 +59,7 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	void Attack(){
+		Debug.Log("Is Attacking: " + isAttacking);
 		if(Input.GetButtonDown("Fire1") && isAttacking != true){
 			//this should determine what type of weapon is being used and then attack accordingly
 			Debug.Log("Attack");
@@ -69,6 +71,7 @@ public class PlayerControl : MonoBehaviour {
 				
 			}else if(inHands.type==1){
 				Debug.Log("Attacking with a shoot weapon: " + inHands.nameOf);
+				StartCoroutine(Shoot());
 			}
 
 		}
@@ -79,17 +82,28 @@ public class PlayerControl : MonoBehaviour {
 			Vector2 stabLocation = Vector2.up * 200.0f;
 			Vector2 startStabLocation = weaponSlotLocation;
 
+			weaponSlot.transform.localPosition = Vector3.Slerp(startStabLocation, stabLocation, Time.deltaTime);
 
-				weaponSlot.transform.localPosition = Vector3.Slerp(startStabLocation, stabLocation, Time.deltaTime);
+			yield return new WaitForSeconds(0.2f);
+			Debug.Log("this is happening");
 
-				yield return new WaitForSeconds(0.2f);
-				Debug.Log("this is happening");
-
-				
-			
-				
-			//}
 			weaponSlot.transform.localPosition = weaponSlotLocation;
+			isAttacking = false;
+			//weaponSlot.transform.position = weaponSlotLocation;
+
+		
+	}
+
+	private IEnumerator Shoot(){
+			// Vector2 stabLocation = Vector2.up * 200.0f;
+			// Vector2 startStabLocation = weaponSlotLocation;
+
+			// weaponSlot.transform.localPosition = Vector3.Slerp(startStabLocation, stabLocation, Time.deltaTime);
+
+			yield return new WaitForSeconds(0.2f);
+			// Debug.Log("this is happening");
+
+			// weaponSlot.transform.localPosition = weaponSlotLocation;
 			isAttacking = false;
 			//weaponSlot.transform.position = weaponSlotLocation;
 

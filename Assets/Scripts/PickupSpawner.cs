@@ -26,6 +26,7 @@ public class PickupSpawner : MonoBehaviour {
 			spawnedWeapon = basicKnife;
 			gameObject.GetComponent<SpriteRenderer>().sprite = basicKnife.icon;
 		}
+		gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "Weapons";
 	}
 	
 	// Update is called once per frame
@@ -34,13 +35,6 @@ public class PickupSpawner : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
-
-		// if(col.gameObject.tag=="Player"){
-			
-		// }
-
-
-		
 		Debug.Log(col.gameObject.name + " could pick up the " + spawnedWeapon.nameOf);
 	}
 
