@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class PickupSpawner : MonoBehaviour {
 
-	public Weapon spawningWeapon;
+	public Weapon spawnedWeapon;
 	public BasicPistol basicPistol;
 	public BasicKnife basicKnife;
-
-	public Sprite pistolSpr;
-	public Sprite knifeSpr;
 	
 	//could I then do weapon = new Pistol() or something like that?  to set the base stats of the gun
 	BoxCollider2D bc;
@@ -28,14 +25,25 @@ public class PickupSpawner : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
+
+		// if(col.gameObject.tag=="Player"){
+			
+		// }
+
+
 		if(Random.Range(0.0f, 1.0f) < 0.5f){
-			spawningWeapon = basicPistol;
+			spawnedWeapon = basicPistol;
 			gameObject.GetComponent<SpriteRenderer>().sprite = basicPistol.icon;
 		}else{
-			spawningWeapon = basicKnife;
+			spawnedWeapon = basicKnife;
 			gameObject.GetComponent<SpriteRenderer>().sprite = basicKnife.icon;
 		}
-		Debug.Log(col.gameObject.name + " could pick up the " + spawningWeapon.nameOf);
+		Debug.Log(col.gameObject.name + " could pick up the " + spawnedWeapon.nameOf);
+	}
+
+	public void SleepSpawner(){
+		Debug.Log("Sleeping");
+		
 	}
 
 	

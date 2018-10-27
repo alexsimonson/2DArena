@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 61667428686653226}
   m_Layer: 0
   m_Name: PickupSpawner
-  m_TagString: Untagged
+  m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,8 +78,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e7fd031afa6be14da435c961aeafe3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pistolSpr: {fileID: 21300000, guid: 177721c1831b60c438733306a05c457d, type: 3}
-  knifeSpr: {fileID: 21300000, guid: dd2807c1ff0a539408ec7b7efe74ca4f, type: 3}
 --- !u!212 &212543775836995376
 SpriteRenderer:
   m_ObjectHideFlags: 1
