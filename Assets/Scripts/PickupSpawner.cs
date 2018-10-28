@@ -8,6 +8,7 @@ public class PickupSpawner : MonoBehaviour {
 	public BasicPistol basicPistol;
 	public BasicKnife basicKnife;
 	public BasicKnife advancedKnife;
+	public BasicKnife shitAxe;
 	//could I then do weapon = new Pistol() or something like that?  to set the base stats of the gun
 	BoxCollider2D bc;
 
@@ -18,17 +19,25 @@ public class PickupSpawner : MonoBehaviour {
 		basicKnife = new BasicKnife();
 		//constructor for new items (nameOf, damage, attackSpeed, spriteName)
 		advancedKnife = new BasicKnife("Advanced Dagger", 100, .6f, "AdvancedDagger");
-
-		if(Random.Range(0.0f, 1.0f) < 0.5f){
-			spawnedWeapon = basicPistol;
-			gameObject.GetComponent<SpriteRenderer>().sprite = spawnedWeapon.icon;
-			//this line is necessary because the gun should face right when spawned on ground, but also looking is weird without
-			gameObject.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, -90);
-			
-		}else{
-			spawnedWeapon = advancedKnife;
-			gameObject.GetComponent<SpriteRenderer>().sprite = spawnedWeapon.icon;
+		shitAxe = new BasicKnife("Shitty Axe", 35, .3f, "ShitAxe");
+		float randomRange = Random.Range(0.0f, 1.0f);
+		if(randomRange < 0.25f){
+			spawnedWeapon = basicPistol;	
+		}else if(randomRange >= 0.25f && randomRange < .5f){
+			spawnedWeapon = advancedKnife;	
 		}
+		else if(randomRange >= 0.5f && randomRange < .75f){
+			spawnedWeapon = shitAxe;
+		}
+		else if(randomRange >= .75f && randomRange < 1f){
+			spawnedWeapon = basicKnife;
+		}
+		//this will rotate guns appropriately every time
+		if(spawnedWeapon.type==1){
+			gameObject.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, -90);
+		}
+		//this will ensure the sprite is changed every time
+		gameObject.GetComponent<SpriteRenderer>().sprite = spawnedWeapon.icon;
 		gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "Weapons";
 	}
 	

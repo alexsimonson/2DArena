@@ -6,18 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+	public void StartGame(){
+		SceneManager.LoadScene(1);
 	}
 
-	public void StartGame(){
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
+	public void Options(){
+		Debug.Log("NO OPTIONS MATE");
 	}
 
 	public void ExitGame(){

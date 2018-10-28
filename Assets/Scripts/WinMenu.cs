@@ -6,22 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class WinMenu : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-	public void StartGame(){
+	public void Retry(){
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 
 	public void ExitGame(){
-		SceneManager.LoadScene(0);
+		Application.Quit();
 	}
 
 	public void MainMenu(){
