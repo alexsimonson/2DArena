@@ -56,3 +56,8 @@ MonoBehaviour:
   enemySpawner: {fileID: 1220368528925772, guid: f47b2083cf359b04db4862d1eed0cc34,
     type: 2}
   enemySpawns: []
+  deathScreen: {fileID: 1702490998370216, guid: ae6917fb257572b4ab5c3106bca28315,
+    type: 2}
+  winScreen: {fileID: 1051748382811844, guid: 25d85f39fd48bb048b0be3b100b7927c, type: 2}
+  mainCam: {fileID: 0}
+  player: {fileID: 0}

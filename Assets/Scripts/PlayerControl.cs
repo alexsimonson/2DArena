@@ -20,6 +20,8 @@ public class PlayerControl : MonoBehaviour {
 	private bool isAttacking = false;
 
 	public GameObject bullet;
+
+	public bool hasControl = true;
 	
 	// Use this for initialization
 	void Start () {
@@ -35,12 +37,12 @@ public class PlayerControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		MoveDirection();
-		LookRotation();
-		Attack();
-		InteractWith(interactInRange);
-		if(Input.GetKeyDown(KeyCode.G)){
-			ThrowWeapon();
+		if(hasControl){
+			MoveDirection();
+			LookRotation();
+			Attack();
+			InteractWith(interactInRange);
+			ThrowWeapon();			
 		}
 	}
 
@@ -89,13 +91,15 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	void ThrowWeapon(){
-		if(inHands.nameOf=="Fists"){
-			// Debug.Log("You can't throw your fist");
-		}else{
-			//this should spawn a game object spawner essentially in the game
-			// Debug.Log("Throwing weapon: " + inHands.nameOf);
-			inHands=fist;
-			weaponSlot.GetComponent<SpriteRenderer>().sprite = inHands.icon;
+		if(Input.GetKeyDown(KeyCode.G)){	
+			if(inHands.nameOf=="Fists"){
+				// Debug.Log("You can't throw your fist");
+			}else{
+				//this should spawn a game object spawner essentially in the game
+				// Debug.Log("Throwing weapon: " + inHands.nameOf);
+				inHands=fist;
+				weaponSlot.GetComponent<SpriteRenderer>().sprite = inHands.icon;
+			}
 		}
 	}
 

@@ -10,6 +10,11 @@ public class GameAssistantToTheManager : MonoBehaviour {
 	public GameObject[] enemySpawns;
 	private int spawnersLeft;
 	private int enemiesLeft = 0;
+	private bool gameWon = false;
+	public GameObject deathScreen;
+	public GameObject winScreen;
+	public GameObject mainCam;
+	public GameObject player;
 
 	//we should get references to the UI and change enemies alive and spawners alive
 	
@@ -19,7 +24,10 @@ public class GameAssistantToTheManager : MonoBehaviour {
 		baseLayer = GameObject.Find("BaseLayer");
 		enemySpawns = GameObject.FindGameObjectsWithTag("EnemySpawner");
 		spawnersLeft = enemySpawns.Length;
+		mainCam = GameObject.FindGameObjectWithTag("MainCamera");
 		Debug.Log("Game starts with " + spawnersLeft + " spawners.");
+		player = GameObject.FindGameObjectWithTag("Player");
+		player.GetComponent<PlayerControl>().hasControl = true;
 	}
 
 	//based on tag, add or remove to the count tracked by scoreboard
@@ -43,5 +51,21 @@ public class GameAssistantToTheManager : MonoBehaviour {
 		}
 	}
 
+	void Update(){
+		CheckWin();
+		
+	}
+
+	void CheckWin(){
+		if(spawnersLeft<=0 && enemiesLeft<=0 && !gameWon){
+			gameWon = true;
+			//you could just call UI here
+			Debug.Log("THE GAME HAS BEEN WON");
+			//call function on player to display UI
+			//remove control from player
+			player.GetComponent<PlayerControl>().hasControl = false;
+			Instantiate(winScreen, mainCam.transform.position, Quaternion.identity);	//this pops ui but isn't usable
+		}
+	}
 
 }
