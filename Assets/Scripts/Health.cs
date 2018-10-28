@@ -8,9 +8,12 @@ public class Health : MonoBehaviour {
 	public int maxHealth = 100;
 	public int currentHealth = 100;
 
+	public GameObject GameAssistantToTheManager;
+
+
 	// Use this for initialization
 	void Start () {
-		
+		GameAssistantToTheManager = GameObject.Find("GameAssistantToTheManager");
 	}
 	
 	// Update is called once per frame
@@ -30,6 +33,7 @@ public class Health : MonoBehaviour {
 	}
 
 	public void Death(){
+		GameAssistantToTheManager.GetComponent<GameAssistantToTheManager>().ScoreUpdate(gameObject.tag, false);
 		Destroy(gameObject);
 		//take away player input if player dies
 	}

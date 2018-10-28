@@ -11,5 +11,14 @@ public class BasicKnife : Weapon {
 		icon = Resources.Load<Sprite>("Sprites/ShitDaggerSpr");
 		bullet = null;
 	}
+
+	public BasicKnife(string newName, int newDamage, float newAttackSpeed, string iconName){
+		nameOf = newName;
+		damage = newDamage;
+		attackSpeed = newAttackSpeed;
+		string iconPath = "Sprites/" + iconName;
+		icon = Resources.Load<Sprite>(iconPath);
+		bullet = null;
+	}
 	
 }

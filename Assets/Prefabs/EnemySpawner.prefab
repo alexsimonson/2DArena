@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 212324375824285218}
   - component: {fileID: 61312224773042210}
   - component: {fileID: 114993680273255294}
+  - component: {fileID: 114249317713515738}
   m_Layer: 0
   m_Name: EnemySpawner
-  m_TagString: Pickup
+  m_TagString: EnemySpawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,7 +52,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -67,6 +68,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3, y: 3}
   m_EdgeRadius: 0
+--- !u!114 &114249317713515738
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1220368528925772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 185dd4a5507b87e4da53bf983acf2a46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1000
+  currentHealth: 1000
+  GameAssistantToTheManager: {fileID: 0}
 --- !u!114 &114993680273255294
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -79,6 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enemy: {fileID: 1220385511592172, guid: 080ecd9815756834bb53846e9c294f93, type: 2}
+  GameAssistantToTheManager: {fileID: 0}
 --- !u!212 &212324375824285218
 SpriteRenderer:
   m_ObjectHideFlags: 1

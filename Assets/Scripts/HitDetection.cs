@@ -14,7 +14,7 @@ public class HitDetection : MonoBehaviour {
 	
 	void OnTriggerEnter2D(Collider2D col){
 		if(self.tag=="PlayerWeapon"){
-			if(col.gameObject.tag=="Enemy"){
+			if(col.gameObject.tag=="Enemy" || col.gameObject.tag=="EnemySpawner"){
 				col.gameObject.GetComponent<Health>().TakeDamage(self.GetComponentInParent<PlayerControl>().inHands.damage);
 			}
 		}else if(self.tag=="EnemyWeapon"){

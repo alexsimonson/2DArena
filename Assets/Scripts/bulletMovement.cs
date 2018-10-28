@@ -15,19 +15,17 @@ public class bulletMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		// rb.transform.Translate = tra
-
 		rb.transform.Translate(targetForward*10*Time.deltaTime);
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
-		Debug.Log("Bullet Collides with something");
 		if(col.tag=="Collider"){
-			Debug.Log("Bullet hit wall");
+			// Debug.Log("Bullet hit wall");
 			Destroy(gameObject);
-		}else if(col.tag=="Enemy"){
-			Debug.Log("Bullet hit enemy");
-			Destroy(col.gameObject);
+		}else if(col.tag=="Enemy" || col.tag=="EnemySpawner"){
+			// Debug.Log("Bullet hit enemy");
+			//this needs to apply damage from the weapon
+			col.GetComponent<Health>().TakeDamage(player.GetComponent<PlayerControl>().inHands.damage);
 			Destroy(gameObject);
 		}
 	}

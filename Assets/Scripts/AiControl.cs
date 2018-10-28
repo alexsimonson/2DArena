@@ -67,7 +67,7 @@ public class AiControl : MonoBehaviour {
 			//this will disable bot consecutive attacks
 			StartCoroutine(botWaitToAttack());
 
-			Debug.Log("Bot Attack");
+			// Debug.Log("Bot Attack");
 			isAttacking = true;
 
 			if(inHands.type==0){

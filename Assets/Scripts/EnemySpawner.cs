@@ -6,9 +6,11 @@ public class EnemySpawner : MonoBehaviour {
 
 
 	public GameObject Enemy;
+	public GameObject GameAssistantToTheManager;
 
 	// Use this for initialization
 	void Start () {
+		GameAssistantToTheManager = GameObject.Find("GameAssistantToTheManager");
 		StartCoroutine(spawnEnemies());
 	}
 	
@@ -20,8 +22,9 @@ public class EnemySpawner : MonoBehaviour {
 	private IEnumerator spawnEnemies(){
 		while(true){
 			Instantiate(Enemy, transform.position, Quaternion.identity);
+			GameAssistantToTheManager.GetComponent<GameAssistantToTheManager>().ScoreUpdate("Enemy", true);
 			yield return new WaitForSeconds(3.0f);
-			Debug.Log("EnemySpawned");
+			// Debug.Log("EnemySpawned");
 		}
 		
 	}

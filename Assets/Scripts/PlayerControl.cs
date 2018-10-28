@@ -84,19 +84,16 @@ public class PlayerControl : MonoBehaviour {
 		Vector2 gunLocation = gunStart;
 		Vector2 mouseLocation = Input.mousePosition;
 		Instantiate(bullet, gunLocation, Quaternion.identity);
-		Debug.Log("Just instantiated");
-		// bullet.transform.Translate(Vector2.up*10*Time.deltaTime);
-		// bullet.GetComponent<Rigidbody2D>().velocity = gameObject.transform.forward * 10;
 		yield return new WaitForSeconds(inHands.attackSpeed);		
 		isAttacking = false;
 	}
 
 	void ThrowWeapon(){
 		if(inHands.nameOf=="Fists"){
-			Debug.Log("You can't throw your fist");
+			// Debug.Log("You can't throw your fist");
 		}else{
 			//this should spawn a game object spawner essentially in the game
-			Debug.Log("Throwing weapon: " + inHands.nameOf);
+			// Debug.Log("Throwing weapon: " + inHands.nameOf);
 			inHands=fist;
 			weaponSlot.GetComponent<SpriteRenderer>().sprite = inHands.icon;
 		}
@@ -108,20 +105,20 @@ public class PlayerControl : MonoBehaviour {
 				if(colObj.tag=="Pickup"){
 					PickupWeapon(colObj);
 				}else{
-					Debug.Log("NO Pickup AVAILABLE");
+					// Debug.Log("NO Pickup AVAILABLE");
 				}
 			}else{
-				Debug.Log("Nothing in range");
+				// Debug.Log("Nothing in range");
 			}
 		}
 	}
 
 	void PickupWeapon(GameObject colObj){
 		Weapon sw = colObj.GetComponent<PickupSpawner>().spawnedWeapon;
-		Debug.Log("Swapping " + inHands.nameOf + " for " + sw.nameOf);
+		// Debug.Log("Swapping " + inHands.nameOf + " for " + sw.nameOf);
 		inHands = sw;
 		weaponSlot.GetComponent<SpriteRenderer>().sprite = inHands.icon;
-		Debug.Log("Current equipped weapon: " + inHands.nameOf);
+		// Debug.Log("Current equipped weapon: " + inHands.nameOf);
 
 	}
 	
