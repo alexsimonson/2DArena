@@ -4,13 +4,28 @@ using UnityEngine;
 
 public class bulletMovement : MonoBehaviour {
 	Rigidbody2D rb;
+	GameObject[] players;
 	GameObject player;
 	Vector2 targetForward;
+
+	public bool firedByPlayer1 = true;
 	// Use this for initialization
 	void Start () {
+
 		rb = gameObject.GetComponent<Rigidbody2D>();
-		player = GameObject.FindGameObjectWithTag("Player");
+		players = GameObject.FindGameObjectsWithTag("Player");
+		Debug.Log("There are "+ players.Length + " in the players array");
+		if (players[0].GetComponent<PlayerControl>().player1 == false){
+			player = players[0];
+			Debug.Log("player 0 name " + players[0].gameObject.name);
+		}
+		else {
+			player = players[1];
+			Debug.Log("player 1 name " + players[1].gameObject.name);
+		}
 		targetForward = player.transform.rotation * Vector2.up;
+
+
 	}
 	
 	// Update is called once per frame

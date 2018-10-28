@@ -15,6 +15,9 @@ public class GameAssistantToTheManager : MonoBehaviour {
 	public GameObject winScreen;
 	public GameObject mainCam;
 	public GameObject player;
+	private GameObject player2;
+
+	public bool player2joined = false;
 
 	//we should get references to the UI and change enemies alive and spawners alive
 	
@@ -35,27 +38,43 @@ public class GameAssistantToTheManager : MonoBehaviour {
 		if(tagName=="Enemy"){
 			if(increase){
 				enemiesLeft++;
-				Debug.Log("Enemy # increased to " + enemiesLeft);
+//				Debug.Log("Enemy # increased to " + enemiesLeft);
 			}else{
 				enemiesLeft--;
-				Debug.Log("Enemy # DECREASED to " + enemiesLeft);
+//				Debug.Log("Enemy # DECREASED to " + enemiesLeft);
 			}
 		}else if(tagName=="EnemySpawner"){
 			if(increase){
 				spawnersLeft++;
-				Debug.Log("Enemy spawners # increased to " + spawnersLeft);
+//				Debug.Log("Enemy spawners # increased to " + spawnersLeft);
 			}else{
 				spawnersLeft--;
-				Debug.Log("Enemy spawners # DECREASED to " + spawnersLeft);
+//				Debug.Log("Enemy spawners # DECREASED to " + spawnersLeft);
 			}
 		}
+		
 	}
 
 	void Update(){
 		CheckWin();
-		
+		CheckIfPlayer2Joining();
 	}
 
+	void CheckIfPlayer2Joining(){
+		if (player2joined == false)
+		{
+			if(Input.GetButton("Start")){
+				Debug.Log("startButtonCalled");
+				Add2Player();
+			}
+		}
+	}
+
+	void Add2Player(){
+		player2 = Instantiate(player, Vector2.zero, Quaternion.identity);
+		player2joined = true;
+		player2.GetComponent<PlayerControl>().player1 = false;
+	}
 	void CheckWin(){
 		if(spawnersLeft<=0 && enemiesLeft<=0 && !gameWon){
 			gameWon = true;

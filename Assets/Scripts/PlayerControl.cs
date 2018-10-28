@@ -22,6 +22,7 @@ public class PlayerControl : MonoBehaviour {
 	public GameObject bullet;
 
 	public bool hasControl = true;
+	public bool player1 = true;
 	
 	// Use this for initialization
 	void Start () {
@@ -47,19 +48,43 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	void MoveDirection(){
-		Vector2 targetVelocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        rb.velocity=targetVelocity * walkSpeed;
+		if (player1){
+			Vector2 targetVelocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        	rb.velocity=targetVelocity * walkSpeed;
+		}
+		else if (player1 == false){
+			Vector2 targetVelocity = new Vector2(Input.GetAxisRaw("XboxHorizontal"), Input.GetAxisRaw("XboxVertical"));
+        	rb.velocity=targetVelocity * walkSpeed;
+		}
 	}
 
 	void LookRotation(){
-		Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        diff.Normalize();
-		float rotationZ = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-		transform.rotation = Quaternion.Euler(0f, 0f, rotationZ -90);
+		if (player1){
+			Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        	diff.Normalize();
+			float rotationZ = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+			transform.rotation = Quaternion.Euler(0f, 0f, rotationZ -90);
+		}
+		else if (player1 == false){
+			float inputHoriz = Input.GetAxisRaw("XboxStickHorizontal");
+			float inputVert =  Input.GetAxisRaw("XboxStickVertical");
+			float deadzone = 0.25f;
+			Vector2 stickInput = new Vector2(Input.GetAxisRaw("XboxStickVertical"), Input.GetAxisRaw("XboxStickHorizontal"));
+			if(stickInput.magnitude < deadzone)
+				stickInput = Vector2.zero;
+			else {
+				float rotationZ = Mathf.Atan2(-stickInput.x, stickInput.y) * Mathf.Rad2Deg;
+				transform.rotation = Quaternion.Euler(0f, 0f, rotationZ -90);
+			}
+			
+			
+			
+		}
 	}
 
 	void Attack(){
-		if(Input.GetButtonDown("Fire1") && isAttacking != true){
+		if (player1){
+			if(Input.GetButtonDown("Fire1") && isAttacking != true){
 			isAttacking = true;
 			if(inHands.type==0){
 				// Debug.Log("Attacking with a stab weapon: " + inHands.nameOf);
@@ -67,6 +92,21 @@ public class PlayerControl : MonoBehaviour {
 			}else if(inHands.type==1){
 				// Debug.Log("Attacking with a shoot weapon: " + inHands.nameOf);
 				StartCoroutine(Shoot(gameObject.transform.position));
+			}
+		}
+		}
+		else {
+			
+			if(Input.GetButtonDown("XboxFire1") && isAttacking != true){
+				Debug.Log("XboxFire1 is happeneing");
+			isAttacking = true;
+			if(inHands.type==0){
+				// Debug.Log("Attacking with a stab weapon: " + inHands.nameOf);
+				StartCoroutine(Stab());
+			}else if(inHands.type==1){
+				// Debug.Log("Attacking with a shoot weapon: " + inHands.nameOf);
+				StartCoroutine(Shoot(gameObject.transform.position));
+			}
 			}
 		}
 	}
@@ -83,11 +123,23 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	private IEnumerator Shoot(Vector2 gunStart){
-		Vector2 gunLocation = gunStart;
-		Vector2 mouseLocation = Input.mousePosition;
-		Instantiate(bullet, gunLocation, Quaternion.identity);
-		yield return new WaitForSeconds(inHands.attackSpeed);		
-		isAttacking = false;
+		if (player1){
+			Vector2 gunLocation = gunStart;
+			Vector2 mouseLocation = Input.mousePosition;
+			Instantiate(bullet, gunLocation, Quaternion.identity);
+			yield return new WaitForSeconds(inHands.attackSpeed);		
+			isAttacking = false;
+		}
+		else {
+			Vector2 gunLocation = gunStart;
+			GameObject Newbullet =Instantiate(bullet, gunLocation, Quaternion.identity);
+			//Newbullet.GetComponent<bulletMovement>().firedByPlayer1 = false;
+			yield return new WaitForSeconds(inHands.attackSpeed);		
+			isAttacking = false;
+			// float rotationZ = this.gameObject.transform.rotation.z;
+			// // rotationZ = Mathf.Atan2(-stickInput.x, stickInput.y) * Mathf.Rad2Deg;
+			// transform.rotation = Quaternion.Euler(0f, 0f, rotationZ -90);
+		}
 	}
 
 	void ThrowWeapon(){
@@ -104,15 +156,31 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	void InteractWith(GameObject colObj){
-		if(Input.GetKeyDown(KeyCode.E)){
-			if(colObj!=null){
-				if(colObj.tag=="Pickup"){
-					PickupWeapon(colObj);
+		if (player1){
+			if(Input.GetKeyDown(KeyCode.E)){
+				if(colObj!=null){
+					if(colObj.tag=="Pickup"){
+						PickupWeapon(colObj);
+					}else{
+						// Debug.Log("NO Pickup AVAILABLE");
+					}
 				}else{
-					// Debug.Log("NO Pickup AVAILABLE");
+					// Debug.Log("Nothing in range");
 				}
-			}else{
-				// Debug.Log("Nothing in range");
+			}
+		}
+		else {
+			if (Input.GetButtonDown("XboxPickup")){
+				Debug.Log("I AM PICKUP");
+				if(colObj!=null){
+					if(colObj.tag=="Pickup"){
+						PickupWeapon(colObj);
+					}else{
+						// Debug.Log("NO Pickup AVAILABLE");
+					}
+				}else{
+					// Debug.Log("Nothing in range");
+				}	
 			}
 		}
 	}
