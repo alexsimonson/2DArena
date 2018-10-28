@@ -35,7 +35,6 @@ public class AiControl : MonoBehaviour {
 	void Update () {
 		MoveDirection();
 		LookRotation();
-
 	}
 	void FixedUpdate(){
 		Attack();
@@ -72,11 +71,11 @@ public class AiControl : MonoBehaviour {
 			isAttacking = true;
 
 			if(inHands.type==0){
-				Debug.Log("Bot Attacking with a stab weapon: " + inHands.nameOf);
+				// Debug.Log("Bot Attacking with a stab weapon: " + inHands.nameOf);
 				StartCoroutine(Stab());
 				
 			}else if(inHands.type==1){
-				Debug.Log("Bot Attacking with a shoot weapon: " + inHands.nameOf);
+				// Debug.Log("Bot Attacking with a shoot weapon: " + inHands.nameOf);
 			}
 		}		
 	}
@@ -91,22 +90,10 @@ public class AiControl : MonoBehaviour {
 	private IEnumerator Stab(){
 			Vector2 stabLocation = Vector2.up * 200.0f;
 			Vector2 startStabLocation = weaponSlotLocation;
-
-
-				weaponSlot.transform.localPosition = Vector3.Slerp(startStabLocation, stabLocation, Time.deltaTime);
-
-				yield return new WaitForSeconds(0.2f);
-				Debug.Log("this is happening");
-
-				
-			
-				
-			//}
+			weaponSlot.transform.localPosition = Vector3.Slerp(startStabLocation, stabLocation, Time.deltaTime);
+			yield return new WaitForSeconds(0.2f);
 			weaponSlot.transform.localPosition = weaponSlotLocation;
 			isAttacking = false;
-			//weaponSlot.transform.position = weaponSlotLocation;
-
-		
 	}
 
 }

@@ -58,10 +58,10 @@ public class PlayerControl : MonoBehaviour {
 		if(Input.GetButtonDown("Fire1") && isAttacking != true){
 			isAttacking = true;
 			if(inHands.type==0){
-				Debug.Log("Attacking with a stab weapon: " + inHands.nameOf);
+				// Debug.Log("Attacking with a stab weapon: " + inHands.nameOf);
 				StartCoroutine(Stab());
 			}else if(inHands.type==1){
-				Debug.Log("Attacking with a shoot weapon: " + inHands.nameOf);
+				// Debug.Log("Attacking with a shoot weapon: " + inHands.nameOf);
 				StartCoroutine(Shoot());
 			}
 		}

@@ -13,12 +13,11 @@ public class HitDetection : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter2D(Collider2D col){
-		if(self.tag=="Player"){
+		if(self.tag=="PlayerWeapon"){
 			if(col.gameObject.tag=="Enemy"){
-				Debug.Log("Hitting an enemy");
 				col.gameObject.GetComponent<Health>().TakeDamage(self.GetComponentInParent<PlayerControl>().inHands.damage);
 			}
-		}else if(self.tag=="Enemy"){
+		}else if(self.tag=="EnemyWeapon"){
 			if(col.gameObject.tag=="Player"){
 				col.gameObject.GetComponent<Health>().TakeDamage(self.GetComponentInParent<AiControl>().inHands.damage);
 			}
