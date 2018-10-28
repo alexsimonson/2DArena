@@ -192,7 +192,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4556202517382800, guid: dcebed0de38b59e44a03cf58796f9827, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1563473575481456, guid: dcebed0de38b59e44a03cf58796f9827, type: 2}
       propertyPath: m_Name
@@ -238,7 +238,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4936392698454302, guid: 51b5fba4b9e85ac4183b46c2d89daded, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 20934025195544602, guid: 51b5fba4b9e85ac4183b46c2d89daded,
         type: 2}
@@ -2930,7 +2930,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4556202517382800, guid: dcebed0de38b59e44a03cf58796f9827, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcebed0de38b59e44a03cf58796f9827, type: 2}
@@ -2972,7 +2972,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4556202517382800, guid: dcebed0de38b59e44a03cf58796f9827, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1563473575481456, guid: dcebed0de38b59e44a03cf58796f9827, type: 2}
       propertyPath: m_Name
@@ -3919,6 +3919,48 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1001 &1370391302
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4527914358522792, guid: 2621a1017d5dc374d89ea9cd02568be9, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4527914358522792, guid: 2621a1017d5dc374d89ea9cd02568be9, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4527914358522792, guid: 2621a1017d5dc374d89ea9cd02568be9, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4527914358522792, guid: 2621a1017d5dc374d89ea9cd02568be9, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4527914358522792, guid: 2621a1017d5dc374d89ea9cd02568be9, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4527914358522792, guid: 2621a1017d5dc374d89ea9cd02568be9, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4527914358522792, guid: 2621a1017d5dc374d89ea9cd02568be9, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4527914358522792, guid: 2621a1017d5dc374d89ea9cd02568be9, type: 2}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2621a1017d5dc374d89ea9cd02568be9, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1434503071
 Prefab:
   m_ObjectHideFlags: 0
@@ -3956,7 +3998,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4876467664393476, guid: f47b2083cf359b04db4862d1eed0cc34, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1220368528925772, guid: f47b2083cf359b04db4862d1eed0cc34, type: 2}
       propertyPath: m_Name
@@ -4002,7 +4044,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4876467664393476, guid: f47b2083cf359b04db4862d1eed0cc34, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f47b2083cf359b04db4862d1eed0cc34, type: 2}

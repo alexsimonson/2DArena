@@ -8,6 +8,6 @@ public class BasicPistol : Weapon {
 		damage = 10;
 		type = 1;
 		icon = Resources.Load<Sprite>("Sprites/ShitGunSpr");
-	}
-	
+		bullet = Resources.Load<Sprite>("Sprites/BulletSpr");
+	}	
 }

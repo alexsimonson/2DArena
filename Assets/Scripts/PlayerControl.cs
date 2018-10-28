@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour {
 
-	private float walkSpeed = 4f;
+	private float walkSpeed = 15f;
 
 	private Rigidbody2D rb;
 	private BoxCollider2D bc;
@@ -18,6 +18,8 @@ public class PlayerControl : MonoBehaviour {
 	private Vector2 weaponSlotLocation;
 
 	private bool isAttacking = false;
+
+	public GameObject bullet;
 	
 	// Use this for initialization
 	void Start () {
@@ -62,25 +64,31 @@ public class PlayerControl : MonoBehaviour {
 				StartCoroutine(Stab());
 			}else if(inHands.type==1){
 				// Debug.Log("Attacking with a shoot weapon: " + inHands.nameOf);
-				StartCoroutine(Shoot());
+				StartCoroutine(Shoot(gameObject.transform.position));
 			}
 		}
 	}
 
 	private IEnumerator Stab(){
-			Vector2 stabLocation = Vector2.up * 200.0f;
-			Vector2 startStabLocation = weaponSlotLocation;
-			weaponSlot.transform.localPosition = Vector3.Slerp(startStabLocation, stabLocation, Time.deltaTime);
-			weaponSlot.GetComponent<BoxCollider2D>().enabled = true;
-			yield return new WaitForSeconds(0.2f);
-			weaponSlot.GetComponent<BoxCollider2D>().enabled = false;
-			weaponSlot.transform.localPosition = weaponSlotLocation;
-			isAttacking = false;
+		Vector2 stabLocation = Vector2.up * 200.0f;
+		Vector2 startStabLocation = weaponSlotLocation;
+		weaponSlot.transform.localPosition = Vector3.Slerp(startStabLocation, stabLocation, Time.deltaTime);
+		weaponSlot.GetComponent<BoxCollider2D>().enabled = true;
+		yield return new WaitForSeconds(inHands.attackSpeed);
+		weaponSlot.GetComponent<BoxCollider2D>().enabled = false;
+		weaponSlot.transform.localPosition = weaponSlotLocation;
+		isAttacking = false;
 	}
 
-	private IEnumerator Shoot(){
-			yield return new WaitForSeconds(0.2f);			
-			isAttacking = false;
+	private IEnumerator Shoot(Vector2 gunStart){
+		Vector2 gunLocation = gunStart;
+		Vector2 mouseLocation = Input.mousePosition;
+		Instantiate(bullet, gunLocation, Quaternion.identity);
+		Debug.Log("Just instantiated");
+		// bullet.transform.Translate(Vector2.up*10*Time.deltaTime);
+		// bullet.GetComponent<Rigidbody2D>().velocity = gameObject.transform.forward * 10;
+		yield return new WaitForSeconds(inHands.attackSpeed);		
+		isAttacking = false;
 	}
 
 	void ThrowWeapon(){
