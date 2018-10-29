@@ -126,20 +126,24 @@ public class PlayerControl : MonoBehaviour {
 		if (player1){
 			Vector2 gunLocation = gunStart;
 			Vector2 mouseLocation = Input.mousePosition;
-			Instantiate(bullet, gunLocation, Quaternion.identity);
+			GameObject Newbullet =Instantiate(bullet, gunLocation, Quaternion.identity);
+			Newbullet.GetComponent<bulletMovement>().targetForward = this.gameObject.transform.rotation * Vector2.up;
+			Newbullet.GetComponent<bulletMovement>().bulletDamage = inHands.damage;
 			yield return new WaitForSeconds(inHands.attackSpeed);		
 			isAttacking = false;
 		}
 		else {
 			Vector2 gunLocation = gunStart;
 			GameObject Newbullet =Instantiate(bullet, gunLocation, Quaternion.identity);
-			//Newbullet.GetComponent<bulletMovement>().firedByPlayer1 = false;
+			Newbullet.GetComponent<bulletMovement>().targetForward = this.gameObject.transform.rotation * Vector2.up;
+			Newbullet.GetComponent<bulletMovement>().bulletDamage = inHands.damage;
 			yield return new WaitForSeconds(inHands.attackSpeed);		
 			isAttacking = false;
 			// float rotationZ = this.gameObject.transform.rotation.z;
 			// // rotationZ = Mathf.Atan2(-stickInput.x, stickInput.y) * Mathf.Rad2Deg;
 			// transform.rotation = Quaternion.Euler(0f, 0f, rotationZ -90);
 		}
+		
 	}
 
 	void ThrowWeapon(){
