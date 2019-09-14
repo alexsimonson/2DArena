@@ -40,8 +40,9 @@ GameObject:
   - component: {fileID: 212139981537128720}
   - component: {fileID: 50686784747146536}
   - component: {fileID: 61530181105938848}
-  - component: {fileID: 114678691782320994}
   - component: {fileID: 114350685905036092}
+  - component: {fileID: 114901474839603958}
+  - component: {fileID: 114094091664250238}
   m_Layer: 0
   m_Name: PlayerSprite
   m_TagString: Player
@@ -146,6 +147,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3, y: 3}
   m_EdgeRadius: 0
+--- !u!114 &114094091664250238
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1585523149284782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5acb4749e69ba0e4ab8263d2aae5d2a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 0}
+  hasControl: 1
+  player1: 1
 --- !u!114 &114344681244877458
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -170,7 +185,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 100
---- !u!114 &114678691782320994
+  GameAssistantToTheManager: {fileID: 0}
+--- !u!114 &114901474839603958
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,10 +194,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1585523149284782}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddef03cf59b29594385901f8f25ba56b, type: 3}
+  m_Script: {fileID: 11500000, guid: ee0ad551dd57ff646b873c815879faee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSlot: {fileID: 0}
   bullet: {fileID: 1719502106958560, guid: 2621a1017d5dc374d89ea9cd02568be9, type: 2}
+  hasControl: 0
+  player1: 1
 --- !u!212 &212139981537128720
 SpriteRenderer:
   m_ObjectHideFlags: 1

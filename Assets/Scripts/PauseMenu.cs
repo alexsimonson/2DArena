@@ -4,28 +4,34 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour {
+public class PauseMenu : MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    // Use this for initialization
+    void Start()
+    {
 
-	public void ResumeGame(){
-		Time.timeScale = 1;
-		this.gameObject.SetActive(false);
-	}
+    }
 
-	public void ExitGame(){
-		Application.Quit();
-	}
+    // Update is called once per frame
+    void Update()
+    {
 
-	public void MainMenu(){
-		SceneManager.LoadScene(0);
-	}
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        this.gameObject.SetActive(false);
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
 }
