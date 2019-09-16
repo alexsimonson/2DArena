@@ -5,5 +5,5 @@ An expandable fighting engine for 2D isometric landscapes
 Movement: WASD<br>
 Attack: Mouse Left Click<br>
 Rotate: Move Mouse around character<br>
-Pickup/Interact: E
+Pickup/Interact: E<br>
 Select Weapon from Inventory: 1, 2 (toggle same slot to unequip weapon and use fists)<br>
