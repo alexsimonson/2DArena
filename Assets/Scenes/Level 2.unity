@@ -6630,6 +6630,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 4532002875298896, guid: 99c8e5d4e3af25c4e9e55b0da6a6397f, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 3.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532002875298896, guid: 99c8e5d4e3af25c4e9e55b0da6a6397f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532002875298896, guid: 99c8e5d4e3af25c4e9e55b0da6a6397f, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532002875298896, guid: 99c8e5d4e3af25c4e9e55b0da6a6397f, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532002875298896, guid: 99c8e5d4e3af25c4e9e55b0da6a6397f, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99c8e5d4e3af25c4e9e55b0da6a6397f, type: 2}
   m_IsPrefabAsset: 0

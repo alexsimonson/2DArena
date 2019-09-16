@@ -1,15 +1,10 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 guid: 3792094ba1c5f3844aa22efce3f73e11
 TextureImporter:
   fileIDToRecycleName:
-    21300000: DemonHunter DefaultPos
+    21300000: DemonHunter-Default
     21300002: DemonHunter-Default Up
-=======
-guid: e72c5322534debe478f3aab0e2f8dbd5
-TextureImporter:
-  fileIDToRecycleName: {}
->>>>>>> 833962efa3e604621558a63fba70eda292fbff5c
+    21300004: DemonHunter-Arm
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -39,33 +34,21 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-<<<<<<< HEAD
     filterMode: 0
-=======
-    filterMode: -1
->>>>>>> 833962efa3e604621558a63fba70eda292fbff5c
     aniso: -1
     mipBias: -100
     wrapU: 1
     wrapV: 1
-    wrapW: 1
+    wrapW: -1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-<<<<<<< HEAD
   spriteMode: 2
-=======
-  spriteMode: 1
->>>>>>> 833962efa3e604621558a63fba70eda292fbff5c
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-<<<<<<< HEAD
-  spritePixelsToUnits: 3
-=======
-  spritePixelsToUnits: 100
->>>>>>> 833962efa3e604621558a63fba70eda292fbff5c
+  spritePixelsToUnits: 2
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -83,7 +66,6 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-<<<<<<< HEAD
     textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
@@ -107,9 +89,6 @@ TextureImporter:
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
-=======
-    textureCompression: 1
->>>>>>> 833962efa3e604621558a63fba70eda292fbff5c
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -117,10 +96,9 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-<<<<<<< HEAD
     sprites:
     - serializedVersion: 2
-      name: DemonHunter DefaultPos
+      name: DemonHunter-Default
       rect:
         serializedVersion: 2
         x: 10
@@ -134,7 +112,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c6359bf058624c640af0d4bdee832700
+      spriteID: ab86c8fe9444f454a8e39b3aec4eab66
       vertices: []
       indices: 
       edges: []
@@ -154,7 +132,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e76430fc1e82167428ec80eb59eb185d
+      spriteID: bce2f5b435da7b246a695a63c4722b34
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DemonHunter-Arm
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 2039
+        width: 2
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed21af3a93df55942ae1c0cc9b11b456
       vertices: []
       indices: 
       edges: []
@@ -162,14 +160,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: c9882ea17bec0614db2396e375167a0a
-=======
-    sprites: []
-    outline: []
-    physicsShape: []
-    bones: []
-    spriteID: 49a4645701db5dc44acd8dbe56b9a292
->>>>>>> 833962efa3e604621558a63fba70eda292fbff5c
+    spriteID: 72ca1c03bbb7ce64e8cb22daa80c9ab5
     vertices: []
     indices: 
     edges: []
