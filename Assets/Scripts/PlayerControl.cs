@@ -53,11 +53,11 @@ public class PlayerControl : MonoBehaviour
         {
             MoveDirection();
             LookRotation();
-            spriteManager();
+            SpriteManager();
         }
     }
 
-    void spriteManager()
+    void SpriteManager()
     {
         Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         diff.Normalize();
