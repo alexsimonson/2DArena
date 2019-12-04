@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class WeaponSystem : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private BoxCollider2D bc;
-
-    public Weapon inHands;
-    public Fist fist;
-    public GameObject weaponSlot;
-    public Weapon[] weaponSlots;
+    // initializing gameobject references
     public GameObject bullet;
+    public GameObject weaponSlotLeft;
+    public GameObject weaponSlotRight;
+    public Fist fist;
+    public Weapon inHands;
+    public Weapon[] weaponSlots;
 
-    private Vector2 weaponSlotLocation;
     private GameObject interactInRange = null;
+    private BoxCollider2D bc;
+    private Rigidbody2D rb;
+    private Vector2 weaponSlotLocationLeft;
+    private Vector2 weaponSlotLocationRight;
+
+    // initializing local state variables
+    public bool hasControl, player1 = true;
+
     private int currentWeaponSlot = 0;
     private bool isAttacking = false;
-    public bool hasControl, player1 = true;
 
     // Use this for initialization
     void Start()
@@ -28,11 +33,16 @@ public class WeaponSystem : MonoBehaviour
         inHands = fist;
         weaponSlots = new Weapon[4];
 
-        weaponSlot = transform.GetChild(0).gameObject;
-        weaponSlotLocation = weaponSlot.transform.localPosition;
-        weaponSlot.GetComponent<SpriteRenderer>().sprite = inHands.icon;
-        weaponSlot.GetComponent<SpriteRenderer>().sortingLayerName = "Weapons";
+        weaponSlotLeft = GameObject.Find("WeaponSlotLeft");
+        weaponSlotRight = GameObject.Find("WeaponSlotRight");
 
+        weaponSlotLeft.GetComponent<SpriteRenderer>().sortingLayerName = "Weapons";
+        weaponSlotRight.GetComponent<SpriteRenderer>().sortingLayerName = "Weapons";
+
+        weaponSlotLocationLeft = weaponSlotLeft.transform.localPosition;
+        weaponSlotLocationRight = weaponSlotRight.transform.localPosition;
+
+        SetWeaponSlotSprites();
     }
 
     // Update is called once per frame
@@ -81,14 +91,15 @@ public class WeaponSystem : MonoBehaviour
 
         this.weaponSlots[this.currentWeaponSlot] = sw;
         this.inHands = sw;
-        this.weaponSlot.GetComponent<SpriteRenderer>().sprite = this.inHands.icon;
+        SetWeaponSlotSprites();
         Debug.Log("Current equipped weapon: " + this.inHands.nameOf + " - Slot " + this.currentWeaponSlot);
         Debug.Log("THE CURRENT WEAPON SLOTS: " + this.weaponSlots);
     }
 
-    void changeSprite()
+    void SetWeaponSlotSprites()
     {
-
+        this.weaponSlotLeft.GetComponent<SpriteRenderer>().sprite = this.inHands.icon;
+        this.weaponSlotRight.GetComponent<SpriteRenderer>().sprite = this.inHands.icon;
     }
 
     //check which weapon is out and set accordingly
@@ -98,7 +109,6 @@ public class WeaponSystem : MonoBehaviour
         {
             // Pull out fists if you select the current weapon slot you're holding
             this.currentWeaponSlot = 0;
-            this.weaponSlot.GetComponent<SpriteRenderer>().sprite = this.fist.icon;
             this.inHands = this.fist;
         }
         else
@@ -107,8 +117,8 @@ public class WeaponSystem : MonoBehaviour
             {
                 //this should change weapon based on slot value x
                 this.currentWeaponSlot = x;
-                this.weaponSlot.GetComponent<SpriteRenderer>().sprite = this.weaponSlots[this.currentWeaponSlot].icon;
                 this.inHands = this.weaponSlots[this.currentWeaponSlot];
+                SetWeaponSlotSprites();
             }
         }
     }
@@ -156,12 +166,22 @@ public class WeaponSystem : MonoBehaviour
     private IEnumerator Stab()
     {
         Vector2 stabLocation = Vector2.up * 200.0f;
-        Vector2 startStabLocation = weaponSlotLocation;
-        weaponSlot.transform.localPosition = Vector3.Slerp(startStabLocation, stabLocation, Time.deltaTime);
-        weaponSlot.GetComponent<BoxCollider2D>().enabled = true;
+
+        // all for left
+        Vector2 startStabLocationLeft = weaponSlotLocationLeft;
+        weaponSlotLeft.transform.localPosition = Vector3.Slerp(startStabLocationLeft, stabLocation, Time.deltaTime);
+        weaponSlotLeft.GetComponent<BoxCollider2D>().enabled = true;
         yield return new WaitForSeconds(inHands.attackSpeed);
-        weaponSlot.GetComponent<BoxCollider2D>().enabled = false;
-        weaponSlot.transform.localPosition = weaponSlotLocation;
+        weaponSlotLeft.GetComponent<BoxCollider2D>().enabled = false;
+        weaponSlotLeft.transform.localPosition = weaponSlotLocationLeft;
+
+        // duplicating for right, should probably pass in as parameter
+        Vector2 startStabLocationRight = weaponSlotLocationRight;
+        weaponSlotRight.transform.localPosition = Vector3.Slerp(startStabLocationRight, stabLocation, Time.deltaTime);
+        weaponSlotRight.GetComponent<BoxCollider2D>().enabled = true;
+        yield return new WaitForSeconds(inHands.attackSpeed);
+        weaponSlotRight.GetComponent<BoxCollider2D>().enabled = false;
+        weaponSlotRight.transform.localPosition = weaponSlotLocationRight;
         isAttacking = false;
     }
 
@@ -201,7 +221,7 @@ public class WeaponSystem : MonoBehaviour
                 this.weaponSlots[this.currentWeaponSlot] = null;
                 this.currentWeaponSlot = 0;
                 this.inHands = fist;
-                this.weaponSlot.GetComponent<SpriteRenderer>().sprite = this.inHands.icon;
+                SetWeaponSlotSprites();
             }
         }
     }

@@ -4,29 +4,24 @@ using UnityEngine;
 
 public class Health : MonoBehaviour {
 
-
-	public int maxHealth = 100;
-	public int currentHealth = 100;
-
+	// initializing gameobject references
 	public GameObject GameAssistantToTheManager;
 
+	// initializing local state variables
+	public int maxHealth = 100;
+	public int currentHealth = 100;
 
 	// Use this for initialization
 	void Start () {
 		GameAssistantToTheManager = GameObject.Find("GameAssistantToTheManager");
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
 	public void TakeDamage(int damage){
 		currentHealth -= damage;
-		checkifDead();
+		CheckDead();
 	}
 
-	void checkifDead(){
+	void CheckDead(){
 		if (currentHealth <= 0){
 			Death();
 		}

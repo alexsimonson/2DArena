@@ -4,46 +4,52 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-
-    private float walkSpeed = 15f;
-
-    private Rigidbody2D rb;
-    private BoxCollider2D bc;
-
-    public Weapon inHands;
-    public Fist fist;
-
-    private GameObject interactInRange = null;
-
-    private GameObject weaponSlot;
-    private Vector2 weaponSlotLocation;
-
-    private bool isAttacking = false;
-
+    // initializing gameobject references
     public GameObject bullet;
-
-    public bool hasControl = true;
-    public bool player1 = true;
-
-    public Sprite playerForward;
-    public Sprite playerBackward;
     public GameObject player;
     public GameObject playerLeftArm;
     public GameObject playerRightArm;
+    public Fist fist;
+    public Sprite playerForward;
+    public Sprite playerBackward;
+    public Weapon inHands;
+
+    private Rigidbody2D rb;
+    private BoxCollider2D bc;
+    private GameObject interactInRange = null;
+    private GameObject weaponSlotLeft;
+    private GameObject weaponSlotRight;
+    private Vector2 weaponSlotLocationLeft;
+    private Vector2 weaponSlotLocationRight;
+
+    // initializing local state variables
+    public bool hasControl = true;
+    public bool player1 = true;
+    private bool isAttacking = false;
+    private float walkSpeed = 15f;
+
     // Use this for initialization
     void Start()
     {
         player = this.gameObject;
-        playerLeftArm = GameObject.Find("LeftArm");
-        playerRightArm = GameObject.Find("RightArm");
+        playerLeftArm = GameObject.Find("LeftArmShoulderPivot");
+        playerRightArm = GameObject.Find("RightArmShoulderPivot");
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
         fist = new Fist();
         inHands = fist;
-        weaponSlot = transform.GetChild(0).gameObject;
-        weaponSlotLocation = weaponSlot.transform.localPosition;
-        weaponSlot.GetComponent<SpriteRenderer>().sprite = inHands.icon;
-        weaponSlot.GetComponent<SpriteRenderer>().sortingLayerName = "Weapons";
+
+        //left hand
+        weaponSlotLeft = GameObject.Find("WeaponSlotLeft");
+        weaponSlotLocationLeft = weaponSlotLeft.transform.localPosition;
+        weaponSlotLeft.GetComponent<SpriteRenderer>().sprite = inHands.icon;
+        weaponSlotLeft.GetComponent<SpriteRenderer>().sortingLayerName = "Weapons";
+
+        //right hand
+        weaponSlotRight = GameObject.Find("WeaponSlotRight");
+        weaponSlotLocationRight = weaponSlotRight.transform.localPosition;
+        weaponSlotRight.GetComponent<SpriteRenderer>().sprite = inHands.icon;
+        weaponSlotRight.GetComponent<SpriteRenderer>().sortingLayerName = "Weapons";
     }
 
     // Update is called once per frame
@@ -66,27 +72,30 @@ public class PlayerControl : MonoBehaviour
         if (diff.x > 0)
         {
             // this would be on the right side of the screen
-            Debug.Log("Mouse on the right half of screen");
+            // Debug.Log("Mouse on the right half of screen");
             this.player.GetComponent<SpriteRenderer>().flipX = false;
             // this is for disabling the left arm and enabling the right arm
-            this.playerLeftArm.GetComponent<SpriteRenderer>().enabled = false;
-            this.playerRightArm.GetComponent<SpriteRenderer>().enabled = true;
+            this.playerLeftArm.SetActive(false);
+            this.playerRightArm.SetActive(true);
         }
         else
         {
             // this would be on the left side of the screen
-            Debug.Log("Mouse on the left half of screen");
+            // Debug.Log("Mouse on the left half of screen");
             this.player.GetComponent<SpriteRenderer>().flipX = true;
-            // this is for disabling the right arm and enabling the left arm
-            this.playerLeftArm.GetComponent<SpriteRenderer>().enabled = true;
-            this.playerRightArm.GetComponent<SpriteRenderer>().enabled = false;
 
+            // this is for disabling the right arm and enabling the left arm
+            this.playerLeftArm.SetActive(true);
+            this.playerRightArm.SetActive(false);
+
+            // this is because guns are upside down if you don't flip this melee shouldn't be effected
+            weaponSlotLeft.GetComponent<SpriteRenderer>().flipX = true;
         }
 
         if (rotationZ > 0)
         {
             // this would be on top of the screen
-            Debug.Log("Mouse on the top of the screen");
+            // Debug.Log("Mouse on the top of the screen");
             if (this.player.GetComponent<SpriteRenderer>().sprite.name == "DemonHunter-Default")
             {
                 this.player.GetComponent<SpriteRenderer>().sprite = playerBackward;
@@ -98,7 +107,7 @@ public class PlayerControl : MonoBehaviour
         else
         {
             // this would be on the bottom of the screen
-            Debug.Log("Mouse on the bottom of the screen");
+            // Debug.Log("Mouse on the bottom of the screen");
             if (this.player.GetComponent<SpriteRenderer>().sprite.name == "DemonHunter-Default Up")
             {
                 this.player.GetComponent<SpriteRenderer>().sprite = playerForward;
@@ -109,8 +118,6 @@ public class PlayerControl : MonoBehaviour
         }
         // diff x is left and right
         // rotation z is up and down
-        // transform.rotation = Quaternion.Euler(0f, 0f, rotationZ - 90);
-        Debug.Log("ROTATION Z: " + rotationZ);
     }
 
     void MoveDirection()
