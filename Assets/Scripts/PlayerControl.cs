@@ -13,18 +13,20 @@ public class PlayerControl : MonoBehaviour
     public Sprite playerForward;
     public Sprite playerBackward;
     public Weapon inHands;
+    public Vector2 weaponSlotLocationLeft;
+    public Vector2 weaponSlotLocationRight;
+    public Vector3 diff;
 
     private Rigidbody2D rb;
     private BoxCollider2D bc;
     private GameObject interactInRange = null;
     private GameObject weaponSlotLeft;
     private GameObject weaponSlotRight;
-    private Vector2 weaponSlotLocationLeft;
-    private Vector2 weaponSlotLocationRight;
 
     // initializing local state variables
     public bool hasControl = true;
     public bool player1 = true;
+    public bool lookingLeft = false;
     private bool isAttacking = false;
     private float walkSpeed = 15f;
 
@@ -38,16 +40,16 @@ public class PlayerControl : MonoBehaviour
         bc = GetComponent<BoxCollider2D>();
         fist = new Fist();
         inHands = fist;
+        diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 
         //left hand
         weaponSlotLeft = GameObject.Find("WeaponSlotLeft");
-        weaponSlotLocationLeft = weaponSlotLeft.transform.localPosition;
+        weaponSlotRight = GameObject.Find("WeaponSlotRight");
+        UpdateWeaponSlotLocation();
+
         weaponSlotLeft.GetComponent<SpriteRenderer>().sprite = inHands.icon;
         weaponSlotLeft.GetComponent<SpriteRenderer>().sortingLayerName = "Weapons";
 
-        //right hand
-        weaponSlotRight = GameObject.Find("WeaponSlotRight");
-        weaponSlotLocationRight = weaponSlotRight.transform.localPosition;
         weaponSlotRight.GetComponent<SpriteRenderer>().sprite = inHands.icon;
         weaponSlotRight.GetComponent<SpriteRenderer>().sortingLayerName = "Weapons";
     }
@@ -65,13 +67,14 @@ public class PlayerControl : MonoBehaviour
 
     void SpriteManager()
     {
-        Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         diff.Normalize();
         float rotationZ = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
         // Debug.Log("DIFF X: " + diff.x);
         if (diff.x > 0)
         {
             // this would be on the right side of the screen
+            this.lookingLeft = false;
             // Debug.Log("Mouse on the right half of screen");
             this.player.GetComponent<SpriteRenderer>().flipX = false;
             // this is for disabling the left arm and enabling the right arm
@@ -81,6 +84,7 @@ public class PlayerControl : MonoBehaviour
         else
         {
             // this would be on the left side of the screen
+            this.lookingLeft = true;
             // Debug.Log("Mouse on the left half of screen");
             this.player.GetComponent<SpriteRenderer>().flipX = true;
 
@@ -132,6 +136,13 @@ public class PlayerControl : MonoBehaviour
             Vector2 targetVelocity = new Vector2(Input.GetAxisRaw("XboxHorizontal"), Input.GetAxisRaw("XboxVertical"));
             rb.velocity = targetVelocity * walkSpeed;
         }
+        UpdateWeaponSlotLocation();
+    }
+
+    void UpdateWeaponSlotLocation()
+    {
+        weaponSlotLocationLeft = weaponSlotLeft.transform.position;
+        weaponSlotLocationRight = weaponSlotRight.transform.position;
     }
 
     void LookRotation()

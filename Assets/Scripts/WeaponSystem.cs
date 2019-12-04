@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponSystem : MonoBehaviour
 {
     // initializing gameobject references
+    public GameObject player;
     public GameObject bullet;
     public GameObject weaponSlotLeft;
     public GameObject weaponSlotRight;
@@ -27,6 +28,7 @@ public class WeaponSystem : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        player = GameObject.Find("PlayerSprite");
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
         fist = new Fist();
@@ -138,7 +140,7 @@ public class WeaponSystem : MonoBehaviour
                 else if (this.inHands.type == 1)
                 {
                     // Debug.Log("Attacking with a shoot weapon: " + inHands.nameOf);
-                    StartCoroutine(Shoot(gameObject.transform.position));
+                    StartCoroutine(Shoot());
                 }
             }
         }
@@ -157,7 +159,7 @@ public class WeaponSystem : MonoBehaviour
                 else if (this.inHands.type == 1)
                 {
                     // Debug.Log("Attacking with a shoot weapon: " + inHands.nameOf);
-                    StartCoroutine(Shoot(gameObject.transform.position));
+                    StartCoroutine(Shoot());
                 }
             }
         }
@@ -185,30 +187,38 @@ public class WeaponSystem : MonoBehaviour
         isAttacking = false;
     }
 
-    private IEnumerator Shoot(Vector2 gunStart)
+    private IEnumerator Shoot()
     {
         if (player1)
         {
-            Vector2 gunLocation = gunStart;
+            Vector2 gunLocation;
+            if (player.GetComponent<PlayerControl>().lookingLeft)
+            {
+                gunLocation = player.GetComponent<PlayerControl>().weaponSlotLocationLeft;
+            }
+            else
+            {
+                gunLocation = player.GetComponent<PlayerControl>().weaponSlotLocationRight;
+            }
             Vector2 mouseLocation = Input.mousePosition;
             GameObject Newbullet = Instantiate(bullet, gunLocation, Quaternion.identity);
-            Newbullet.GetComponent<bulletMovement>().targetForward = this.gameObject.transform.rotation * Vector2.up;
+            Newbullet.GetComponent<bulletMovement>().targetForward = this.gameObject.transform.rotation * player.GetComponent<PlayerControl>().diff;
             Newbullet.GetComponent<bulletMovement>().bulletDamage = inHands.damage;
             yield return new WaitForSeconds(inHands.attackSpeed);
             isAttacking = false;
         }
-        else
-        {
-            Vector2 gunLocation = gunStart;
-            GameObject Newbullet = Instantiate(bullet, gunLocation, Quaternion.identity);
-            Newbullet.GetComponent<bulletMovement>().targetForward = this.gameObject.transform.rotation * Vector2.up;
-            Newbullet.GetComponent<bulletMovement>().bulletDamage = inHands.damage;
-            yield return new WaitForSeconds(inHands.attackSpeed);
-            isAttacking = false;
-            // float rotationZ = this.gameObject.transform.rotation.z;
-            // // rotationZ = Mathf.Atan2(-stickInput.x, stickInput.y) * Mathf.Rad2Deg;
-            // transform.rotation = Quaternion.Euler(0f, 0f, rotationZ -90);
-        }
+        // else
+        // {
+        //     Vector2 gunLocation = gunStart;
+        //     GameObject Newbullet = Instantiate(bullet, gunLocation, Quaternion.identity);
+        //     Newbullet.GetComponent<bulletMovement>().targetForward = this.gameObject.transform.rotation * Vector2.up;
+        //     Newbullet.GetComponent<bulletMovement>().bulletDamage = inHands.damage;
+        //     yield return new WaitForSeconds(inHands.attackSpeed);
+        //     isAttacking = false;
+        //     // float rotationZ = this.gameObject.transform.rotation.z;
+        //     // // rotationZ = Mathf.Atan2(-stickInput.x, stickInput.y) * Mathf.Rad2Deg;
+        //     // transform.rotation = Quaternion.Euler(0f, 0f, rotationZ -90);
+        // }
 
     }
 
