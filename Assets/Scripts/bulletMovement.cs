@@ -28,12 +28,11 @@ public class bulletMovement : MonoBehaviour
     {
         if (col.tag == "Collider")
         {
-            Debug.Log("Bullet hit wall");
+            // Bullet hit wall
             Destroy(gameObject);
         }
         else if (col.tag == "Enemy" || col.tag == "EnemySpawner")
         {
-            // Debug.Log("Bullet hit enemy");
             //this needs to apply damage from the weapon
             col.GetComponent<Health>().TakeDamage(bulletDamage);
             Destroy(gameObject);
