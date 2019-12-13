@@ -112,6 +112,7 @@ public class WeaponSystem : MonoBehaviour
             // Pull out fists if you select the current weapon slot you're holding
             this.currentWeaponSlot = 0;
             this.inHands = this.fist;
+            SetWeaponSlotSprites();
         }
         else
         {
