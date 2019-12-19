@@ -10,6 +10,7 @@ TagManager:
   - EnemyWeapon
   - Collider
   - EnemySpawner
+  - GameManager
   layers:
   - Default
   - TransparentFX
