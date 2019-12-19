@@ -50,12 +50,12 @@ public class WeaponSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SwapWeapon();
+        DetectInput();
         Attack();
         ThrowWeapon();
     }
 
-    void SwapWeapon()
+    void DetectInput()
     {
         if (Input.GetButtonDown("1"))
         {
@@ -73,12 +73,26 @@ public class WeaponSystem : MonoBehaviour
         {
             InteractWith(this.interactInRange);
         }
+        if (Input.GetButtonDown("Reload"))
+        {
+            Reload();
+        }
 
     }
 
     void PickupWeapon(GameObject colObj)
     {
         Weapon sw = colObj.GetComponent<PickupSpawner>().spawnedWeapon;
+        Debug.Log(weaponSlots);
+        foreach (Weapon x in weaponSlots)
+        {
+            if (x != null && x.nameOf == sw.nameOf)
+            {
+                // just add ammo
+                x.ammoPool += sw.addAmmo;
+                return;
+            }
+        }
         // Debug.Log("Swapping " + inHands.nameOf + " for " + sw.nameOf);
         if (this.weaponSlots[1] == null)
         {
@@ -132,13 +146,12 @@ public class WeaponSystem : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire1") && isAttacking != true)
             {
-                isAttacking = true;
                 if (this.inHands.type == 0)
                 {
                     // Debug.Log("Attacking with a stab weapon: " + inHands.nameOf);
                     StartCoroutine(Stab());
                 }
-                else if (this.inHands.type == 1)
+                else if (this.inHands.type == 1 && this.inHands.ammoLoaded > 0)
                 {
                     // Debug.Log("Attacking with a shoot weapon: " + inHands.nameOf);
                     StartCoroutine(Shoot());
@@ -168,6 +181,7 @@ public class WeaponSystem : MonoBehaviour
 
     private IEnumerator Stab()
     {
+        isAttacking = true;
         Vector2 stabLocation = Vector2.up * 200.0f;
 
         // all for left
@@ -188,10 +202,33 @@ public class WeaponSystem : MonoBehaviour
         isAttacking = false;
     }
 
+    private void Reload()
+    {
+        if (this.inHands.ammoPool > 0)
+        {
+
+            int ammoToLoad = this.inHands.magazineSize - this.inHands.ammoLoaded;
+            if (ammoToLoad > 0)
+            {
+                this.inHands.ammoPool -= ammoToLoad;
+                this.inHands.ammoLoaded = this.inHands.magazineSize;
+                Debug.Log("Bullets left in pool: " + this.inHands.ammoPool);
+                Debug.Log("Magazine full with " + this.inHands.magazineSize + " bullets");
+            }
+        }
+        else
+        {
+            // no ammo, can't reload
+        }
+    }
+
     private IEnumerator Shoot()
     {
-        if (player1)
+        if (player1 && this.inHands.ammoLoaded > 0)
         {
+            isAttacking = true;
+            this.inHands.ammoLoaded--;
+            Debug.Log("Shots left: " + this.inHands.ammoLoaded);
             Vector2 gunLocation;
             if (player.GetComponent<PlayerControl>().lookingLeft)
             {
