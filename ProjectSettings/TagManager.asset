@@ -11,6 +11,7 @@ TagManager:
   - Collider
   - EnemySpawner
   - GameManager
+  - UI
   layers:
   - Default
   - TransparentFX

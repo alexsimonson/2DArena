@@ -45,6 +45,8 @@ public class WeaponSystem : MonoBehaviour
         weaponSlotLocationRight = weaponSlotRight.transform.localPosition;
 
         SetWeaponSlotSprites();
+
+        ToggleAmmoUI();
     }
 
     // Update is called once per frame
@@ -53,6 +55,18 @@ public class WeaponSystem : MonoBehaviour
         DetectInput();
         Attack();
         ThrowWeapon();
+    }
+
+    void ToggleAmmoUI()
+    {
+        if (this.inHands.type == 0)
+        {
+            player.GetComponent<PlayerUI>().hudCanvas.SetActive(false);
+        }
+        else
+        {
+            player.GetComponent<PlayerUI>().hudCanvas.SetActive(true);
+        }
     }
 
     void DetectInput()
@@ -77,7 +91,6 @@ public class WeaponSystem : MonoBehaviour
         {
             Reload();
         }
-
     }
 
     void PickupWeapon(GameObject colObj)
@@ -89,6 +102,7 @@ public class WeaponSystem : MonoBehaviour
             if (x != null && x.nameOf == sw.nameOf)
             {
                 // just add ammo
+                player.GetComponent<PlayerUI>().AddAmmoReserve(sw.addAmmo);
                 x.ammoPool += sw.addAmmo;
                 return;
             }
@@ -107,9 +121,8 @@ public class WeaponSystem : MonoBehaviour
 
         this.weaponSlots[this.currentWeaponSlot] = sw;
         this.inHands = sw;
+        player.GetComponent<PlayerUI>().ReloadAmmoHud(this.inHands.ammoPool, this.inHands.ammoLoaded);
         SetWeaponSlotSprites();
-        Debug.Log("Current equipped weapon: " + this.inHands.nameOf + " - Slot " + this.currentWeaponSlot);
-        Debug.Log("THE CURRENT WEAPON SLOTS: " + this.weaponSlots);
     }
 
     void SetWeaponSlotSprites()
@@ -138,6 +151,7 @@ public class WeaponSystem : MonoBehaviour
                 SetWeaponSlotSprites();
             }
         }
+        ToggleAmmoUI();
     }
 
     void Attack()
@@ -206,14 +220,12 @@ public class WeaponSystem : MonoBehaviour
     {
         if (this.inHands.ammoPool > 0)
         {
-
             int ammoToLoad = this.inHands.magazineSize - this.inHands.ammoLoaded;
             if (ammoToLoad > 0)
             {
                 this.inHands.ammoPool -= ammoToLoad;
                 this.inHands.ammoLoaded = this.inHands.magazineSize;
-                Debug.Log("Bullets left in pool: " + this.inHands.ammoPool);
-                Debug.Log("Magazine full with " + this.inHands.magazineSize + " bullets");
+                player.GetComponent<PlayerUI>().ReloadAmmoHud(this.inHands.ammoPool, this.inHands.ammoLoaded);
             }
         }
         else
@@ -227,6 +239,7 @@ public class WeaponSystem : MonoBehaviour
         if (player1 && this.inHands.ammoLoaded > 0)
         {
             isAttacking = true;
+            player.GetComponent<PlayerUI>().UpdateAmmoHud();
             this.inHands.ammoLoaded--;
             Debug.Log("Shots left: " + this.inHands.ammoLoaded);
             Vector2 gunLocation;
@@ -283,6 +296,7 @@ public class WeaponSystem : MonoBehaviour
                 if (colObj.tag == "Pickup")
                 {
                     PickupWeapon(colObj);
+                    ToggleAmmoUI();
                 }
                 else
                 {
