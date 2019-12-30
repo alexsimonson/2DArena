@@ -10,6 +10,7 @@ public class PickupSpawner : MonoBehaviour
     public BasicKnife basicKnife;
     public BasicKnife advancedKnife;
     public BasicKnife shitAxe;
+    public BasicPistol advancedPistol;
 
     [SerializeField] public bool spawnKnife;
     [SerializeField] public bool spawnGun;
@@ -27,6 +28,7 @@ public class PickupSpawner : MonoBehaviour
         basicKnife = new BasicKnife();
         advancedKnife = new BasicKnife("Advanced Dagger", 100, .6f, "AdvancedDagger");
         shitAxe = new BasicKnife("Shitty Axe", 35, .3f, "ShitAxe");
+        advancedPistol = new BasicPistol("Advanced Pistol", 200, .1f, 20, "AdvancedGun");
 
         if (spawnKnife && spawnGun)
         {
@@ -64,7 +66,7 @@ public class PickupSpawner : MonoBehaviour
             }
             else if (randomRange >= 0.5f && randomRange < .75f)
             {
-                spawnedWeapon = shitAxe;
+                spawnedWeapon = advancedPistol;
             }
             else if (randomRange >= .75f && randomRange < 1f)
             {

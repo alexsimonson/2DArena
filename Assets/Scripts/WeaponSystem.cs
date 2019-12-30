@@ -66,6 +66,7 @@ public class WeaponSystem : MonoBehaviour
         else
         {
             player.GetComponent<PlayerUI>().hudCanvas.SetActive(true);
+            player.GetComponent<PlayerUI>().ReloadAmmoHud(this.inHands.ammoPool, this.inHands.ammoLoaded);
         }
     }
 
@@ -102,8 +103,8 @@ public class WeaponSystem : MonoBehaviour
             if (x != null && x.nameOf == sw.nameOf)
             {
                 // just add ammo
-                player.GetComponent<PlayerUI>().AddAmmoReserve(sw.addAmmo);
                 x.ammoPool += sw.addAmmo;
+                player.GetComponent<PlayerUI>().SetAmmoReserve(x.ammoPool);
                 return;
             }
         }
@@ -223,8 +224,17 @@ public class WeaponSystem : MonoBehaviour
             int ammoToLoad = this.inHands.magazineSize - this.inHands.ammoLoaded;
             if (ammoToLoad > 0)
             {
-                this.inHands.ammoPool -= ammoToLoad;
-                this.inHands.ammoLoaded = this.inHands.magazineSize;
+                if (this.inHands.ammoPool - ammoToLoad >= 0)
+                {
+                    this.inHands.ammoPool -= ammoToLoad;
+                    this.inHands.ammoLoaded = this.inHands.magazineSize;
+                }
+                else
+                {
+                    // load the rest of the ammoPool
+                    this.inHands.ammoLoaded += this.inHands.ammoPool;
+                    this.inHands.ammoPool = 0;
+                }
                 player.GetComponent<PlayerUI>().ReloadAmmoHud(this.inHands.ammoPool, this.inHands.ammoLoaded);
             }
         }
@@ -241,7 +251,6 @@ public class WeaponSystem : MonoBehaviour
             isAttacking = true;
             player.GetComponent<PlayerUI>().UpdateAmmoHud();
             this.inHands.ammoLoaded--;
-            Debug.Log("Shots left: " + this.inHands.ammoLoaded);
             Vector2 gunLocation;
             if (player.GetComponent<PlayerControl>().lookingLeft)
             {

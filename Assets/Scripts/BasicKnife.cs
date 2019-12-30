@@ -21,6 +21,7 @@ public class BasicKnife : Weapon
         attackSpeed = newAttackSpeed;
         icon = Resources.Load<Sprite>("Sprites/" + iconName);
         bullet = null;
+        type = 0;
     }
 
 }

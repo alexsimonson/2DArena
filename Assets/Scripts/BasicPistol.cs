@@ -30,5 +30,6 @@ public class BasicPistol : Weapon
         addAmmo = newMagazineSize * 4;
         icon = Resources.Load<Sprite>("Sprites/" + iconName);
         bullet = null;
+        type = 1;
     }
 }
