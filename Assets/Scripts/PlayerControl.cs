@@ -28,7 +28,7 @@ public class PlayerControl : MonoBehaviour
     public bool player1 = true;
     public bool lookingLeft = false;
     private bool isAttacking = false;
-    private float walkSpeed = 15f;
+    private float walkSpeed = 7f;
 
     // Use this for initialization
     void Start()
