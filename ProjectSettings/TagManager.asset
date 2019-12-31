@@ -12,6 +12,7 @@ TagManager:
   - EnemySpawner
   - GameManager
   - UI
+  - PlayerHitbox
   layers:
   - Default
   - TransparentFX

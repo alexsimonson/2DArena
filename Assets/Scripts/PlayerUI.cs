@@ -9,7 +9,7 @@ using TMPro;
 public class PlayerUI : MonoBehaviour
 {
     public GameObject player;
-    public GameObject hudCanvas;
+    public GameObject hudAmmo;
     public GameObject ammoLoadedCount;
     public GameObject ammoReserveCount;
     public GameObject ammoTitle;
@@ -17,10 +17,22 @@ public class PlayerUI : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("PlayerSprite");
-        hudCanvas = GameObject.Find("Canvas");
+        hudAmmo = GameObject.Find("Canvas/hudAmmo");
         ammoLoadedCount = GameObject.Find("Canvas/hudAmmo/ammoLoadedCount");
         ammoReserveCount = GameObject.Find("Canvas/hudAmmo/ammoReserveCount");
         ammoTitle = GameObject.Find("Canvas/hudAmmo/ammoTitle");
+    }
+
+    public void ToggleAmmoUI(int type)
+    {
+        if (type == 0)
+        {
+            hudAmmo.SetActive(false);
+        }
+        else
+        {
+            hudAmmo.SetActive(true);
+        }
     }
 
     public void UpdateAmmoHud(int numBullets = 1, bool shooting = true)

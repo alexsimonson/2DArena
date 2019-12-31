@@ -18,9 +18,13 @@ public class Health : MonoBehaviour
         GameManager = GameObject.FindWithTag("GameManager");
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, bool player = false)
     {
         currentHealth -= damage;
+        if (player)
+        {
+            gameObject.GetComponent<HealthUI>().SetHealthCount(currentHealth);
+        }
         CheckDead();
     }
 
@@ -38,6 +42,11 @@ public class Health : MonoBehaviour
         {
             GameManager.GetComponent<GameTypes>().roundKillCount++;
             Destroy(gameObject);
+        }
+        if (gameObject.tag == "Player")
+        {
+            gameObject.GetComponent<PlayerControl>().hasControl = false;
+            GameManager.GetComponent<GameAssistantToTheManager>().DeathScreen();
         }
         //take away player input if player dies
     }

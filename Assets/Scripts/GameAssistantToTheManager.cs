@@ -105,4 +105,9 @@ public class GameAssistantToTheManager : MonoBehaviour
         }
     }
 
+    public void DeathScreen()
+    {
+        Instantiate(deathScreen, mainCam.transform.position, Quaternion.identity);    //this pops ui but isn't usable
+    }
+
 }

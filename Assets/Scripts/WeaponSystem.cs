@@ -45,8 +45,13 @@ public class WeaponSystem : MonoBehaviour
         weaponSlotLocationRight = weaponSlotRight.transform.localPosition;
 
         SetWeaponSlotSprites();
+        UpdateUi();
+    }
 
-        ToggleAmmoUI();
+    void UpdateUi()
+    {
+        player.GetComponent<PlayerUI>().ToggleAmmoUI(this.inHands.type);
+        player.GetComponent<PlayerUI>().ReloadAmmoHud(this.inHands.ammoPool, this.inHands.ammoLoaded);
     }
 
     // Update is called once per frame
@@ -61,11 +66,11 @@ public class WeaponSystem : MonoBehaviour
     {
         if (this.inHands.type == 0)
         {
-            player.GetComponent<PlayerUI>().hudCanvas.SetActive(false);
+            player.GetComponent<PlayerUI>().hudAmmo.SetActive(false);
         }
         else
         {
-            player.GetComponent<PlayerUI>().hudCanvas.SetActive(true);
+            player.GetComponent<PlayerUI>().hudAmmo.SetActive(true);
             player.GetComponent<PlayerUI>().ReloadAmmoHud(this.inHands.ammoPool, this.inHands.ammoLoaded);
         }
     }
@@ -152,7 +157,7 @@ public class WeaponSystem : MonoBehaviour
                 SetWeaponSlotSprites();
             }
         }
-        ToggleAmmoUI();
+        UpdateUi();
     }
 
     void Attack()
@@ -201,18 +206,15 @@ public class WeaponSystem : MonoBehaviour
 
         // all for left
         Vector2 startStabLocationLeft = weaponSlotLocationLeft;
-        weaponSlotLeft.transform.localPosition = Vector3.Slerp(startStabLocationLeft, stabLocation, Time.deltaTime);
+        Vector2 startStabLocationRight = weaponSlotLocationRight;
         weaponSlotLeft.GetComponent<BoxCollider2D>().enabled = true;
+        weaponSlotRight.GetComponent<BoxCollider2D>().enabled = true;
+        weaponSlotLeft.transform.localPosition = Vector3.Slerp(startStabLocationLeft, stabLocation, Time.deltaTime);
+        weaponSlotRight.transform.localPosition = Vector3.Slerp(startStabLocationRight, stabLocation, Time.deltaTime);
         yield return new WaitForSeconds(inHands.attackSpeed);
         weaponSlotLeft.GetComponent<BoxCollider2D>().enabled = false;
-        weaponSlotLeft.transform.localPosition = weaponSlotLocationLeft;
-
-        // duplicating for right, should probably pass in as parameter
-        Vector2 startStabLocationRight = weaponSlotLocationRight;
-        weaponSlotRight.transform.localPosition = Vector3.Slerp(startStabLocationRight, stabLocation, Time.deltaTime);
-        weaponSlotRight.GetComponent<BoxCollider2D>().enabled = true;
-        yield return new WaitForSeconds(inHands.attackSpeed);
         weaponSlotRight.GetComponent<BoxCollider2D>().enabled = false;
+        weaponSlotLeft.transform.localPosition = weaponSlotLocationLeft;
         weaponSlotRight.transform.localPosition = weaponSlotLocationRight;
         isAttacking = false;
     }
@@ -305,7 +307,7 @@ public class WeaponSystem : MonoBehaviour
                 if (colObj.tag == "Pickup")
                 {
                     PickupWeapon(colObj);
-                    ToggleAmmoUI();
+                    UpdateUi();
                 }
                 else
                 {

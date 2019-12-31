@@ -16,18 +16,24 @@ public class HitDetection : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
+
         if (self.tag == "PlayerWeapon")
         {
             if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "EnemySpawner")
             {
                 col.gameObject.GetComponent<Health>().TakeDamage(self.GetComponentInParent<WeaponSystem>().inHands.damage);
             }
+            if (col.gameObject.tag == "EnemyWeapon")
+            {
+                // could maybe knock weapons out of enemies hands
+                Debug.Log("Player hit enemy weapon");
+            }
         }
         else if (self.tag == "EnemyWeapon")
         {
-            if (col.gameObject.tag == "Player")
+            if (col.gameObject.tag == "PlayerHitbox")
             {
-                col.gameObject.GetComponent<Health>().TakeDamage(self.GetComponentInParent<AiControl>().inHands.damage);
+                col.gameObject.GetComponentInParent<Health>().TakeDamage(self.GetComponentInParent<AiControl>().inHands.damage, true);
             }
         }
     }
