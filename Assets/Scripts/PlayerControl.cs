@@ -28,7 +28,9 @@ public class PlayerControl : MonoBehaviour
     public bool player1 = true;
     public bool lookingLeft = false;
     private bool isAttacking = false;
-    private float walkSpeed = 7f;
+    private static float defaultWalkSpeed = 7f;
+    private float walkSpeed = defaultWalkSpeed;
+    private float sprintSpeed = 18f;
 
     // Use this for initialization
     void Start()
@@ -62,6 +64,8 @@ public class PlayerControl : MonoBehaviour
             MoveDirection();
             LookRotation();
             SpriteManager();
+            SetSprintSpeed();
+            DodgeRoll();
         }
     }
 
@@ -167,6 +171,28 @@ public class PlayerControl : MonoBehaviour
                 float rotationZ = Mathf.Atan2(-stickInput.x, stickInput.y) * Mathf.Rad2Deg;
                 transform.rotation = Quaternion.Euler(0f, 0f, rotationZ - 90);
             }
+        }
+    }
+
+    void SetSprintSpeed()
+    {
+        if (Input.GetButtonDown("Sprint"))
+        {
+            walkSpeed = sprintSpeed;
+        }
+        if (Input.GetButtonUp("Sprint"))
+        {
+            walkSpeed = defaultWalkSpeed;
+        }
+    }
+
+    private IEnumerator DodgeRoll()
+    {
+        if (Input.GetButtonDown("Roll") && hasControl)
+        {
+            hasControl = false;
+            yield return new WaitForSeconds(2);
+            hasControl = true;
         }
     }
 }

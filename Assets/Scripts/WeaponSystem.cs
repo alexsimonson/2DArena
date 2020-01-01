@@ -128,6 +128,7 @@ public class WeaponSystem : MonoBehaviour
         this.weaponSlots[this.currentWeaponSlot] = sw;
         this.inHands = sw;
         player.GetComponent<PlayerUI>().ReloadAmmoHud(this.inHands.ammoPool, this.inHands.ammoLoaded);
+        player.GetComponent<InventoryUI>().UpdateImage(this.currentWeaponSlot, this.inHands.icon);
         SetWeaponSlotSprites();
     }
 

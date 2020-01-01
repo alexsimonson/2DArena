@@ -13,6 +13,7 @@ TagManager:
   - GameManager
   - UI
   - PlayerHitbox
+  - InventoryUI
   layers:
   - Default
   - TransparentFX
