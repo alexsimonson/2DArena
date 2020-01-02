@@ -17,7 +17,7 @@ public class InventoryUI : MonoBehaviour
     {
         player = GameObject.Find("PlayerSprite");
         inventorySlots = GameObject.FindGameObjectsWithTag("InventoryUI");
-        hudInventory = GameObject.Find("Canvas/hudInventory");
+        hudInventory = GameObject.Find("hudCanvas/hudInventory");
         foreach (GameObject slot in inventorySlots)
         {
             slot.SetActive(false);

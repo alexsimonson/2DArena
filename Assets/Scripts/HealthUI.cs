@@ -16,9 +16,9 @@ public class HealthUI : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("PlayerSprite");
-        hudCanvas = GameObject.Find("Canvas");
-        healthCount = GameObject.Find("Canvas/hudHealth/healthCount");
-        healthTitle = GameObject.Find("Canvas/hudHealth/healthTitle");
+        hudCanvas = GameObject.Find("hudCanvas");
+        healthCount = GameObject.Find("hudCanvas/hudHealth/healthCount");
+        healthTitle = GameObject.Find("hudCanvas/hudHealth/healthTitle");
     }
 
     public void SetHealthCount(int health)

@@ -36,8 +36,8 @@ public class AiControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveDirection();
-        LookRotation();
+        // MoveDirection();
+        // LookRotation();
     }
     void FixedUpdate()
     {

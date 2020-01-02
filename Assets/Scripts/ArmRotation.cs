@@ -7,15 +7,25 @@ public class ArmRotation : MonoBehaviour
 
     public int rotationOffset = 90;
 
+    private GameObject player;
+
+    void Start()
+    {
+        player = GameObject.Find("PlayerSprite");
+    }
+
     // Update is called once per frame
     void Update()
     {
-        //Subtracting the position of the player from the mouse position
-        Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        difference.Normalize();         //Normalizing the vector. Meaning that all the sum of the vector will be equal to 1
+        if (player.GetComponent<PlayerControl>().hasControl)
+        {
+            //Subtracting the position of the player from the mouse position
+            Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            difference.Normalize();         //Normalizing the vector. Meaning that all the sum of the vector will be equal to 1
 
-        float rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;       //Find the angle in degrees
-        transform.rotation = Quaternion.Euler(0f, 0f, rotZ + rotationOffset);
+            float rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;       //Find the angle in degrees
+            transform.rotation = Quaternion.Euler(0f, 0f, rotZ + rotationOffset);
+        }
 
     }
 }

@@ -195,4 +195,10 @@ public class PlayerControl : MonoBehaviour
             hasControl = true;
         }
     }
+
+    public void Dead()
+    {
+        hasControl = false;
+        rb.velocity = Vector2.zero;
+    }
 }

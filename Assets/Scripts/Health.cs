@@ -45,7 +45,7 @@ public class Health : MonoBehaviour
         }
         if (gameObject.tag == "Player")
         {
-            gameObject.GetComponent<PlayerControl>().hasControl = false;
+            gameObject.GetComponent<PlayerControl>().Dead();
             GameManager.GetComponent<GameAssistantToTheManager>().DeathScreen();
         }
         //take away player input if player dies

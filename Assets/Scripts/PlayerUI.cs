@@ -17,10 +17,10 @@ public class PlayerUI : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("PlayerSprite");
-        hudAmmo = GameObject.Find("Canvas/hudAmmo");
-        ammoLoadedCount = GameObject.Find("Canvas/hudAmmo/ammoLoadedCount");
-        ammoReserveCount = GameObject.Find("Canvas/hudAmmo/ammoReserveCount");
-        ammoTitle = GameObject.Find("Canvas/hudAmmo/ammoTitle");
+        hudAmmo = GameObject.Find("hudCanvas/hudAmmo");
+        ammoLoadedCount = GameObject.Find("hudCanvas/hudAmmo/ammoLoadedCount");
+        ammoReserveCount = GameObject.Find("hudCanvas/hudAmmo/ammoReserveCount");
+        ammoTitle = GameObject.Find("hudCanvas/hudAmmo/ammoTitle");
     }
 
     public void ToggleAmmoUI(int type)

@@ -204,6 +204,8 @@ public class WeaponSystem : MonoBehaviour
     private IEnumerator Stab()
     {
         isAttacking = true;
+        player.GetComponent<PlayerControl>().hasControl = false;
+        player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         Vector2 stabLocation = Vector2.up * 200.0f;
 
         // all for left
@@ -218,6 +220,7 @@ public class WeaponSystem : MonoBehaviour
         weaponSlotRight.GetComponent<BoxCollider2D>().enabled = false;
         weaponSlotLeft.transform.localPosition = weaponSlotLocationLeft;
         weaponSlotRight.transform.localPosition = weaponSlotLocationRight;
+        player.GetComponent<PlayerControl>().hasControl = true;
         isAttacking = false;
     }
 
