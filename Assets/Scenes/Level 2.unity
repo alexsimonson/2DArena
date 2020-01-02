@@ -7811,7 +7811,7 @@ PrefabInstance:
     - target: {fileID: 114056231794891780, guid: dcebed0de38b59e44a03cf58796f9827,
         type: 3}
       propertyPath: spawnKnife
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcebed0de38b59e44a03cf58796f9827, type: 3}

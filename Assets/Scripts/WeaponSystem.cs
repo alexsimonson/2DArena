@@ -101,32 +101,33 @@ public class WeaponSystem : MonoBehaviour
 
     void PickupWeapon(GameObject colObj)
     {
-        Weapon sw = colObj.GetComponent<PickupSpawner>().spawnedWeapon;
-        Debug.Log(weaponSlots);
-        foreach (Weapon x in weaponSlots)
+        Weapon spawnedWeapon = colObj.GetComponent<PickupSpawner>().spawnedWeapon;
+        foreach (Weapon weapon in weaponSlots)
         {
-            if (x != null && x.nameOf == sw.nameOf)
+            if (weapon != null && weapon.nameOf == spawnedWeapon.nameOf)
             {
                 // just add ammo
-                x.ammoPool += sw.addAmmo;
-                player.GetComponent<PlayerUI>().SetAmmoReserve(x.ammoPool);
+                weapon.ammoPool += spawnedWeapon.addAmmo;
+                player.GetComponent<PlayerUI>().SetAmmoReserve(weapon.ammoPool);
                 return;
             }
         }
-        // Debug.Log("Swapping " + inHands.nameOf + " for " + sw.nameOf);
+        // Debug.Log("Swapping " + inHands.nameOf + " for " + spawnedWeapon.nameOf);
         if (this.weaponSlots[1] == null)
         {
             this.currentWeaponSlot = 1;
-            this.weaponSlots[this.currentWeaponSlot] = sw;
-            this.inHands = sw;
         }
         else if (this.weaponSlots[2] == null)
         {
             this.currentWeaponSlot = 2;
         }
+        else if (this.weaponSlots[3] == null)
+        {
+            this.currentWeaponSlot = 3;
+        }
 
-        this.weaponSlots[this.currentWeaponSlot] = sw;
-        this.inHands = sw;
+        this.weaponSlots[this.currentWeaponSlot] = spawnedWeapon;
+        this.inHands = spawnedWeapon;
         player.GetComponent<PlayerUI>().ReloadAmmoHud(this.inHands.ammoPool, this.inHands.ammoLoaded);
         player.GetComponent<InventoryUI>().UpdateImage(this.currentWeaponSlot, this.inHands.icon);
         SetWeaponSlotSprites();

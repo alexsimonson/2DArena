@@ -27,7 +27,7 @@ public class InventoryUI : MonoBehaviour
     public void UpdateImage(int slotNum, Sprite icon)
     {
         //this should update the inventory image
-        inventorySlots[slotNum].GetComponent<UnityEngine.UI.Image>().sprite = icon;
-        inventorySlots[slotNum].SetActive(true);
+        inventorySlots[slotNum - 1].GetComponent<UnityEngine.UI.Image>().sprite = icon;
+        inventorySlots[slotNum - 1].SetActive(true);
     }
 }
