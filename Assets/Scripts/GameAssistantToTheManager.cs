@@ -14,9 +14,15 @@ public class GameAssistantToTheManager : MonoBehaviour
     private bool gameWon = false;
     public GameObject deathScreen;
     public GameObject winScreen;
+    public GameObject authScreen;
     public GameObject mainCam;
     public GameObject player;
     private GameObject player2;
+    public GameObject deathRef;
+    public GameObject authRef;
+
+    public bool isLoggedIn;
+    public string loggedInUsername;
 
     public bool player2joined = false;
 
@@ -91,6 +97,7 @@ public class GameAssistantToTheManager : MonoBehaviour
         player2joined = true;
         player2.GetComponent<WeaponSystem>().player1 = false;
     }
+
     void CheckWin()
     {
         if (spawnersLeft <= 0 && enemiesLeft <= 0 && !gameWon)
@@ -107,7 +114,15 @@ public class GameAssistantToTheManager : MonoBehaviour
 
     public void DeathScreen()
     {
-        Instantiate(deathScreen, mainCam.transform.position, Quaternion.identity);    //this pops ui but isn't usable
+        deathRef = Instantiate(deathScreen, mainCam.transform.position, Quaternion.identity);    //this pops ui but isn't usable
+    }
+
+    public void AuthScreen()
+    {
+        gameObject.GetComponent<Authentication>().inGameSignIn = true;
+        authRef = Instantiate(authScreen, mainCam.transform.position, Quaternion.identity);    //this pops ui but isn't usable
+        // gameObject.GetComponent<Authentication>().SetAuthRefs();
+        deathRef.SetActive(false);
     }
 
 }

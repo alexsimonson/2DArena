@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: -6657146009867821402}
   - component: {fileID: -6847559926718287243}
   - component: {fileID: 2088036814873649944}
+  - component: {fileID: -447585521490991000}
   m_Layer: 0
   m_Name: PlayerSprite
   m_TagString: Player
@@ -240,6 +241,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f25089e5a09932e4e9cf8c5fe959c6ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-447585521490991000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594673636263261626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bfcb634f83d3254ba94505cfd009ebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shotsFired: 0
+  shotsHit: 0
+  accuracy: 0
+  enemiesKilled: 0
+  damageDone: 0
 --- !u!1 &2443711999174881462
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,8 @@ public class PlayerUI : MonoBehaviour
     public GameObject ammoLoadedCount;
     public GameObject ammoReserveCount;
     public GameObject ammoTitle;
+    static public string loggedInUsername;
+    static public bool loggedIn;
 
     void Start()
     {
@@ -21,6 +23,16 @@ public class PlayerUI : MonoBehaviour
         ammoLoadedCount = GameObject.Find("hudCanvas/hudAmmo/ammoLoadedCount");
         ammoReserveCount = GameObject.Find("hudCanvas/hudAmmo/ammoReserveCount");
         ammoTitle = GameObject.Find("hudCanvas/hudAmmo/ammoTitle");
+    }
+
+    public void SetLoggedInUsername(string setUsername)
+    {
+        loggedInUsername = setUsername;
+    }
+
+    public void SetLoggedIn(bool state)
+    {
+        loggedIn = state;
     }
 
     public void ToggleAmmoUI(int type)

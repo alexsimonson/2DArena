@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class PlayerControl : MonoBehaviour
     private GameObject interactInRange = null;
     private GameObject weaponSlotLeft;
     private GameObject weaponSlotRight;
+    private PlayerUI PlayerUIScript;
 
     // initializing local state variables
     public bool hasControl = true;
