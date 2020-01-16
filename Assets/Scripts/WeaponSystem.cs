@@ -266,19 +266,16 @@ public class WeaponSystem : MonoBehaviour
             isAttacking = true;
             player.GetComponent<PlayerUI>().UpdateAmmoHud();
             this.inHands.ammoLoaded--;
-            Vector2 gunLocation;
-            if (player.GetComponent<PlayerControl>().lookingLeft)
-            {
-                gunLocation = player.GetComponent<PlayerControl>().weaponSlotLocationLeft;
-            }
-            else
-            {
-                gunLocation = player.GetComponent<PlayerControl>().weaponSlotLocationRight;
-            }
+            Vector2 leftGunLocation = player.GetComponent<PlayerControl>().weaponSlotLocationLeft;
+            Vector2 rightGunLocation = player.GetComponent<PlayerControl>().weaponSlotLocationRight;
+
             Vector2 mouseLocation = Input.mousePosition;
-            GameObject Newbullet = Instantiate(bullet, gunLocation, Quaternion.identity);
-            Newbullet.GetComponent<bulletMovement>().targetForward = this.gameObject.transform.rotation * player.GetComponent<PlayerControl>().diff;
-            Newbullet.GetComponent<bulletMovement>().bulletDamage = inHands.damage;
+            GameObject leftNewbullet = Instantiate(bullet, leftGunLocation, Quaternion.identity);
+            GameObject rightNewbullet = Instantiate(bullet, rightGunLocation, Quaternion.identity);
+            leftNewbullet.GetComponent<Rigidbody2D>().AddForce(-transform.up * 1000);
+            leftNewbullet.GetComponent<bulletMovement>().bulletDamage = inHands.damage;
+            rightNewbullet.GetComponent<Rigidbody2D>().AddForce(-transform.up * 1000);
+            rightNewbullet.GetComponent<bulletMovement>().bulletDamage = inHands.damage;
             yield return new WaitForSeconds(inHands.attackSpeed);
             isAttacking = false;
         }

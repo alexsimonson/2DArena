@@ -8,21 +8,9 @@ public class bulletMovement : MonoBehaviour
     GameObject[] players;
     GameObject player;
     public int bulletDamage;
-    public float bulletSpeed = 100;
-    public Vector2 targetForward;
 
     public bool firedByPlayer1 = true;
     // Use this for initialization
-    void Start()
-    {
-        rb = gameObject.GetComponent<Rigidbody2D>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        rb.transform.Translate(targetForward * bulletSpeed * Time.deltaTime);
-    }
 
     void OnTriggerEnter2D(Collider2D col)
     {

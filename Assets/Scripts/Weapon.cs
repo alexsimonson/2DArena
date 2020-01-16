@@ -7,6 +7,7 @@ public class Weapon
     [SerializeField] public int damage;
     [SerializeField] public int type;
     [SerializeField] public float attackSpeed;
+    [SerializeField] public float bulletSpeed;
     [SerializeField] public string ammoType;
     [SerializeField] public int magazineSize;
     [SerializeField] public int ammoLoaded;
@@ -20,6 +21,7 @@ public class Weapon
         damage = 1000;
         type = 0;
         attackSpeed = .5f;
+        bulletSpeed = 1000;
         ammoType = ".50 Caliber";
         magazineSize = 10;
         ammoLoaded = magazineSize;

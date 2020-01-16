@@ -10,6 +10,7 @@ public class BasicPistol : Weapon
         damage = 1000;
         type = 1;
         attackSpeed = .1f;
+        bulletSpeed = 1000;
         ammoType = ".50 Caliber";
         magazineSize = 7;
         ammoLoaded = magazineSize;
@@ -19,11 +20,12 @@ public class BasicPistol : Weapon
         bullet = Resources.Load<Sprite>("Sprites/BulletSpr");
     }
 
-    public BasicPistol(string newName, int newDamage, float newAttackSpeed, int newMagazineSize, string iconName)
+    public BasicPistol(string newName, int newDamage, float newAttackSpeed, float newBulletSpeed, int newMagazineSize, string iconName)
     {
         nameOf = newName;
         damage = newDamage;
         attackSpeed = newAttackSpeed;
+        bulletSpeed = newBulletSpeed;
         magazineSize = newMagazineSize;
         ammoLoaded = newMagazineSize;
         ammoPool = newMagazineSize * 3;

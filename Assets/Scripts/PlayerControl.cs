@@ -20,8 +20,8 @@ public class PlayerControl : MonoBehaviour
     private Rigidbody2D rb;
     private BoxCollider2D bc;
     private GameObject interactInRange = null;
-    private GameObject weaponSlotLeft;
-    private GameObject weaponSlotRight;
+    public GameObject weaponSlotLeft;
+    public GameObject weaponSlotRight;
 
     // initializing local state variables
     public bool hasControl = true;
@@ -65,7 +65,7 @@ public class PlayerControl : MonoBehaviour
             MoveDirection();
             LookRotation();
             BodyRotation();
-            SpriteManager();
+            // SpriteManager();
             SetSprintSpeed();
             DodgeRoll();
         }
