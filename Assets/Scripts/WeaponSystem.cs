@@ -206,15 +206,18 @@ public class WeaponSystem : MonoBehaviour
         isAttacking = true;
         player.GetComponent<PlayerControl>().hasControl = false;
         player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        Vector2 stabLocation = Vector2.up * 200.0f;
 
         // all for left
         Vector2 startStabLocationLeft = weaponSlotLocationLeft;
         Vector2 startStabLocationRight = weaponSlotLocationRight;
+
+        Vector2 stabLocationLeft = new Vector2(startStabLocationLeft.x, startStabLocationLeft.y + -200);
+        Vector2 stabLocationRight = new Vector2(startStabLocationRight.x, startStabLocationRight.y + -200);
+
         weaponSlotLeft.GetComponent<BoxCollider2D>().enabled = true;
         weaponSlotRight.GetComponent<BoxCollider2D>().enabled = true;
-        weaponSlotLeft.transform.localPosition = Vector3.Slerp(startStabLocationLeft, stabLocation, Time.deltaTime);
-        weaponSlotRight.transform.localPosition = Vector3.Slerp(startStabLocationRight, stabLocation, Time.deltaTime);
+        weaponSlotLeft.transform.localPosition = Vector2.Lerp(startStabLocationLeft, stabLocationLeft, Time.deltaTime);
+        weaponSlotRight.transform.localPosition = Vector2.Lerp(startStabLocationRight, stabLocationRight, Time.deltaTime);
         yield return new WaitForSeconds(inHands.attackSpeed);
         weaponSlotLeft.GetComponent<BoxCollider2D>().enabled = false;
         weaponSlotRight.GetComponent<BoxCollider2D>().enabled = false;

@@ -7,8 +7,8 @@ public class PlayerControl : MonoBehaviour
     // initializing gameobject references
     public GameObject bullet;
     public GameObject player;
-    public GameObject playerLeftArm;
-    public GameObject playerRightArm;
+    // public GameObject playerLeftArm;
+    // public GameObject playerRightArm;
     public Fist fist;
     public Sprite playerForward;
     public Sprite playerBackward;
@@ -28,16 +28,17 @@ public class PlayerControl : MonoBehaviour
     public bool player1 = true;
     public bool lookingLeft = false;
     private bool isAttacking = false;
-    private static float defaultWalkSpeed = 7f;
-    private float walkSpeed = defaultWalkSpeed;
+    private float defaultWalkSpeed = 7f;
+    private float walkSpeed;
     private float sprintSpeed = 18f;
 
     // Use this for initialization
     void Start()
     {
+        walkSpeed = defaultWalkSpeed;
         player = this.gameObject;
-        playerLeftArm = GameObject.Find("LeftArmShoulderPivot");
-        playerRightArm = GameObject.Find("RightArmShoulderPivot");
+        // playerLeftArm = GameObject.Find("LeftArmShoulderPivot");
+        // playerRightArm = GameObject.Find("RightArmShoulderPivot");
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
         fist = new Fist();
@@ -63,10 +64,21 @@ public class PlayerControl : MonoBehaviour
         {
             MoveDirection();
             LookRotation();
+            BodyRotation();
             SpriteManager();
             SetSprintSpeed();
             DodgeRoll();
         }
+    }
+
+    void BodyRotation()
+    {
+        //Subtracting the position of the player from the mouse position
+        Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        difference.Normalize();         //Normalizing the vector. Meaning that all the sum of the vector will be equal to 1
+
+        float rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;       //Find the angle in degrees
+        gameObject.transform.rotation = Quaternion.Euler(0f, 0f, rotZ + 90);
     }
 
     void SpriteManager()
@@ -82,8 +94,8 @@ public class PlayerControl : MonoBehaviour
             // Debug.Log("Mouse on the right half of screen");
             this.player.GetComponent<SpriteRenderer>().flipX = false;
             // this is for disabling the left arm and enabling the right arm
-            this.playerLeftArm.SetActive(false);
-            this.playerRightArm.SetActive(true);
+            // this.playerLeftArm.SetActive(false);
+            // this.playerRightArm.SetActive(true);
         }
         else
         {
@@ -93,8 +105,8 @@ public class PlayerControl : MonoBehaviour
             this.player.GetComponent<SpriteRenderer>().flipX = true;
 
             // this is for disabling the right arm and enabling the left arm
-            this.playerLeftArm.SetActive(true);
-            this.playerRightArm.SetActive(false);
+            // this.playerLeftArm.SetActive(true);
+            // this.playerRightArm.SetActive(false);
 
             // this is because guns are upside down if you don't flip this melee shouldn't be effected
             weaponSlotLeft.GetComponent<SpriteRenderer>().flipX = true;
@@ -109,8 +121,8 @@ public class PlayerControl : MonoBehaviour
                 this.player.GetComponent<SpriteRenderer>().sprite = playerBackward;
             }
             // this is for flipping the arm when going top to bottom
-            this.playerLeftArm.GetComponent<SpriteRenderer>().flipX = true;
-            this.playerRightArm.GetComponent<SpriteRenderer>().flipX = true;
+            // this.playerLeftArm.GetComponent<SpriteRenderer>().flipX = true;
+            // this.playerRightArm.GetComponent<SpriteRenderer>().flipX = true;
         }
         else
         {
@@ -121,8 +133,8 @@ public class PlayerControl : MonoBehaviour
                 this.player.GetComponent<SpriteRenderer>().sprite = playerForward;
             }
             // this is for flipping the arm when going top to bottom
-            this.playerLeftArm.GetComponent<SpriteRenderer>().flipX = false;
-            this.playerRightArm.GetComponent<SpriteRenderer>().flipX = false;
+            // this.playerLeftArm.GetComponent<SpriteRenderer>().flipX = false;
+            // this.playerRightArm.GetComponent<SpriteRenderer>().flipX = false;
         }
         // diff x is left and right
         // rotation z is up and down
