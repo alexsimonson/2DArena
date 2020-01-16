@@ -26,7 +26,7 @@ public class PickupSpawner : MonoBehaviour
         //constructor for new items (nameOf, damage, attackSpeed, spriteName)
         basicPistol = new BasicPistol();
         basicKnife = new BasicKnife();
-        advancedKnife = new BasicKnife("Advanced Dagger", 100, .6f, "AdvancedDagger");
+        advancedKnife = new BasicKnife("Advanced Dagger", 100, .6f, "dagger 2");
         shitAxe = new BasicKnife("Shitty Axe", 35, .3f, "ShitAxe");
         advancedPistol = new BasicPistol("Advanced Pistol", 200, .1f, 20, "AdvancedGun");
 

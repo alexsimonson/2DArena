@@ -206,13 +206,18 @@ public class WeaponSystem : MonoBehaviour
         isAttacking = true;
         player.GetComponent<PlayerControl>().hasControl = false;
         player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-
         // all for left
         Vector2 startStabLocationLeft = weaponSlotLocationLeft;
         Vector2 startStabLocationRight = weaponSlotLocationRight;
 
-        Vector2 stabLocationLeft = new Vector2(startStabLocationLeft.x, startStabLocationLeft.y + -200);
-        Vector2 stabLocationRight = new Vector2(startStabLocationRight.x, startStabLocationRight.y + -200);
+        Vector2 stabLocationLeft = new Vector2(player.transform.position.x, player.transform.position.y + -200);
+        Vector2 stabLocationRight = new Vector2(-player.transform.position.x, player.transform.position.y + -200);
+        // Debug.Log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        // Debug.Log("Player Position! " + player.transform.position);
+        // Debug.Log("Left Stab Starts at " + startStabLocationLeft);
+        // Debug.Log("Left Stab ends at " + stabLocationLeft);
+        // Debug.Log("Right Stab Starts at " + startStabLocationRight);
+        // Debug.Log("Right Stab ends at " + stabLocationRight);
 
         weaponSlotLeft.GetComponent<BoxCollider2D>().enabled = true;
         weaponSlotRight.GetComponent<BoxCollider2D>().enabled = true;
