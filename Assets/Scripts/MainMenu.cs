@@ -4,17 +4,29 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour {
+public class MainMenu : MonoBehaviour
+{
 
-	public void StartGame(){
-		SceneManager.LoadScene(1);
-	}
+    public void StartGame()
+    {
+        SceneManager.LoadScene(2);
+    }
 
-	public void Options(){
-		Debug.Log("NO OPTIONS MATE");
-	}
+    public void Options()
+    {
+        if (Manager.leftHanded)
+        {
+            Manager.leftHanded = false;
+        }
+        else
+        {
+            Manager.leftHanded = true;
+        }
+        Debug.Log("leftHanded set to " + Manager.leftHanded);
+    }
 
-	public void ExitGame(){
-		Application.Quit();
-	}
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }

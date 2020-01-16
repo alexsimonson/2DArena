@@ -27,7 +27,7 @@ public class Weapon
         ammoLoaded = magazineSize;
         ammoPool = 30;
         addAmmo = 30;
-        icon = Resources.Load<Sprite>("Sprites/DefaultSpr");
+        // icon = Resources.Load<Sprite>("Sprites/DefaultSpr");
         bullet = Resources.Load<Sprite>("Sprites/BulletSpr");
     }
 

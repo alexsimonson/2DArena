@@ -14,6 +14,11 @@ public class HitDetection : MonoBehaviour
         self = gameObject;
     }
 
+    void Update()
+    {
+
+    }
+
     void OnTriggerEnter2D(Collider2D col)
     {
 

@@ -35,8 +35,8 @@ public class WeaponSystem : MonoBehaviour
         inHands = fist;
         weaponSlots = new Weapon[4];
 
-        weaponSlotLeft = GameObject.Find("WeaponSlotLeft");
-        weaponSlotRight = GameObject.Find("WeaponSlotRight");
+        // weaponSlotLeft = GameObject.Find("WeaponSlotLeft");
+        // weaponSlotRight = GameObject.Find("WeaponSlotRight");
 
         weaponSlotLeft.GetComponent<SpriteRenderer>().sortingLayerName = "Weapons";
         weaponSlotRight.GetComponent<SpriteRenderer>().sortingLayerName = "Weapons";
@@ -204,31 +204,37 @@ public class WeaponSystem : MonoBehaviour
     private IEnumerator Stab()
     {
         isAttacking = true;
-        player.GetComponent<PlayerControl>().hasControl = false;
         player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        // all for left
-        Vector2 startStabLocationLeft = weaponSlotLocationLeft;
-        Vector2 startStabLocationRight = weaponSlotLocationRight;
+        if (Manager.leftHanded)
+        {
 
-        Vector2 stabLocationLeft = new Vector2(player.transform.position.x, player.transform.position.y + -200);
-        Vector2 stabLocationRight = new Vector2(-player.transform.position.x, player.transform.position.y + -200);
-        // Debug.Log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        // Debug.Log("Player Position! " + player.transform.position);
-        // Debug.Log("Left Stab Starts at " + startStabLocationLeft);
-        // Debug.Log("Left Stab ends at " + stabLocationLeft);
-        // Debug.Log("Right Stab Starts at " + startStabLocationRight);
-        // Debug.Log("Right Stab ends at " + stabLocationRight);
+            Vector2 startStabLocationLeft = weaponSlotLocationLeft;
+            Vector2 stabLocationLeft = new Vector2(player.transform.position.x, player.transform.position.y + -200);
+            weaponSlotLeft.GetComponent<BoxCollider2D>().enabled = true;
+            weaponSlotLeft.transform.localPosition = Vector2.Lerp(startStabLocationLeft, stabLocationLeft, Time.deltaTime);
+        }
+        else
+        {
 
-        weaponSlotLeft.GetComponent<BoxCollider2D>().enabled = true;
-        weaponSlotRight.GetComponent<BoxCollider2D>().enabled = true;
-        weaponSlotLeft.transform.localPosition = Vector2.Lerp(startStabLocationLeft, stabLocationLeft, Time.deltaTime);
-        weaponSlotRight.transform.localPosition = Vector2.Lerp(startStabLocationRight, stabLocationRight, Time.deltaTime);
+            Vector2 startStabLocationRight = weaponSlotLocationRight;
+            Vector2 stabLocationRight = new Vector2(-player.transform.position.x, player.transform.position.y + -200);
+            weaponSlotRight.GetComponent<BoxCollider2D>().enabled = true;
+            weaponSlotRight.transform.localPosition = Vector2.Lerp(startStabLocationRight, stabLocationRight, Time.deltaTime);
+        }
+
         yield return new WaitForSeconds(inHands.attackSpeed);
-        weaponSlotLeft.GetComponent<BoxCollider2D>().enabled = false;
-        weaponSlotRight.GetComponent<BoxCollider2D>().enabled = false;
-        weaponSlotLeft.transform.localPosition = weaponSlotLocationLeft;
-        weaponSlotRight.transform.localPosition = weaponSlotLocationRight;
-        player.GetComponent<PlayerControl>().hasControl = true;
+        if (Manager.leftHanded)
+        {
+
+            weaponSlotLeft.GetComponent<BoxCollider2D>().enabled = false;
+            weaponSlotLeft.transform.localPosition = weaponSlotLocationLeft;
+        }
+        else
+        {
+
+            weaponSlotRight.GetComponent<BoxCollider2D>().enabled = false;
+            weaponSlotRight.transform.localPosition = weaponSlotLocationRight;
+        }
         isAttacking = false;
     }
 
@@ -270,12 +276,17 @@ public class WeaponSystem : MonoBehaviour
             Vector2 rightGunLocation = player.GetComponent<PlayerControl>().weaponSlotLocationRight;
 
             Vector2 mouseLocation = Input.mousePosition;
-            GameObject leftNewbullet = Instantiate(bullet, leftGunLocation, Quaternion.identity);
-            GameObject rightNewbullet = Instantiate(bullet, rightGunLocation, Quaternion.identity);
-            leftNewbullet.GetComponent<Rigidbody2D>().AddForce(-transform.up * 1000);
-            leftNewbullet.GetComponent<bulletMovement>().bulletDamage = inHands.damage;
-            rightNewbullet.GetComponent<Rigidbody2D>().AddForce(-transform.up * 1000);
-            rightNewbullet.GetComponent<bulletMovement>().bulletDamage = inHands.damage;
+            GameObject newBullet;
+            if (Manager.leftHanded)
+            {
+                newBullet = Instantiate(bullet, leftGunLocation, Quaternion.identity);
+            }
+            else
+            {
+                newBullet = Instantiate(bullet, rightGunLocation, Quaternion.identity);
+            }
+            newBullet.GetComponent<Rigidbody2D>().AddForce(-transform.up * 1000);
+            newBullet.GetComponent<bulletMovement>().bulletDamage = inHands.damage;
             yield return new WaitForSeconds(inHands.attackSpeed);
             isAttacking = false;
         }

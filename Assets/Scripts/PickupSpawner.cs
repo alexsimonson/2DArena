@@ -9,8 +9,8 @@ public class PickupSpawner : MonoBehaviour
     public BasicPistol basicPistol;
     public BasicKnife basicKnife;
     public BasicKnife advancedKnife;
-    public BasicKnife shitAxe;
     public BasicPistol advancedPistol;
+    public BasicKnife shitAxe;
 
     [SerializeField] public bool spawnKnife;
     [SerializeField] public bool spawnGun;

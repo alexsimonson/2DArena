@@ -9,7 +9,7 @@ public class PlayerControl : MonoBehaviour
     public GameObject player;
     // public GameObject playerLeftArm;
     // public GameObject playerRightArm;
-    public Fist fist;
+    // public Fist fist;
     public Sprite playerForward;
     public Sprite playerBackward;
     public Weapon inHands;
@@ -29,6 +29,7 @@ public class PlayerControl : MonoBehaviour
     public bool lookingLeft = false;
     private bool isAttacking = false;
     private float defaultWalkSpeed = 7f;
+    private float backwardWalkSpeed = 4f;
     private float walkSpeed;
     private float sprintSpeed = 18f;
 
@@ -37,24 +38,20 @@ public class PlayerControl : MonoBehaviour
     {
         walkSpeed = defaultWalkSpeed;
         player = this.gameObject;
-        // playerLeftArm = GameObject.Find("LeftArmShoulderPivot");
-        // playerRightArm = GameObject.Find("RightArmShoulderPivot");
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
-        fist = new Fist();
-        inHands = fist;
         diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 
-        //left hand
         weaponSlotLeft = GameObject.Find("WeaponSlotLeft");
         weaponSlotRight = GameObject.Find("WeaponSlotRight");
         UpdateWeaponSlotLocation();
-
+        inHands = new Fist();
         weaponSlotLeft.GetComponent<SpriteRenderer>().sprite = inHands.icon;
         weaponSlotLeft.GetComponent<SpriteRenderer>().sortingLayerName = "Weapons";
 
         weaponSlotRight.GetComponent<SpriteRenderer>().sprite = inHands.icon;
         weaponSlotRight.GetComponent<SpriteRenderer>().sortingLayerName = "Weapons";
+        SwitchHand();
     }
 
     // Update is called once per frame
@@ -65,9 +62,54 @@ public class PlayerControl : MonoBehaviour
             MoveDirection();
             LookRotation();
             BodyRotation();
-            // SpriteManager();
+            SpeedManager();
             SetSprintSpeed();
             DodgeRoll();
+        }
+    }
+
+    void SwitchHand()
+    {
+        weaponSlotLeft.SetActive(Manager.leftHanded);
+        weaponSlotRight.SetActive(!Manager.leftHanded);
+    }
+
+    // you should inherently move slower when your back is turned
+    void SpeedManager()
+    {
+        // Debug.Log(Input.GetAxisRaw("Horizontal"));
+        // Debug.Log(this.diff);
+        if (Input.GetAxisRaw("Horizontal") > 0 && this.diff.x < 0 && this.diff.y > 0)
+        {
+            walkSpeed = backwardWalkSpeed;
+        }
+        else if (Input.GetAxisRaw("Horizontal") > 0 && this.diff.x < 0 && this.diff.y < 0)
+        {
+            walkSpeed = backwardWalkSpeed;
+        }
+        else if (Input.GetAxisRaw("Horizontal") < 0 && this.diff.x > 0 && this.diff.y < 0)
+        {
+            walkSpeed = backwardWalkSpeed;
+        }
+        else if (Input.GetAxisRaw("Vertical") > 0 && this.diff.x < 0 && this.diff.y > 0)
+        {
+            walkSpeed = defaultWalkSpeed;
+        }
+        else if (Input.GetAxisRaw("Vertical") < 0 && this.diff.x > 0 && this.diff.y < 0)
+        {
+            walkSpeed = defaultWalkSpeed;
+        }
+        else if (Input.GetAxisRaw("Horizontal") > 0 && this.diff.x < 0 || Input.GetAxisRaw("Horizontal") < 0 && this.diff.x > 0)
+        {
+            walkSpeed = backwardWalkSpeed;
+        }
+        else if (Input.GetAxisRaw("Vertical") > 0 && this.diff.y < 0 || Input.GetAxisRaw("Vertical") < 0 && this.diff.y > 0)
+        {
+            walkSpeed = backwardWalkSpeed;
+        }
+        else
+        {
+            walkSpeed = defaultWalkSpeed;
         }
     }
 
@@ -81,69 +123,16 @@ public class PlayerControl : MonoBehaviour
         gameObject.transform.rotation = Quaternion.Euler(0f, 0f, rotZ + 90);
     }
 
-    void SpriteManager()
-    {
-        diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        diff.Normalize();
-        float rotationZ = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-        // Debug.Log("DIFF X: " + diff.x);
-        if (diff.x > 0)
-        {
-            // this would be on the right side of the screen
-            this.lookingLeft = false;
-            // Debug.Log("Mouse on the right half of screen");
-            this.player.GetComponent<SpriteRenderer>().flipX = false;
-            // this is for disabling the left arm and enabling the right arm
-            // this.playerLeftArm.SetActive(false);
-            // this.playerRightArm.SetActive(true);
-        }
-        else
-        {
-            // this would be on the left side of the screen
-            this.lookingLeft = true;
-            // Debug.Log("Mouse on the left half of screen");
-            this.player.GetComponent<SpriteRenderer>().flipX = true;
-
-            // this is for disabling the right arm and enabling the left arm
-            // this.playerLeftArm.SetActive(true);
-            // this.playerRightArm.SetActive(false);
-
-            // this is because guns are upside down if you don't flip this melee shouldn't be effected
-            weaponSlotLeft.GetComponent<SpriteRenderer>().flipX = true;
-        }
-
-        if (rotationZ > 0)
-        {
-            // this would be on top of the screen
-            // Debug.Log("Mouse on the top of the screen");
-            if (this.player.GetComponent<SpriteRenderer>().sprite.name == "DemonHunter-Default")
-            {
-                this.player.GetComponent<SpriteRenderer>().sprite = playerBackward;
-            }
-            // this is for flipping the arm when going top to bottom
-            // this.playerLeftArm.GetComponent<SpriteRenderer>().flipX = true;
-            // this.playerRightArm.GetComponent<SpriteRenderer>().flipX = true;
-        }
-        else
-        {
-            // this would be on the bottom of the screen
-            // Debug.Log("Mouse on the bottom of the screen");
-            if (this.player.GetComponent<SpriteRenderer>().sprite.name == "DemonHunter-Default Up")
-            {
-                this.player.GetComponent<SpriteRenderer>().sprite = playerForward;
-            }
-            // this is for flipping the arm when going top to bottom
-            // this.playerLeftArm.GetComponent<SpriteRenderer>().flipX = false;
-            // this.playerRightArm.GetComponent<SpriteRenderer>().flipX = false;
-        }
-        // diff x is left and right
-        // rotation z is up and down
-    }
-
     void MoveDirection()
     {
+        diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         if (player1)
         {
+            // Debug.Log("Mouse: " + Input.mousePosition);
+            // Debug.Log("Horizontal Axis: " + Input.GetAxisRaw("Horizontal"));
+            // Debug.Log("Vertical Axis: " + Input.GetAxisRaw("Vertical"));
+            // Debug.Log(this.diff);
+
             Vector2 targetVelocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             rb.velocity = targetVelocity * walkSpeed;
         }
