@@ -48,11 +48,9 @@ public class GameTypes : MonoBehaviour
         switch (Manager.gameMode)
         {
             case 1:
-                // Debug.Log("Here we go 1");
                 UpdateWaveRespawn();
                 break;
             default:
-                // Debug.Log("Default");
                 break;
         }
     }
