@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5763885946123808602}
   - component: {fileID: 5763885946123808603}
   - component: {fileID: -626895781310471815}
+  - component: {fileID: -3116190667140310456}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -52,8 +53,12 @@ MonoBehaviour:
   deathScreen: {fileID: 1702490998370216, guid: ae6917fb257572b4ab5c3106bca28315,
     type: 3}
   winScreen: {fileID: 1051748382811844, guid: 25d85f39fd48bb048b0be3b100b7927c, type: 3}
+  authScreen: {fileID: 6065095985119674036, guid: 2bfbc98379014a74b8113b09512b9a4a,
+    type: 3}
   mainCam: {fileID: 0}
   player: {fileID: 0}
+  deathRef: {fileID: 0}
+  authRef: {fileID: 0}
   player2joined: 0
 --- !u!114 &-626895781310471815
 MonoBehaviour:
@@ -70,3 +75,29 @@ MonoBehaviour:
   totalNumberOfEnemiesThisRound: 0
   numberOfSpawnedEnemiesThisRound: 0
   roundKillCount: 0
+--- !u!114 &-3116190667140310456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5763885946123808600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcba3f376424c444583318c66a781cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AuthCanvas: {fileID: 6065095985119674036, guid: 2bfbc98379014a74b8113b09512b9a4a,
+    type: 3}
+  TextLogin: {fileID: 0}
+  TextRegister: {fileID: 0}
+  InputAuthUsername: {fileID: 0}
+  TextAuthUsername: {fileID: 0}
+  InputAuthPassword: {fileID: 0}
+  TextAuthPassword: {fileID: 0}
+  InputConfirmPassword: {fileID: 0}
+  TextConfirmPassword: {fileID: 0}
+  player: {fileID: 0}
+  inGameSignIn: 0
+  isLoggedIn: 0
+  loggedInUsername: 
