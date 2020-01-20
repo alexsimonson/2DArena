@@ -22,7 +22,7 @@ namespace Pathfinding
 
         void Start()
         {
-            // target = GameObject.Find("PlayerSprite").GetComponent<Transform>();
+            target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         }
 
         void OnEnable()

@@ -16,7 +16,8 @@ GameObject:
   - component: {fileID: 114500404277528544}
   - component: {fileID: 1265596257228936342}
   - component: {fileID: 626976353452818557}
-  - component: {fileID: 1939683011062822913}
+  - component: {fileID: -6867518225359385257}
+  - component: {fileID: -3249267120571732113}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -159,7 +160,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 185dd4a5507b87e4da53bf983acf2a46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameManager: {fileID: 0}
   maxHealth: 100
   currentHealth: 100
 --- !u!114 &1265596257228936342
@@ -226,7 +226,29 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
---- !u!114 &1939683011062822913
+--- !u!114 &-6867518225359385257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220385511592172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6a34d769a1e4ac7b0b30e433aa443c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  smoothType: 0
+  subdivisions: 2
+  iterations: 2
+  strength: 0.5
+  uniformLength: 1
+  maxSegmentLength: 2
+  bezierTangentLength: 0.4
+  offset: 0.2
+  factor: 0.1
+--- !u!114 &-3249267120571732113
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
