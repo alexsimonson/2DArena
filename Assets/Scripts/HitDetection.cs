@@ -14,31 +14,28 @@ public class HitDetection : MonoBehaviour
         self = gameObject;
     }
 
-    void Update()
-    {
-
-    }
-
     void OnTriggerEnter2D(Collider2D col)
     {
-
-        if (self.tag == "PlayerWeapon")
+        if (self != null)
         {
-            if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "EnemySpawner")
+            if (self.tag == "PlayerWeapon")
             {
-                col.gameObject.GetComponent<Health>().TakeDamage(self.GetComponentInParent<WeaponSystem>().inHands.damage);
+                if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "EnemySpawner")
+                {
+                    col.gameObject.GetComponent<Health>().TakeDamage(self.GetComponentInParent<WeaponSystem>().inHands.damage);
+                }
+                if (col.gameObject.tag == "EnemyWeapon")
+                {
+                    // could maybe knock weapons out of enemies hands
+                    Debug.Log("Player hit enemy weapon");
+                }
             }
-            if (col.gameObject.tag == "EnemyWeapon")
+            else if (self.tag == "EnemyWeapon")
             {
-                // could maybe knock weapons out of enemies hands
-                Debug.Log("Player hit enemy weapon");
-            }
-        }
-        else if (self.tag == "EnemyWeapon")
-        {
-            if (col.gameObject.tag == "PlayerHitbox")
-            {
-                col.gameObject.GetComponentInParent<Health>().TakeDamage(self.GetComponentInParent<AiControl>().inHands.damage, true);
+                if (col.gameObject.tag == "PlayerHitbox")
+                {
+                    col.gameObject.GetComponentInParent<Health>().TakeDamage(self.GetComponentInParent<AiControl>().inHands.damage, true);
+                }
             }
         }
     }

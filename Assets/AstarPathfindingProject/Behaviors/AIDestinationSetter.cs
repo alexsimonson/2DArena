@@ -22,7 +22,7 @@ namespace Pathfinding
 
         void Start()
         {
-            target = GameObject.Find("PlayerSprite").GetComponent<Transform>();
+            // target = GameObject.Find("PlayerSprite").GetComponent<Transform>();
         }
 
         void OnEnable()
@@ -44,6 +44,11 @@ namespace Pathfinding
         void Update()
         {
             if (target != null && ai != null) ai.destination = target.position;
+        }
+
+        void SetEntryTargetBasedOnGameMode(int gameMode)
+        {
+            // GameObject.Find("PlayerSprite").GetComponent<Transform>()
         }
     }
 }

@@ -50,8 +50,8 @@ public class WeaponSystem : MonoBehaviour
 
     void UpdateUi()
     {
-        player.GetComponent<PlayerUI>().ToggleAmmoUI(this.inHands.type);
-        player.GetComponent<PlayerUI>().ReloadAmmoHud(this.inHands.ammoPool, this.inHands.ammoLoaded);
+        Manager.playerUI.ToggleAmmoUI(this.inHands.type);
+        Manager.playerUI.ReloadAmmoHud(this.inHands.ammoPool, this.inHands.ammoLoaded);
     }
 
     // Update is called once per frame
@@ -64,14 +64,15 @@ public class WeaponSystem : MonoBehaviour
 
     void ToggleAmmoUI()
     {
+
         if (this.inHands.type == 0)
         {
-            player.GetComponent<PlayerUI>().hudAmmo.SetActive(false);
+            Manager.playerUI.ToggleAmmoUI(this.inHands.type);
         }
         else
         {
-            player.GetComponent<PlayerUI>().hudAmmo.SetActive(true);
-            player.GetComponent<PlayerUI>().ReloadAmmoHud(this.inHands.ammoPool, this.inHands.ammoLoaded);
+            Manager.playerUI.ToggleAmmoUI(this.inHands.type);
+            Manager.playerUI.ReloadAmmoHud(this.inHands.ammoPool, this.inHands.ammoLoaded);
         }
     }
 
@@ -108,7 +109,7 @@ public class WeaponSystem : MonoBehaviour
             {
                 // just add ammo
                 weapon.ammoPool += spawnedWeapon.addAmmo;
-                player.GetComponent<PlayerUI>().SetAmmoReserve(weapon.ammoPool);
+                Manager.playerUI.SetAmmoReserve(weapon.ammoPool);
                 return;
             }
         }
@@ -128,8 +129,8 @@ public class WeaponSystem : MonoBehaviour
 
         this.weaponSlots[this.currentWeaponSlot] = spawnedWeapon;
         this.inHands = spawnedWeapon;
-        player.GetComponent<PlayerUI>().ReloadAmmoHud(this.inHands.ammoPool, this.inHands.ammoLoaded);
-        player.GetComponent<InventoryUI>().UpdateImage(this.currentWeaponSlot, this.inHands.icon);
+        Manager.playerUI.ReloadAmmoHud(this.inHands.ammoPool, this.inHands.ammoLoaded);
+        Manager.inventoryUI.UpdateImage(this.currentWeaponSlot, this.inHands.icon);
         SetWeaponSlotSprites();
     }
 
@@ -256,7 +257,7 @@ public class WeaponSystem : MonoBehaviour
                     this.inHands.ammoLoaded += this.inHands.ammoPool;
                     this.inHands.ammoPool = 0;
                 }
-                player.GetComponent<PlayerUI>().ReloadAmmoHud(this.inHands.ammoPool, this.inHands.ammoLoaded);
+                Manager.playerUI.ReloadAmmoHud(this.inHands.ammoPool, this.inHands.ammoLoaded);
             }
         }
         else
@@ -270,7 +271,7 @@ public class WeaponSystem : MonoBehaviour
         if (player1 && this.inHands.ammoLoaded > 0)
         {
             isAttacking = true;
-            player.GetComponent<PlayerUI>().UpdateAmmoHud();
+            Manager.playerUI.UpdateAmmoHud();
             this.inHands.ammoLoaded--;
             Vector2 leftGunLocation = player.GetComponent<PlayerControl>().weaponSlotLocationLeft;
             Vector2 rightGunLocation = player.GetComponent<PlayerControl>().weaponSlotLocationRight;

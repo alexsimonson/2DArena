@@ -5,38 +5,76 @@ using UnityEngine;
 public class GameTypes : MonoBehaviour
 {
 
-    private GameObject[] enemySpawners;
+    private static GameObject[] enemySpawners;
 
-    private int maxNumberOfSpawnedEnemies = 28;
-    private int baseNumberOfEnemies = 5;    // the number of enemies to start with
+    private static int maxNumberOfSpawnedEnemies = 28;
+    private static int baseNumberOfEnemies = 5;    // the number of enemies to start with
 
-    public int totalNumberOfEnemiesThisRound;
-    public int numberOfSpawnedEnemiesThisRound;
-    public int roundKillCount;
+    public static int totalNumberOfEnemiesThisRound;
+    public static int numberOfSpawnedEnemiesThisRound;
+    public static int roundKillCount;
 
-    private int numberOfSpawnedEnemiesCurrently;
-    private int roundNumber = 0;
+    private static int numberOfSpawnedEnemiesCurrently;
+    private static int roundNumber = 0;
 
-    // Start is called before the first frame update
-    void Start()
+    public static bool gameStarted;
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (gameStarted)
+        {
+            UpdateGameMode();
+        }
+    }
+
+    public static void StartGameMode()
+    {
+        Manager.player.SetActive(true);
+        Manager.hudCanvas.SetActive(true);
+        switch (Manager.gameMode)
+        {
+            case 1:
+                StartWaveRespawn();
+                break;
+            default:
+                break;
+        }
+        GameTypes.gameStarted = true;
+    }
+
+    public void UpdateGameMode()
+    {
+        switch (Manager.gameMode)
+        {
+            case 1:
+                // Debug.Log("Here we go 1");
+                UpdateWaveRespawn();
+                break;
+            default:
+                // Debug.Log("Default");
+                break;
+        }
+    }
+
+    static void StartWaveRespawn()
     {
         ObtainAllSpawners();
         StartNextRound();
     }
 
-    // Update is called once per frame
-    void Update()
+    static void UpdateWaveRespawn()
     {
         SpawnReinforcements();
         IsRoundOver();
     }
 
-    void ObtainAllSpawners()
+    static void ObtainAllSpawners()
     {
         enemySpawners = GameObject.FindGameObjectsWithTag("EnemySpawner");
     }
 
-    void SpawnReinforcements()
+    static void SpawnReinforcements()
     {
         if (numberOfSpawnedEnemiesCurrently < maxNumberOfSpawnedEnemies)
         {
@@ -51,12 +89,12 @@ public class GameTypes : MonoBehaviour
         }
     }
 
-    int WaveRespawnAlgorithm()
+    static int WaveRespawnAlgorithm()
     {
         return baseNumberOfEnemies + (roundNumber * roundNumber) + roundNumber;
     }
 
-    void IsRoundOver()
+    static void IsRoundOver()
     {
         if (roundKillCount == totalNumberOfEnemiesThisRound)
         {
@@ -65,7 +103,7 @@ public class GameTypes : MonoBehaviour
         }
     }
 
-    void StartNextRound()
+    static void StartNextRound()
     {
         roundNumber++;
         Debug.Log("Beginning round " + roundNumber);
