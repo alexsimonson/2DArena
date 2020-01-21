@@ -39,9 +39,20 @@ public class Authentication : MonoBehaviour
         TextConfirmPassword = Manager.authCanvas.transform.FindChild("AuthenticationSystem/TextConfirmPassword").gameObject;
     }
 
-    void Update()
+    public void GoBack()
     {
-
+        if (Manager.authentication.inGameSignIn)
+        {
+            // this should go show the death canvas and hide the auth canvas
+            Manager.authentication.inGameSignIn = false;
+            Manager.authCanvas.SetActive(false);
+            Manager.deathCanvas.SetActive(true);
+        }
+        else
+        {
+            Manager.authCanvas.SetActive(false);
+            Manager.mainMenuCanvas.SetActive(true);
+        }
     }
 
     public void Login()
