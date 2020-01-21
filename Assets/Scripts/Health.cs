@@ -7,7 +7,7 @@ public class Health : MonoBehaviour
     // initializing local state variables
     public int maxHealth = 100;
     public int currentHealth = 100;
-    private bool isDead = false;
+    public bool isDead = false;
 
     public void TakeDamage(int damage, bool player = false)
     {
@@ -42,6 +42,8 @@ public class Health : MonoBehaviour
         if (gameObject.tag == "Player" && !this.isDead)
         {
             this.isDead = true;
+            PlayerControl.hasControl = false;
+            GameTypes.gameStarted = false;
             gameObject.GetComponent<PlayerControl>().Dead();
             if (Manager.loggedIn)
             {

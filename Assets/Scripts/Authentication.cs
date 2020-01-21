@@ -99,10 +99,10 @@ public class Authentication : MonoBehaviour
         Manager.mainMenuCanvas.transform.FindChild("LoggedInAs").gameObject.GetComponent<TMP_Text>().text = LoggedInAsText + Manager.loggedInUsername;
 
         // find a better way to loadscene
-        if (inGameSignIn)
+        if (Manager.authentication.inGameSignIn)
         {
             // submit hiscore, return to DeathCanvas somehow
-            SubmitScore();
+            Manager.CollectStats();
             Manager.deathCanvas.SetActive(true);
             Manager.authCanvas.SetActive(false);
         }

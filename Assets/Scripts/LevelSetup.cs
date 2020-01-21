@@ -4,18 +4,11 @@ using UnityEngine;
 
 public class LevelSetup : MonoBehaviour
 {
-
+    public static GameObject playerSpawn;
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Starting");
-        // Manager.gameMode = 1;
+        playerSpawn = GameObject.FindGameObjectWithTag("PlayerSpawn");
         GameTypes.StartGameMode();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

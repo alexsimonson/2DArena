@@ -28,10 +28,17 @@ public class GameTypes : MonoBehaviour
         }
     }
 
-    public static void StartGameMode()
+    public static void StartGameMode(bool shouldStart = true)
     {
+        Manager.musicAudioSource.Stop();
         Manager.player.SetActive(true);
         Manager.hudCanvas.SetActive(true);
+        var enemiesStillAlive = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemiesStillAlive)
+        {
+            Destroy(enemy);
+        }
+        Manager.ResetGame();
         switch (Manager.gameMode)
         {
             case 1:
@@ -40,7 +47,7 @@ public class GameTypes : MonoBehaviour
             default:
                 break;
         }
-        GameTypes.gameStarted = true;
+        GameTypes.gameStarted = shouldStart;
     }
 
     public void UpdateGameMode()

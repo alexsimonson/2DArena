@@ -7,10 +7,11 @@ using UnityEngine.SceneManagement;
 public class DeathMenu : MonoBehaviour
 {
 
-    public void StartGame()
+    public void RetryGame()
     {
         Manager.deathCanvas.SetActive(false);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        GameTypes.StartGameMode();
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void ExitGame()
@@ -21,12 +22,7 @@ public class DeathMenu : MonoBehaviour
     public void SubmitScore()
     {
         // this requires a login
-        if (Manager.loggedIn)
-        {
-            // these stats will be collected by default
-            // Manager.CollectStats();
-        }
-        else
+        if (!Manager.loggedIn)
         {
             Manager.authentication.inGameSignIn = true;
             Manager.authCanvas.SetActive(true);

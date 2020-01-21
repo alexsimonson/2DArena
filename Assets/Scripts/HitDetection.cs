@@ -27,7 +27,6 @@ public class HitDetection : MonoBehaviour
                 if (col.gameObject.tag == "EnemyWeapon")
                 {
                     // could maybe knock weapons out of enemies hands
-                    Debug.Log("Player hit enemy weapon");
                 }
             }
             else if (self.tag == "EnemyWeapon")

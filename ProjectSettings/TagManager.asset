@@ -15,6 +15,7 @@ TagManager:
   - PlayerHitbox
   - InventoryUI
   - Auth
+  - PlayerSpawn
   layers:
   - Default
   - TransparentFX

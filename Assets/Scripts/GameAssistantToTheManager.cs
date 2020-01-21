@@ -38,7 +38,6 @@ public class GameAssistantToTheManager : MonoBehaviour
         mainCam = GameObject.FindGameObjectWithTag("MainCamera");
         Debug.Log("Game starts with " + spawnersLeft + " spawners.");
         player = GameObject.FindGameObjectWithTag("Player");
-        player.GetComponent<WeaponSystem>().hasControl = true;
     }
 
     //based on tag, add or remove to the count tracked by scoreboard
@@ -107,7 +106,6 @@ public class GameAssistantToTheManager : MonoBehaviour
             Debug.Log("THE GAME HAS BEEN WON");
             //call function on player to display UI
             //remove control from player
-            player.GetComponent<WeaponSystem>().hasControl = false;
             Instantiate(winScreen, mainCam.transform.position, Quaternion.identity);    //this pops ui but isn't usable
         }
     }

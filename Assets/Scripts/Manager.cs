@@ -25,6 +25,10 @@ public class Manager : MonoBehaviour
     public static InventoryUI inventoryUI;
     public static MainMenu mainMenu;
     public static Authentication authentication;
+    public static Health playerHealth;
+    public static PlayerControl playerControl;
+    public static WeaponSystem weaponSystem;
+    public static AudioSource musicAudioSource;
 
     public static int shotsFired;
     public static int shotsHit;
@@ -50,16 +54,21 @@ public class Manager : MonoBehaviour
         DontDestroyOnLoad(deathCanvas);
         DontDestroyOnLoad(authCanvas);
         DontDestroyOnLoad(mainMenuCanvas);
-        player.SetActive(false);
-        hudCanvas.SetActive(false);
-        deathCanvas.SetActive(false);
-        authCanvas.SetActive(false);
+        weaponSystem = player.GetComponent<WeaponSystem>();
+        playerHealth = player.GetComponent<Health>();
         playerUI = gameObject.GetComponent<PlayerUI>();
         healthUI = gameObject.GetComponent<HealthUI>();
         inventoryUI = gameObject.GetComponent<InventoryUI>();
         authentication = gameObject.GetComponent<Authentication>();
         mainMenu = gameObject.GetComponent<MainMenu>();
+        playerControl = player.GetComponent<PlayerControl>();
+        musicAudioSource = gameObject.GetComponent<AudioSource>();
         authentication.SetAuthRefs();
+        player.SetActive(false);
+        hudCanvas.SetActive(false);
+        deathCanvas.SetActive(false);
+        authCanvas.SetActive(false);
+        musicAudioSource.Play();
         SceneManager.LoadScene(1);
     }
 
@@ -122,5 +131,30 @@ public class Manager : MonoBehaviour
             accuracy = (double)temp * 100 + "%";
         }
         Manager.authentication.SubmitScore(shotsFired, shotsHit, accuracy, enemiesKilled, damageDone, roundsSurvived);
+    }
+
+    public static void ResetStats()
+    {
+        shotsFired = 0;
+        shotsHit = 0;
+        enemiesKilled = 0;
+        damageDone = 0;
+        roundsSurvived = 0;
+    }
+
+    public static void ResetPlayerHealth()
+    {
+        Manager.playerHealth.currentHealth = 100;
+        Manager.healthUI.SetHealthCount(100);
+        Manager.playerHealth.isDead = false;
+    }
+
+    public static void ResetGame()
+    {
+        Manager.ResetStats();
+        Manager.ResetPlayerHealth();
+        Manager.weaponSystem.weaponSlots = new Weapon[4];
+        PlayerControl.hasControl = true;
+        Manager.player.transform.position = LevelSetup.playerSpawn.transform.position;
     }
 }

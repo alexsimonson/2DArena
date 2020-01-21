@@ -5,7 +5,6 @@ using UnityEngine;
 public class WeaponSystem : MonoBehaviour
 {
     // initializing gameobject references
-    public GameObject player;
     public GameObject bullet;
     public GameObject weaponSlotLeft;
     public GameObject weaponSlotRight;
@@ -20,7 +19,7 @@ public class WeaponSystem : MonoBehaviour
     private Vector2 weaponSlotLocationRight;
 
     // initializing local state variables
-    public bool hasControl, player1 = true;
+    public bool player1 = true;
 
     private int currentWeaponSlot = 0;
     private bool isAttacking = false;
@@ -28,12 +27,11 @@ public class WeaponSystem : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        player = GameObject.Find("PlayerSprite");
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
         fist = new Fist();
-        inHands = fist;
-        weaponSlots = new Weapon[4];
+        Manager.weaponSystem.inHands = fist;
+        Manager.weaponSystem.weaponSlots = new Weapon[4];
 
         // weaponSlotLeft = GameObject.Find("WeaponSlotLeft");
         // weaponSlotRight = GameObject.Find("WeaponSlotRight");
@@ -205,12 +203,12 @@ public class WeaponSystem : MonoBehaviour
     private IEnumerator Stab()
     {
         isAttacking = true;
-        player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        Manager.player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         if (Manager.leftHanded)
         {
 
             Vector2 startStabLocationLeft = weaponSlotLocationLeft;
-            Vector2 stabLocationLeft = new Vector2(player.transform.position.x, player.transform.position.y + -200);
+            Vector2 stabLocationLeft = new Vector2(Manager.player.transform.position.x, Manager.player.transform.position.y + -200);
             weaponSlotLeft.GetComponent<BoxCollider2D>().enabled = true;
             weaponSlotLeft.transform.localPosition = Vector2.Lerp(startStabLocationLeft, stabLocationLeft, Time.deltaTime);
         }
@@ -218,7 +216,7 @@ public class WeaponSystem : MonoBehaviour
         {
 
             Vector2 startStabLocationRight = weaponSlotLocationRight;
-            Vector2 stabLocationRight = new Vector2(-player.transform.position.x, player.transform.position.y + -200);
+            Vector2 stabLocationRight = new Vector2(-Manager.player.transform.position.x, Manager.player.transform.position.y + -200);
             weaponSlotRight.GetComponent<BoxCollider2D>().enabled = true;
             weaponSlotRight.transform.localPosition = Vector2.Lerp(startStabLocationRight, stabLocationRight, Time.deltaTime);
         }
@@ -274,8 +272,8 @@ public class WeaponSystem : MonoBehaviour
             Manager.shotsFired++;
             Manager.playerUI.UpdateAmmoHud();
             this.inHands.ammoLoaded--;
-            Vector2 leftGunLocation = player.GetComponent<PlayerControl>().weaponSlotLocationLeft;
-            Vector2 rightGunLocation = player.GetComponent<PlayerControl>().weaponSlotLocationRight;
+            Vector2 leftGunLocation = Manager.playerControl.weaponSlotLocationLeft;
+            Vector2 rightGunLocation = Manager.playerControl.weaponSlotLocationRight;
 
             Vector2 mouseLocation = Input.mousePosition;
             GameObject newBullet;

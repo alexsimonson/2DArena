@@ -34,6 +34,11 @@ public class MainMenu : MonoBehaviour
         Manager.mainMenuCanvas.SetActive(false);
     }
 
+    public void MuteMusic()
+    {
+        Manager.musicAudioSource.mute = !Manager.musicAudioSource.mute;
+    }
+
     public void ExitGame()
     {
         Application.Quit();
