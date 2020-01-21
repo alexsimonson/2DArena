@@ -26,7 +26,7 @@ public class AiControl : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
 
-        knife = new BasicKnife();
+        knife = new BasicKnife("Advanced Dagger", 100, .6f, "dagger 2");
         inHands = knife;
         weaponSlot = transform.GetChild(0).gameObject;
         weaponSlotLocation = weaponSlot.transform.localPosition;

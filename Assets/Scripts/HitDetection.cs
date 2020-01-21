@@ -27,14 +27,13 @@ public class HitDetection : MonoBehaviour
                 if (col.gameObject.tag == "EnemyWeapon")
                 {
                     // could maybe knock weapons out of enemies hands
-                    Debug.Log("Player hit enemy weapon");
                 }
             }
             else if (self.tag == "EnemyWeapon")
             {
-                if (col.gameObject.tag == "PlayerHitbox")
+                if (col.gameObject.tag == "Player")
                 {
-                    col.gameObject.GetComponentInParent<Health>().TakeDamage(self.GetComponentInParent<AiControl>().inHands.damage, true);
+                    col.gameObject.GetComponent<Health>().TakeDamage(self.GetComponentInParent<AiControl>().inHands.damage, true);
                 }
             }
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class MainMenu : MonoBehaviour
     public void StartGame()
     {
         Manager.gameMode = 1;
+        Manager.mainMenuCanvas.SetActive(false);
         SceneManager.LoadScene(2);
     }
 
@@ -24,6 +26,17 @@ public class MainMenu : MonoBehaviour
             Manager.leftHanded = true;
         }
         Debug.Log("leftHanded set to " + Manager.leftHanded);
+    }
+
+    public void Login()
+    {
+        Manager.authCanvas.SetActive(true);
+        Manager.mainMenuCanvas.SetActive(false);
+    }
+
+    public void MuteMusic()
+    {
+        Manager.musicAudioSource.mute = !Manager.musicAudioSource.mute;
     }
 
     public void ExitGame()

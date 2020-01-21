@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class PlayerControl : MonoBehaviour
     public GameObject weaponSlotRight;
 
     // initializing local state variables
-    public bool hasControl = true;
+    public static bool hasControl;
     public bool player1 = true;
     public bool lookingLeft = false;
     private bool isAttacking = false;
@@ -36,6 +37,7 @@ public class PlayerControl : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        hasControl = true;
         walkSpeed = defaultWalkSpeed;
         player = this.gameObject;
         rb = GetComponent<Rigidbody2D>();
@@ -63,7 +65,6 @@ public class PlayerControl : MonoBehaviour
             LookRotation();
             BodyRotation();
             SpeedManager();
-            SetSprintSpeed();
             DodgeRoll();
         }
     }
@@ -77,8 +78,6 @@ public class PlayerControl : MonoBehaviour
     // you should inherently move slower when your back is turned
     void SpeedManager()
     {
-        // Debug.Log(Input.GetAxisRaw("Horizontal"));
-        // Debug.Log(this.diff);
         if (Input.GetAxisRaw("Horizontal") > 0 && this.diff.x < 0 && this.diff.y > 0)
         {
             walkSpeed = backwardWalkSpeed;
@@ -172,18 +171,6 @@ public class PlayerControl : MonoBehaviour
                 float rotationZ = Mathf.Atan2(-stickInput.x, stickInput.y) * Mathf.Rad2Deg;
                 transform.rotation = Quaternion.Euler(0f, 0f, rotationZ - 90);
             }
-        }
-    }
-
-    void SetSprintSpeed()
-    {
-        if (Input.GetButtonDown("Sprint"))
-        {
-            walkSpeed = sprintSpeed;
-        }
-        if (Input.GetButtonUp("Sprint"))
-        {
-            walkSpeed = defaultWalkSpeed;
         }
     }
 
