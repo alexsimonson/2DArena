@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bulletMovement : MonoBehaviour
+public class BulletMovement : MonoBehaviour
 {
     Rigidbody2D rb;
     GameObject[] players;
@@ -21,6 +21,7 @@ public class bulletMovement : MonoBehaviour
         }
         else if (col.tag == "Enemy" || col.tag == "EnemySpawner")
         {
+            Manager.shotsHit++;
             //this needs to apply damage from the weapon
             col.GetComponent<Health>().TakeDamage(bulletDamage);
             Destroy(gameObject);

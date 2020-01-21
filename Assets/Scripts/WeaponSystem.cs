@@ -271,6 +271,7 @@ public class WeaponSystem : MonoBehaviour
         if (player1 && this.inHands.ammoLoaded > 0)
         {
             isAttacking = true;
+            Manager.shotsFired++;
             Manager.playerUI.UpdateAmmoHud();
             this.inHands.ammoLoaded--;
             Vector2 leftGunLocation = player.GetComponent<PlayerControl>().weaponSlotLocationLeft;
@@ -287,7 +288,7 @@ public class WeaponSystem : MonoBehaviour
                 newBullet = Instantiate(bullet, rightGunLocation, Quaternion.identity);
             }
             newBullet.GetComponent<Rigidbody2D>().AddForce(-transform.up * 1000);
-            newBullet.GetComponent<bulletMovement>().bulletDamage = inHands.damage;
+            newBullet.GetComponent<BulletMovement>().bulletDamage = inHands.damage;
             yield return new WaitForSeconds(inHands.attackSpeed);
             isAttacking = false;
         }
@@ -295,8 +296,8 @@ public class WeaponSystem : MonoBehaviour
         // {
         //     Vector2 gunLocation = gunStart;
         //     GameObject Newbullet = Instantiate(bullet, gunLocation, Quaternion.identity);
-        //     Newbullet.GetComponent<bulletMovement>().targetForward = this.gameObject.transform.rotation * Vector2.up;
-        //     Newbullet.GetComponent<bulletMovement>().bulletDamage = inHands.damage;
+        //     Newbullet.GetComponent<BulletMovement>().targetForward = this.gameObject.transform.rotation * Vector2.up;
+        //     Newbullet.GetComponent<BulletMovement>().bulletDamage = inHands.damage;
         //     yield return new WaitForSeconds(inHands.attackSpeed);
         //     isAttacking = false;
         //     // float rotationZ = this.gameObject.transform.rotation.z;

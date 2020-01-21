@@ -14,7 +14,11 @@ public class Health : MonoBehaviour
         currentHealth -= damage;
         if (player)
         {
-            gameObject.GetComponent<HealthUI>().SetHealthCount(currentHealth);
+            Manager.healthUI.SetHealthCount(currentHealth);
+        }
+        else
+        {
+            Manager.damageDone += damage;
         }
         CheckDead();
     }
@@ -31,6 +35,7 @@ public class Health : MonoBehaviour
     {
         if (gameObject.tag == "Enemy")
         {
+            Manager.enemiesKilled++;
             GameTypes.roundKillCount++;
             Destroy(gameObject);
         }
@@ -38,6 +43,10 @@ public class Health : MonoBehaviour
         {
             this.isDead = true;
             gameObject.GetComponent<PlayerControl>().Dead();
+            if (Manager.loggedIn)
+            {
+                Manager.CollectStats();
+            }
             Manager.DeathScreen();
         }
         //take away player input if player dies

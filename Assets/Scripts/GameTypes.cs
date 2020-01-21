@@ -94,6 +94,7 @@ public class GameTypes : MonoBehaviour
 
     static void IsRoundOver()
     {
+        // Debug.Log("Enemies Left: " + (totalNumberOfEnemiesThisRound - roundKillCount));
         if (roundKillCount == totalNumberOfEnemiesThisRound)
         {
             // this means the round has been completed!
@@ -103,6 +104,7 @@ public class GameTypes : MonoBehaviour
 
     static void StartNextRound()
     {
+        Manager.roundsSurvived++;
         roundNumber++;
         Debug.Log("Beginning round " + roundNumber);
         roundKillCount = 0;
