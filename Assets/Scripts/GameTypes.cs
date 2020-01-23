@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameTypes : MonoBehaviour
 {
 
-    private static GameObject[] enemySpawners;
+    public static GameObject[] enemySpawners;
 
     private static int maxNumberOfSpawnedEnemies = 28;
     private static int baseNumberOfEnemies = 5;    // the number of enemies to start with

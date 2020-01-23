@@ -27,8 +27,8 @@ public class WeaponSystem : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
         fist = new Fist();
-        Manager.weaponSystem.inHands = fist;
-        Manager.weaponSystem.weaponSlots = new Weapon[4];
+        inHands = fist;
+        weaponSlots = new Weapon[4];
 
         weaponSlotLeft.GetComponent<SpriteRenderer>().sortingLayerName = "Weapons";
         weaponSlotRight.GetComponent<SpriteRenderer>().sortingLayerName = "Weapons";
@@ -37,13 +37,13 @@ public class WeaponSystem : MonoBehaviour
         weaponSlotLocationRight = weaponSlotRight.transform.localPosition;
 
         SetWeaponSlotSprites();
-        UpdateUi();
+        // UpdateUi();
     }
 
     void UpdateUi()
     {
-        Manager.playerUI.ToggleAmmoUI(this.inHands.type);
-        Manager.playerUI.ReloadAmmoHud(this.inHands.ammoPool, this.inHands.ammoLoaded);
+        Manager.playerUI.ToggleAmmoUI(inHands.type);
+        Manager.playerUI.ReloadAmmoHud(inHands.ammoPool, inHands.ammoLoaded);
     }
 
     // Update is called once per frame
@@ -92,10 +92,10 @@ public class WeaponSystem : MonoBehaviour
         }
     }
 
-    void PickupWeapon(GameObject colObj)
+    public static void PickupWeapon(GameObject colObj)
     {
         Weapon spawnedWeapon = colObj.GetComponent<PickupSpawner>().spawnedWeapon;
-        foreach (Weapon weapon in weaponSlots)
+        foreach (Weapon weapon in Manager.weaponSystem.weaponSlots)
         {
             if (weapon != null && weapon.nameOf == spawnedWeapon.nameOf)
             {
@@ -106,24 +106,24 @@ public class WeaponSystem : MonoBehaviour
             }
         }
 
-        if (this.weaponSlots[1] == null)
+        if (Manager.weaponSystem.weaponSlots[1] == null)
         {
-            this.currentWeaponSlot = 1;
+            Manager.weaponSystem.currentWeaponSlot = 1;
         }
-        else if (this.weaponSlots[2] == null)
+        else if (Manager.weaponSystem.weaponSlots[2] == null)
         {
-            this.currentWeaponSlot = 2;
+            Manager.weaponSystem.currentWeaponSlot = 2;
         }
-        else if (this.weaponSlots[3] == null)
+        else if (Manager.weaponSystem.weaponSlots[3] == null)
         {
-            this.currentWeaponSlot = 3;
+            Manager.weaponSystem.currentWeaponSlot = 3;
         }
 
-        this.weaponSlots[this.currentWeaponSlot] = spawnedWeapon;
-        this.inHands = spawnedWeapon;
-        Manager.playerUI.ReloadAmmoHud(this.inHands.ammoPool, this.inHands.ammoLoaded);
-        Manager.inventoryUI.UpdateImage(this.currentWeaponSlot, this.inHands.icon);
-        SetWeaponSlotSprites();
+        Manager.weaponSystem.weaponSlots[Manager.weaponSystem.currentWeaponSlot] = spawnedWeapon;
+        Manager.weaponSystem.inHands = spawnedWeapon;
+        Manager.playerUI.ReloadAmmoHud(Manager.weaponSystem.inHands.ammoPool, Manager.weaponSystem.inHands.ammoLoaded);
+        Manager.inventoryUI.UpdateImage(Manager.weaponSystem.currentWeaponSlot, Manager.weaponSystem.inHands.icon);
+        Manager.weaponSystem.SetWeaponSlotSprites();
     }
 
     public void SetWeaponSlotSprites()

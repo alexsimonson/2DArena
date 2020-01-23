@@ -29,6 +29,7 @@ public class Manager : MonoBehaviour
     public static PlayerControl playerControl;
     public static WeaponSystem weaponSystem;
     public static AudioSource musicAudioSource;
+    public static GameTypes gameTypes;
 
     public static int shotsFired;
     public static int shotsHit;
@@ -54,6 +55,8 @@ public class Manager : MonoBehaviour
         DontDestroyOnLoad(deathCanvas);
         DontDestroyOnLoad(authCanvas);
         DontDestroyOnLoad(mainMenuCanvas);
+
+        gameTypes = gameObject.GetComponent<GameTypes>();
         weaponSystem = player.GetComponent<WeaponSystem>();
         playerHealth = player.GetComponent<Health>();
         playerUI = gameObject.GetComponent<PlayerUI>();
