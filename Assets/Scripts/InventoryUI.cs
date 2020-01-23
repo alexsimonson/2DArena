@@ -5,23 +5,14 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
-
-    private GameObject hudInventory;
-    private GameObject player;
-
-    private GameObject[] inventorySlots;
+    public GameObject[] inventorySlots;
 
 
     // Use this for initialization
     void Start()
     {
-        player = GameObject.Find("PlayerSprite");
         inventorySlots = GameObject.FindGameObjectsWithTag("InventoryUI");
-        hudInventory = GameObject.Find("hudCanvas/hudInventory");
-        foreach (GameObject slot in inventorySlots)
-        {
-            slot.SetActive(false);
-        }
+        HideInventory();
     }
 
     public void UpdateImage(int slotNum, Sprite icon)
@@ -29,5 +20,13 @@ public class InventoryUI : MonoBehaviour
         //this should update the inventory image
         inventorySlots[slotNum - 1].GetComponent<UnityEngine.UI.Image>().sprite = icon;
         inventorySlots[slotNum - 1].SetActive(true);
+    }
+
+    public void HideInventory()
+    {
+        foreach (GameObject slot in inventorySlots)
+        {
+            slot.SetActive(false);
+        }
     }
 }

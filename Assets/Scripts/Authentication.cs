@@ -207,7 +207,7 @@ public class Authentication : MonoBehaviour
         }
     }
 
-    public void SubmitScore(int shotsFired = 6, int shotsHit = 6, string accuracy = "6%", int enemiesKilled = 6, int damageDone = 6, int roundsSurvived = 6)
+    public void SubmitScore(int shotsFired = 6, int shotsHit = 6, string accuracy = "666", int enemiesKilled = 6, int damageDone = 6, int roundsSurvived = 6)
     {
         // when this is called, the person should already be logged in
         if (Manager.loggedIn)

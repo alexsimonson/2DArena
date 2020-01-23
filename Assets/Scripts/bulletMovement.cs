@@ -9,7 +9,6 @@ public class BulletMovement : MonoBehaviour
     GameObject player;
     public int bulletDamage;
 
-    public bool firedByPlayer1 = true;
     // Use this for initialization
 
     void OnTriggerEnter2D(Collider2D col)

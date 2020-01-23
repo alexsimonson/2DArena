@@ -123,14 +123,14 @@ public class Manager : MonoBehaviour
         // calculate accuracy
         if (shotsFired <= 0)
         {
-            accuracy = "null";
+            Manager.accuracy = "null";
         }
         else
         {
             var temp = (double)shotsHit / shotsFired;
-            accuracy = (double)temp * 100 + "%";
+            Manager.accuracy = ((double)temp * 100).ToString();
         }
-        Manager.authentication.SubmitScore(shotsFired, shotsHit, accuracy, enemiesKilled, damageDone, roundsSurvived);
+        Manager.authentication.SubmitScore(Manager.shotsFired, Manager.shotsHit, Manager.accuracy, Manager.enemiesKilled, Manager.damageDone, Manager.roundsSurvived);
     }
 
     public static void ResetStats()
@@ -153,8 +153,11 @@ public class Manager : MonoBehaviour
     {
         Manager.ResetStats();
         Manager.ResetPlayerHealth();
+        Manager.inventoryUI.HideInventory();
         Manager.weaponSystem.weaponSlots = new Weapon[4];
         PlayerControl.hasControl = true;
         Manager.player.transform.position = LevelSetup.playerSpawn.transform.position;
+        Manager.weaponSystem.inHands = Manager.weaponSystem.fist;
+        // Manager.weaponSystem.SetWeaponSlotSprites();
     }
 }

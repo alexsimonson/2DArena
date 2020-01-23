@@ -18,9 +18,6 @@ public class WeaponSystem : MonoBehaviour
     private Vector2 weaponSlotLocationLeft;
     private Vector2 weaponSlotLocationRight;
 
-    // initializing local state variables
-    public bool player1 = true;
-
     private int currentWeaponSlot = 0;
     private bool isAttacking = false;
 
@@ -32,9 +29,6 @@ public class WeaponSystem : MonoBehaviour
         fist = new Fist();
         Manager.weaponSystem.inHands = fist;
         Manager.weaponSystem.weaponSlots = new Weapon[4];
-
-        // weaponSlotLeft = GameObject.Find("WeaponSlotLeft");
-        // weaponSlotRight = GameObject.Find("WeaponSlotRight");
 
         weaponSlotLeft.GetComponent<SpriteRenderer>().sortingLayerName = "Weapons";
         weaponSlotRight.GetComponent<SpriteRenderer>().sortingLayerName = "Weapons";
@@ -111,7 +105,7 @@ public class WeaponSystem : MonoBehaviour
                 return;
             }
         }
-        // Debug.Log("Swapping " + inHands.nameOf + " for " + spawnedWeapon.nameOf);
+
         if (this.weaponSlots[1] == null)
         {
             this.currentWeaponSlot = 1;
@@ -132,7 +126,7 @@ public class WeaponSystem : MonoBehaviour
         SetWeaponSlotSprites();
     }
 
-    void SetWeaponSlotSprites()
+    public void SetWeaponSlotSprites()
     {
         this.weaponSlotLeft.GetComponent<SpriteRenderer>().sprite = this.inHands.icon;
         this.weaponSlotRight.GetComponent<SpriteRenderer>().sprite = this.inHands.icon;
@@ -163,39 +157,15 @@ public class WeaponSystem : MonoBehaviour
 
     void Attack()
     {
-        if (player1)
+        if (Input.GetButtonDown("Fire1") && isAttacking != true)
         {
-            if (Input.GetButtonDown("Fire1") && isAttacking != true)
+            if (this.inHands.type == 0)
             {
-                if (this.inHands.type == 0)
-                {
-                    // Debug.Log("Attacking with a stab weapon: " + inHands.nameOf);
-                    StartCoroutine(Stab());
-                }
-                else if (this.inHands.type == 1 && this.inHands.ammoLoaded > 0)
-                {
-                    // Debug.Log("Attacking with a shoot weapon: " + inHands.nameOf);
-                    StartCoroutine(Shoot());
-                }
+                StartCoroutine(Stab());
             }
-        }
-        else
-        {
-
-            if (Input.GetButtonDown("XboxFire1") && isAttacking != true)
+            else if (this.inHands.type == 1 && this.inHands.ammoLoaded > 0)
             {
-                Debug.Log("XboxFire1 is happening");
-                isAttacking = true;
-                if (this.inHands.type == 0)
-                {
-                    // Debug.Log("Attacking with a stab weapon: " + inHands.nameOf);
-                    StartCoroutine(Stab());
-                }
-                else if (this.inHands.type == 1)
-                {
-                    // Debug.Log("Attacking with a shoot weapon: " + inHands.nameOf);
-                    StartCoroutine(Shoot());
-                }
+                StartCoroutine(Shoot());
             }
         }
     }
@@ -206,7 +176,6 @@ public class WeaponSystem : MonoBehaviour
         Manager.player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         if (Manager.leftHanded)
         {
-
             Vector2 startStabLocationLeft = weaponSlotLocationLeft;
             Vector2 stabLocationLeft = new Vector2(Manager.player.transform.position.x, Manager.player.transform.position.y + -200);
             weaponSlotLeft.GetComponent<BoxCollider2D>().enabled = true;
@@ -266,7 +235,7 @@ public class WeaponSystem : MonoBehaviour
 
     private IEnumerator Shoot()
     {
-        if (player1 && this.inHands.ammoLoaded > 0)
+        if (this.inHands.ammoLoaded > 0)
         {
             isAttacking = true;
             Manager.shotsFired++;
@@ -290,19 +259,6 @@ public class WeaponSystem : MonoBehaviour
             yield return new WaitForSeconds(inHands.attackSpeed);
             isAttacking = false;
         }
-        // else
-        // {
-        //     Vector2 gunLocation = gunStart;
-        //     GameObject Newbullet = Instantiate(bullet, gunLocation, Quaternion.identity);
-        //     Newbullet.GetComponent<BulletMovement>().targetForward = this.gameObject.transform.rotation * Vector2.up;
-        //     Newbullet.GetComponent<BulletMovement>().bulletDamage = inHands.damage;
-        //     yield return new WaitForSeconds(inHands.attackSpeed);
-        //     isAttacking = false;
-        //     // float rotationZ = this.gameObject.transform.rotation.z;
-        //     // // rotationZ = Mathf.Atan2(-stickInput.x, stickInput.y) * Mathf.Rad2Deg;
-        //     // transform.rotation = Quaternion.Euler(0f, 0f, rotationZ -90);
-        // }
-
     }
 
     void ThrowWeapon()
@@ -314,6 +270,8 @@ public class WeaponSystem : MonoBehaviour
                 this.weaponSlots[this.currentWeaponSlot] = null;
                 this.currentWeaponSlot = 0;
                 this.inHands = fist;
+                Manager.inventoryUI.inventorySlots[this.currentWeaponSlot].SetActive(false);
+                Manager.playerUI.ToggleAmmoUI(this.inHands.type);
                 SetWeaponSlotSprites();
             }
         }
@@ -321,42 +279,16 @@ public class WeaponSystem : MonoBehaviour
 
     void InteractWith(GameObject colObj)
     {
-        if (player1)
+        if (colObj != null)
         {
-            if (colObj != null)
+            if (colObj.tag == "Pickup")
             {
-                if (colObj.tag == "Pickup")
-                {
-                    PickupWeapon(colObj);
-                    UpdateUi();
-                }
-                else
-                {
-                    // Debug.Log("NO Pickup AVAILABLE");
-                }
+                PickupWeapon(colObj);
+                UpdateUi();
             }
-        }
-        else
-        {
-            if (Input.GetButtonDown("XboxPickup"))
+            else
             {
-                Debug.Log("I AM PICKUP");
-                if (colObj != null)
-                {
-                    if (colObj.tag == "Pickup")
-                    {
-                        PickupWeapon(colObj);
-
-                    }
-                    else
-                    {
-                        // Debug.Log("NO Pickup AVAILABLE");
-                    }
-                }
-                else
-                {
-                    // Debug.Log("Nothing in range");
-                }
+                // Debug.Log("NO Pickup AVAILABLE");
             }
         }
     }
