@@ -10,6 +10,7 @@ using TMPro;
 
 public class Authentication : MonoBehaviour
 {
+    public bool showingLogin = true;
     public GameObject TextLogin;
     public GameObject TextRegister;
     public GameObject InputAuthUsername;
@@ -29,14 +30,32 @@ public class Authentication : MonoBehaviour
     // using this instead of start to prevent a null reference exception
     public void SetAuthRefs()
     {
-        TextLogin = Manager.authCanvas.transform.FindChild("AuthenticationSystem/TextLogin").gameObject;
-        TextRegister = Manager.authCanvas.transform.FindChild("AuthenticationSystem/TextRegister").gameObject;
-        InputAuthUsername = Manager.authCanvas.transform.FindChild("AuthenticationSystem/InputAuthUsername").gameObject;
-        TextAuthUsername = Manager.authCanvas.transform.FindChild("AuthenticationSystem/TextAuthUsername").gameObject;
-        InputAuthPassword = Manager.authCanvas.transform.FindChild("AuthenticationSystem/InputAuthPassword").gameObject;
-        TextAuthPassword = Manager.authCanvas.transform.FindChild("AuthenticationSystem/TextAuthPassword").gameObject;
-        InputConfirmPassword = Manager.authCanvas.transform.FindChild("AuthenticationSystem/InputConfirmPassword").gameObject;
-        TextConfirmPassword = Manager.authCanvas.transform.FindChild("AuthenticationSystem/TextConfirmPassword").gameObject;
+        TextLogin = Manager.authCanvas.transform.Find("AuthenticationSystem/TextLogin").gameObject;
+        TextRegister = Manager.authCanvas.transform.Find("AuthenticationSystem/TextRegister").gameObject;
+        InputAuthUsername = Manager.authCanvas.transform.Find("AuthenticationSystem/InputAuthUsername").gameObject;
+        TextAuthUsername = Manager.authCanvas.transform.Find("AuthenticationSystem/TextAuthUsername").gameObject;
+        InputAuthPassword = Manager.authCanvas.transform.Find("AuthenticationSystem/InputAuthPassword").gameObject;
+        TextAuthPassword = Manager.authCanvas.transform.Find("AuthenticationSystem/TextAuthPassword").gameObject;
+        InputConfirmPassword = Manager.authCanvas.transform.Find("AuthenticationSystem/InputConfirmPassword").gameObject;
+        TextConfirmPassword = Manager.authCanvas.transform.Find("AuthenticationSystem/TextConfirmPassword").gameObject;
+    }
+
+    public void ShowLogin()
+    {
+        Manager.authentication.showingLogin = true;
+        Manager.authentication.TextLogin.SetActive(true);
+        Manager.authentication.TextRegister.SetActive(false);
+        Manager.authentication.InputConfirmPassword.SetActive(false);
+        Manager.authentication.TextConfirmPassword.SetActive(false);
+    }
+
+    public void ShowRegister()
+    {
+        Manager.authentication.showingLogin = false;
+        Manager.authentication.TextLogin.SetActive(false);
+        Manager.authentication.TextRegister.SetActive(true);
+        Manager.authentication.InputConfirmPassword.SetActive(true);
+        Manager.authentication.TextConfirmPassword.SetActive(true);
     }
 
     public void GoBack()
@@ -57,11 +76,16 @@ public class Authentication : MonoBehaviour
 
     public void Login()
     {
-        Debug.Log("PRESSING LOGIN");
-        string username = Manager.authentication.InputAuthUsername.GetComponent<TMP_InputField>().text;
-        string password = Manager.authentication.InputAuthPassword.GetComponent<InputField>().text;
-        Debug.Log("Username: " + username);
-        Manager.authentication.StartCoroutine(PostLogin(username, password));
+        if (!Manager.authentication.showingLogin)
+        {
+            Manager.authentication.ShowLogin();
+        }
+        else
+        {
+            string username = Manager.authentication.InputAuthUsername.GetComponent<TMP_InputField>().text;
+            string password = Manager.authentication.InputAuthPassword.GetComponent<InputField>().text;
+            Manager.authentication.StartCoroutine(PostLogin(username, password));
+        }
     }
 
     IEnumerator PostLogin(string username, string password)
@@ -76,7 +100,7 @@ public class Authentication : MonoBehaviour
 
             if (www.isNetworkError || www.isHttpError)
             {
-                Debug.Log(www.error);
+                Debug.LogError(www.error);
             }
             else
             {
@@ -107,7 +131,7 @@ public class Authentication : MonoBehaviour
         Debug.Log("Logging in to account!");
         Manager.loggedIn = true;
         Manager.loggedInUsername = username;
-        Manager.mainMenuCanvas.transform.FindChild("LoggedInAs").gameObject.GetComponent<TMP_Text>().text = LoggedInAsText + Manager.loggedInUsername;
+        Manager.mainMenuCanvas.transform.Find("LoggedInAs").gameObject.GetComponent<TMP_Text>().text = LoggedInAsText + Manager.loggedInUsername;
 
         // find a better way to loadscene
         if (Manager.authentication.inGameSignIn)
@@ -126,17 +150,24 @@ public class Authentication : MonoBehaviour
 
     public void Register()
     {
-        string username = Manager.authentication.InputAuthUsername.GetComponent<TMP_InputField>().text;
-        string password = Manager.authentication.InputAuthPassword.GetComponent<InputField>().text;
-        string confirm = Manager.authentication.InputConfirmPassword.GetComponent<InputField>().text;
-        if (password != confirm)
+        if (Manager.authentication.showingLogin)
         {
-            // throw an error, maybe change color or something.  Passwords must match before being sent to the server
-            Debug.Log("Password doesn't match confirmed password");
+            Manager.authentication.ShowRegister();
         }
         else
         {
-            Manager.authentication.StartCoroutine(PostRegister(username, password, confirm));
+            string username = Manager.authentication.InputAuthUsername.GetComponent<TMP_InputField>().text;
+            string password = Manager.authentication.InputAuthPassword.GetComponent<InputField>().text;
+            string confirm = Manager.authentication.InputConfirmPassword.GetComponent<InputField>().text;
+            if (password != confirm)
+            {
+                // throw an error, maybe change color or something.  Passwords must match before being sent to the server
+                Debug.Log("Password doesn't match confirmed password");
+            }
+            else
+            {
+                Manager.authentication.StartCoroutine(PostRegister(username, password, confirm));
+            }
         }
     }
 

@@ -121,7 +121,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enemy: {fileID: 1220385511592172, guid: 080ecd9815756834bb53846e9c294f93, type: 3}
-  GameManager: {fileID: 0}
 --- !u!114 &114249317713515738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,6 +133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 185dd4a5507b87e4da53bf983acf2a46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameManager: {fileID: 0}
   maxHealth: 1000
   currentHealth: 1000
+  isDead: 0

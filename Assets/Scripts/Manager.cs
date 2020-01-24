@@ -161,6 +161,6 @@ public class Manager : MonoBehaviour
         PlayerControl.hasControl = true;
         Manager.player.transform.position = LevelSetup.playerSpawn.transform.position;
         Manager.weaponSystem.inHands = Manager.weaponSystem.fist;
-        // Manager.weaponSystem.SetWeaponSlotSprites();
+        Manager.weaponSystem.SetWeaponSlotSprites();
     }
 }

@@ -32,6 +32,7 @@ public class MainMenu : MonoBehaviour
     {
         Manager.authCanvas.SetActive(true);
         Manager.mainMenuCanvas.SetActive(false);
+        Manager.authentication.ShowLogin();
     }
 
     public void MuteMusic()

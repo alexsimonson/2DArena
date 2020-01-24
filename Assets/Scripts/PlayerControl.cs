@@ -7,10 +7,6 @@ public class PlayerControl : MonoBehaviour
 {
     // initializing gameobject references
     public GameObject bullet;
-    public GameObject player;
-    // public GameObject playerLeftArm;
-    // public GameObject playerRightArm;
-    // public Fist fist;
     public Sprite playerForward;
     public Sprite playerBackward;
     public Weapon inHands;
@@ -38,7 +34,6 @@ public class PlayerControl : MonoBehaviour
     {
         hasControl = true;
         walkSpeed = defaultWalkSpeed;
-        player = this.gameObject;
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
         diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
