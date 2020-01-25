@@ -24,6 +24,7 @@ public class InventoryUI : MonoBehaviour
 
     public void HideInventory()
     {
+        Debug.Log("Hiding inventory");
         foreach (GameObject slot in inventorySlots)
         {
             slot.SetActive(false);

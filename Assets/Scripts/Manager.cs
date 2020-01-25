@@ -136,6 +136,14 @@ public class Manager : MonoBehaviour
         Manager.authentication.SubmitScore(Manager.shotsFired, Manager.shotsHit, Manager.accuracy, Manager.enemiesKilled, Manager.damageDone, Manager.roundsSurvived);
     }
 
+
+    public static void ResetPlayerHealth()
+    {
+        Manager.playerHealth.currentHealth = 100;
+        Manager.healthUI.SetHealthCount(100);
+        Manager.playerHealth.isDead = false;
+    }
+
     public static void ResetStats()
     {
         shotsFired = 0;
@@ -143,13 +151,6 @@ public class Manager : MonoBehaviour
         enemiesKilled = 0;
         damageDone = 0;
         roundsSurvived = 0;
-    }
-
-    public static void ResetPlayerHealth()
-    {
-        Manager.playerHealth.currentHealth = 100;
-        Manager.healthUI.SetHealthCount(100);
-        Manager.playerHealth.isDead = false;
     }
 
     public static void ResetGame()
@@ -160,7 +161,7 @@ public class Manager : MonoBehaviour
         Manager.weaponSystem.weaponSlots = new Weapon[4];
         PlayerControl.hasControl = true;
         Manager.player.transform.position = LevelSetup.playerSpawn.transform.position;
-        Manager.weaponSystem.inHands = Manager.weaponSystem.fist;
-        Manager.weaponSystem.SetWeaponSlotSprites();
+        Manager.weaponSystem.inHands = new Fist();
+        WeaponSystem.SetWeaponSlotSprites();
     }
 }

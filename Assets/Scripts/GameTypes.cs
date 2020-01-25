@@ -33,12 +33,16 @@ public class GameTypes : MonoBehaviour
         Manager.musicAudioSource.Stop();
         Manager.player.SetActive(true);
         Manager.hudCanvas.SetActive(true);
-        var enemiesStillAlive = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (GameObject enemy in enemiesStillAlive)
+        GameObject[] enemiesStillAlive = GameObject.FindGameObjectsWithTag("Enemy");
+        if (enemiesStillAlive.Length > 0)
         {
-            Destroy(enemy);
+            foreach (GameObject enemy in enemiesStillAlive)
+            {
+                Destroy(enemy);
+            }
         }
         Manager.ResetGame();
+        GameTypes.gameStarted = shouldStart;
         switch (Manager.gameMode)
         {
             case 1:
@@ -47,7 +51,6 @@ public class GameTypes : MonoBehaviour
             default:
                 break;
         }
-        GameTypes.gameStarted = shouldStart;
     }
 
     public void UpdateGameMode()
@@ -81,15 +84,18 @@ public class GameTypes : MonoBehaviour
 
     static void SpawnReinforcements()
     {
-        if (numberOfSpawnedEnemiesCurrently < maxNumberOfSpawnedEnemies)
+        if (enemySpawners.Length > 0)
         {
-            if (numberOfSpawnedEnemiesThisRound < totalNumberOfEnemiesThisRound)
+            if (numberOfSpawnedEnemiesCurrently < maxNumberOfSpawnedEnemies)
             {
+                if (numberOfSpawnedEnemiesThisRound < totalNumberOfEnemiesThisRound)
+                {
 
-                // pick random spawn point and spawn
-                enemySpawners[Random.Range(0, enemySpawners.Length)].GetComponent<EnemySpawner>().SpawnEnemy();
-                numberOfSpawnedEnemiesThisRound++;
-                numberOfSpawnedEnemiesCurrently++;
+                    // pick random spawn point and spawn
+                    enemySpawners[Random.Range(0, enemySpawners.Length)].GetComponent<EnemySpawner>().SpawnEnemy();
+                    numberOfSpawnedEnemiesThisRound++;
+                    numberOfSpawnedEnemiesCurrently++;
+                }
             }
         }
     }
