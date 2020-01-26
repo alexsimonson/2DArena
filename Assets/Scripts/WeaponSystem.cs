@@ -235,43 +235,43 @@ public class WeaponSystem : MonoBehaviour {
 
     }
 
-    void Attack () {
-        if (Input.GetButtonDown ("Fire1") && isAttacking != true) {
-            if (this.inHands.type == 0) {
-                StartCoroutine (Stab ());
-            } else if (this.inHands.type == 1 && this.inHands.ammoLoaded > 0) {
-                StartCoroutine (Shoot ());
+    public static void Attack () {
+        if (Input.GetButtonDown ("Fire1") && Manager.weaponSystem.isAttacking != true) {
+            if (Manager.weaponSystem.inHands.type == 0) {
+                Manager.weaponSystem.StartCoroutine (Stab ());
+            } else if (Manager.weaponSystem.inHands.type == 1 && Manager.weaponSystem.inHands.ammoLoaded > 0) {
+                Manager.weaponSystem.StartCoroutine (Shoot ());
             }
         }
     }
 
-    private IEnumerator Stab () {
-        isAttacking = true;
+    public static IEnumerator Stab () {
+        Manager.weaponSystem.isAttacking = true;
         Manager.player.GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
         if (Manager.leftHanded) {
-            Vector2 startStabLocationLeft = weaponSlotLocationLeft;
+            Vector2 startStabLocationLeft = Manager.weaponSystem.weaponSlotLocationLeft;
             Vector2 stabLocationLeft = new Vector2 (Manager.player.transform.position.x, Manager.player.transform.position.y + -200);
-            weaponSlotLeft.GetComponent<BoxCollider2D> ().enabled = true;
-            weaponSlotLeft.transform.localPosition = Vector2.Lerp (startStabLocationLeft, stabLocationLeft, Time.deltaTime);
+            Manager.weaponSystem.weaponSlotLeft.GetComponent<BoxCollider2D> ().enabled = true;
+            Manager.weaponSystem.weaponSlotLeft.transform.localPosition = Vector2.Lerp (startStabLocationLeft, stabLocationLeft, Time.deltaTime);
         } else {
 
-            Vector2 startStabLocationRight = weaponSlotLocationRight;
+            Vector2 startStabLocationRight = Manager.weaponSystem.weaponSlotLocationRight;
             Vector2 stabLocationRight = new Vector2 (-Manager.player.transform.position.x, Manager.player.transform.position.y + -200);
-            weaponSlotRight.GetComponent<BoxCollider2D> ().enabled = true;
-            weaponSlotRight.transform.localPosition = Vector2.Lerp (startStabLocationRight, stabLocationRight, Time.deltaTime);
+            Manager.weaponSystem.weaponSlotRight.GetComponent<BoxCollider2D> ().enabled = true;
+            Manager.weaponSystem.weaponSlotRight.transform.localPosition = Vector2.Lerp (startStabLocationRight, stabLocationRight, Time.deltaTime);
         }
 
-        yield return new WaitForSeconds (inHands.attackSpeed);
+        yield return new WaitForSeconds (Manager.weaponSystem.inHands.attackSpeed);
         if (Manager.leftHanded) {
 
-            weaponSlotLeft.GetComponent<BoxCollider2D> ().enabled = false;
-            weaponSlotLeft.transform.localPosition = weaponSlotLocationLeft;
+            Manager.weaponSystem.weaponSlotLeft.GetComponent<BoxCollider2D> ().enabled = false;
+            Manager.weaponSystem.weaponSlotLeft.transform.localPosition = Manager.weaponSystem.weaponSlotLocationLeft;
         } else {
 
-            weaponSlotRight.GetComponent<BoxCollider2D> ().enabled = false;
-            weaponSlotRight.transform.localPosition = weaponSlotLocationRight;
+            Manager.weaponSystem.weaponSlotRight.GetComponent<BoxCollider2D> ().enabled = false;
+            Manager.weaponSystem.weaponSlotRight.transform.localPosition = Manager.weaponSystem.weaponSlotLocationRight;
         }
-        isAttacking = false;
+        Manager.weaponSystem.isAttacking = false;
     }
 
     private void Reload () {
@@ -293,44 +293,32 @@ public class WeaponSystem : MonoBehaviour {
         }
     }
 
-    private IEnumerator Shoot () {
-        if (this.inHands.ammoLoaded > 0) {
-            isAttacking = true;
+    public static IEnumerator Shoot () {
+        if (Manager.weaponSystem.inHands.ammoLoaded > 0) {
+            Manager.weaponSystem.isAttacking = true;
             Manager.shotsFired++;
             Manager.playerUI.UpdateAmmoHud ();
-            this.inHands.ammoLoaded--;
-            Vector2 leftGunLocation = Manager.playerControl.weaponSlotLocationLeft;
-            Vector2 rightGunLocation = Manager.playerControl.weaponSlotLocationRight;
+            Manager.weaponSystem.inHands.ammoLoaded--;
 
-            Vector2 mouseLocation = Input.mousePosition;
             GameObject newBullet;
             if (Manager.leftHanded) {
-                newBullet = Instantiate (bullet, leftGunLocation, Quaternion.identity);
+                newBullet = Instantiate (Manager.weaponSystem.bullet, Manager.playerControl.weaponSlotLocationLeft, Quaternion.identity);
             } else {
-                newBullet = Instantiate (bullet, rightGunLocation, Quaternion.identity);
+                newBullet = Instantiate (Manager.weaponSystem.bullet, Manager.playerControl.weaponSlotLocationRight, Quaternion.identity);
             }
-            newBullet.GetComponent<Rigidbody2D> ().AddForce (-transform.up * 1000);
-            newBullet.GetComponent<BulletMovement> ().bulletDamage = inHands.damage;
-            yield return new WaitForSeconds (inHands.attackSpeed);
-            isAttacking = false;
+            newBullet.GetComponent<Rigidbody2D> ().AddForce (-Manager.player.gameObject.transform.up * 1000);
+            newBullet.GetComponent<BulletMovement> ().bulletDamage = Manager.weaponSystem.inHands.damage;
+            yield return new WaitForSeconds (Manager.weaponSystem.inHands.attackSpeed);
+            Manager.weaponSystem.isAttacking = false;
         }
     }
 
     static void ThrowWeapon () {
         if (Input.GetKeyDown (KeyCode.G)) {
-            Debug.Log (Manager.inventoryUI.inventorySlots);
-            Debug.Log (Manager.inventoryUI.inventorySlots[0]);
-            Debug.Log (Manager.inventoryUI.inventorySlots[1]);
-            Debug.Log (Manager.inventoryUI.inventorySlots[2]);
-            Debug.Log ("Current weapon slot: " + Manager.weaponSystem.currentWeaponSlot);
-            Debug.Log (Manager.weaponSystem.inHands);
-            Debug.Log (Manager.weaponSystem.inHands.nameOf);
-            Debug.Log (Manager.weaponSystem.inHands.type);
             if (Manager.weaponSystem.inHands.nameOf != "Fists") {
                 Manager.weaponSystem.weaponSlots[Manager.weaponSystem.currentWeaponSlot] = null;
                 Manager.inventoryUI.inventorySlots[Manager.weaponSystem.currentWeaponSlot - 1].SetActive (false);
                 SetCurrentSlot (0);
-                // Manager.weaponSystem.inHands = Manager.weaponSystem.fist;
                 Manager.playerUI.ToggleAmmoUI (Manager.weaponSystem.inHands.type);
                 SetWeaponSlotSprites ();
             }
