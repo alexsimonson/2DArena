@@ -274,25 +274,6 @@ public class WeaponSystem : MonoBehaviour {
         Manager.weaponSystem.isAttacking = false;
     }
 
-    private void Reload () {
-        if (this.inHands.ammoPool > 0) {
-            int ammoToLoad = this.inHands.magazineSize - this.inHands.ammoLoaded;
-            if (ammoToLoad > 0) {
-                if (this.inHands.ammoPool - ammoToLoad >= 0) {
-                    this.inHands.ammoPool -= ammoToLoad;
-                    this.inHands.ammoLoaded = this.inHands.magazineSize;
-                } else {
-                    // load the rest of the ammoPool
-                    this.inHands.ammoLoaded += this.inHands.ammoPool;
-                    this.inHands.ammoPool = 0;
-                }
-                Manager.playerUI.ReloadAmmoHud (this.inHands.ammoPool, this.inHands.ammoLoaded);
-            }
-        } else {
-            // no ammo, can't reload
-        }
-    }
-
     public static IEnumerator Shoot () {
         if (Manager.weaponSystem.inHands.ammoLoaded > 0) {
             Manager.weaponSystem.isAttacking = true;
@@ -310,6 +291,25 @@ public class WeaponSystem : MonoBehaviour {
             newBullet.GetComponent<BulletMovement> ().bulletDamage = Manager.weaponSystem.inHands.damage;
             yield return new WaitForSeconds (Manager.weaponSystem.inHands.attackSpeed);
             Manager.weaponSystem.isAttacking = false;
+        }
+    }
+
+    private void Reload () {
+        if (this.inHands.ammoPool > 0) {
+            int ammoToLoad = this.inHands.magazineSize - this.inHands.ammoLoaded;
+            if (ammoToLoad > 0) {
+                if (this.inHands.ammoPool - ammoToLoad >= 0) {
+                    this.inHands.ammoPool -= ammoToLoad;
+                    this.inHands.ammoLoaded = this.inHands.magazineSize;
+                } else {
+                    // load the rest of the ammoPool
+                    this.inHands.ammoLoaded += this.inHands.ammoPool;
+                    this.inHands.ammoPool = 0;
+                }
+                Manager.playerUI.ReloadAmmoHud (this.inHands.ammoPool, this.inHands.ammoLoaded);
+            }
+        } else {
+            // no ammo, can't reload
         }
     }
 
