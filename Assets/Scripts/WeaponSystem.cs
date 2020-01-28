@@ -37,9 +37,6 @@ public class WeaponSystem : MonoBehaviour {
 
         weaponSlotLocationLeft = weaponSlotLeft.transform.localPosition;
         weaponSlotLocationRight = weaponSlotRight.transform.localPosition;
-
-        SetWeaponSlotSprites ();
-        // UpdateUi();
     }
 
     void UpdateUi () {
@@ -200,7 +197,7 @@ public class WeaponSystem : MonoBehaviour {
         }
 
         Manager.weaponSystem.weaponSlots[Manager.weaponSystem.currentWeaponSlot] = spawnedWeapon;
-        Manager.weaponSystem.inHands = spawnedWeapon;
+        Manager.weaponSystem.inHands = Manager.weaponSystem.weaponSlots[Manager.weaponSystem.currentWeaponSlot];
         Manager.playerUI.ReloadAmmoHud (Manager.weaponSystem.inHands.ammoPool, Manager.weaponSystem.inHands.ammoLoaded);
         Manager.inventoryUI.UpdateImage (Manager.weaponSystem.currentWeaponSlot, Manager.weaponSystem.inHands.icon);
         SetWeaponSlotSprites ();
@@ -228,7 +225,7 @@ public class WeaponSystem : MonoBehaviour {
             if (Manager.weaponSystem.weaponSlots[x] != null) {
                 //Manager.weaponSystem should change weapon based on slot value x
                 Manager.weaponSystem.currentWeaponSlot = x;
-                Manager.weaponSystem.inHands = Manager.weaponSystem.weaponSlots[Manager.weaponSystem.currentWeaponSlot];
+                Manager.weaponSystem.inHands = Manager.weaponSystem.weaponSlots[x];
                 SetWeaponSlotSprites ();
             }
         }
