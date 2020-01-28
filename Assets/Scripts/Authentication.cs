@@ -19,7 +19,7 @@ public class Authentication : MonoBehaviour
     public GameObject TextAuthPassword;
     public GameObject InputConfirmPassword;
     public GameObject TextConfirmPassword;
-    private String APIEndpoint = "http://192.168.0.13:4000/";
+    private String APIEndpoint = "https://lucubration-sd-server.herokuapp.com/";
 
     public GameObject player;
     public bool inGameSignIn = false;
