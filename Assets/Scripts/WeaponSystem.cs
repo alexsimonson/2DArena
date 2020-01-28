@@ -46,9 +46,11 @@ public class WeaponSystem : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        DetectInput ();
-        Attack ();
-        ThrowWeapon ();
+        if(PlayerControl.hasControl){
+            DetectInput ();
+            Attack ();
+            ThrowWeapon ();
+        }
     }
 
     void ToggleAmmoUI () {
