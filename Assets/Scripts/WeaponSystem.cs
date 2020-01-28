@@ -96,7 +96,7 @@ public class WeaponSystem : MonoBehaviour {
             InteractWith (this.interactInRange);
         }
         if (Input.GetButtonDown ("Reload") || Input.GetButtonDown ("ReloadController")) {
-            Reload ();
+            Manager.weaponSystem.StartCoroutine(Reload ());
         }
         if (IsLeft) {
             int setSlot = 0;
@@ -274,6 +274,7 @@ public class WeaponSystem : MonoBehaviour {
     public static IEnumerator Shoot () {
         if (Manager.weaponSystem.inHands.ammoLoaded > 0) {
             Manager.weaponSystem.isAttacking = true;
+            Manager.sfxAudioSource.PlayOneShot(Manager.weaponSystem.inHands.weaponAudio);
             Manager.shotsFired++;
             Manager.playerUI.UpdateAmmoHud ();
             Manager.weaponSystem.inHands.ammoLoaded--;
@@ -291,8 +292,10 @@ public class WeaponSystem : MonoBehaviour {
         }
     }
 
-    private void Reload () {
+    private IEnumerator Reload () {
         if (this.inHands.ammoPool > 0) {
+            Manager.sfxAudioSource.PlayOneShot(Manager.weaponSystem.inHands.reloadAudio);
+            yield return new WaitForSeconds(Manager.weaponSystem.inHands.reloadAudio.length);
             int ammoToLoad = this.inHands.magazineSize - this.inHands.ammoLoaded;
             if (ammoToLoad > 0) {
                 if (this.inHands.ammoPool - ammoToLoad >= 0) {

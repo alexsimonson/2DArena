@@ -89,6 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f25089e5a09932e4e9cf8c5fe959c6ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventorySlots: []
 --- !u!114 &3841511140415784575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,6 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcba3f376424c444583318c66a781cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showingLogin: 1
   TextLogin: {fileID: 0}
   TextRegister: {fileID: 0}
   InputAuthUsername: {fileID: 0}
@@ -143,7 +145,7 @@ AudioSource:
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
-  Mute: 1
+  Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128

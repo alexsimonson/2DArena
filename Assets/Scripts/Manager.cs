@@ -28,7 +28,9 @@ public class Manager : MonoBehaviour
     public static Health playerHealth;
     public static PlayerControl playerControl;
     public static WeaponSystem weaponSystem;
+    private AudioSource[] audioSources;
     public static AudioSource musicAudioSource;
+    public static AudioSource sfxAudioSource;
     public static GameTypes gameTypes;
 
     public static int shotsFired;
@@ -65,7 +67,9 @@ public class Manager : MonoBehaviour
         authentication = gameObject.GetComponent<Authentication>();
         mainMenu = gameObject.GetComponent<MainMenu>();
         playerControl = player.GetComponent<PlayerControl>();
-        musicAudioSource = gameObject.GetComponent<AudioSource>();
+        audioSources = gameObject.GetComponents<AudioSource>();
+        musicAudioSource = audioSources[0];
+        sfxAudioSource = audioSources[1];
         authentication.SetAuthRefs();
         player.SetActive(false);
         hudCanvas.SetActive(false);

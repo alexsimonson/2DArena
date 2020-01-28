@@ -15,7 +15,6 @@ public class GameTypes : MonoBehaviour
     public static int roundKillCount;
 
     private static int numberOfSpawnedEnemiesCurrently;
-    private static int roundNumber = 0;
 
     public static bool gameStarted;
 
@@ -102,7 +101,7 @@ public class GameTypes : MonoBehaviour
 
     static int WaveRespawnAlgorithm()
     {
-        return baseNumberOfEnemies + (roundNumber * roundNumber) + roundNumber;
+        return baseNumberOfEnemies + (Manager.roundsSurvived * Manager.roundsSurvived) + Manager.roundsSurvived;
     }
 
     static void IsRoundOver()
@@ -118,8 +117,8 @@ public class GameTypes : MonoBehaviour
     static void StartNextRound()
     {
         Manager.roundsSurvived++;
-        roundNumber++;
-        Debug.Log("Beginning round " + roundNumber);
+        Manager.roundsSurvived++;
+        Debug.Log("Beginning round " + Manager.roundsSurvived);
         roundKillCount = 0;
         numberOfSpawnedEnemiesThisRound = 0;
         numberOfSpawnedEnemiesCurrently = 0;

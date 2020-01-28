@@ -15,6 +15,8 @@ public class Weapon
     [SerializeField] public int addAmmo;
     [SerializeField] public Sprite icon;
     [SerializeField] public Sprite bullet;
+    public AudioClip weaponAudio;
+    public AudioClip reloadAudio;
     public Weapon()
     {
         nameOf = "defaultWeaponName";
@@ -29,6 +31,8 @@ public class Weapon
         addAmmo = 30;
         // icon = Resources.Load<Sprite>("Sprites/DefaultSpr");
         bullet = Resources.Load<Sprite>("Sprites/BulletSpr");
+        weaponAudio = Resources.Load<AudioClip>("Audio/Basic Rifle Shot");
+        reloadAudio = Resources.Load<AudioClip>("Audio/Nice Reload");
     }
 
     public void Attack()
