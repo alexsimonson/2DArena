@@ -14,6 +14,7 @@ public class PickupSpawner : MonoBehaviour
 
     [SerializeField] public bool spawnKnife;
     [SerializeField] public bool spawnGun;
+    public AudioClip pickupAudio;
 
     //could I then do weapon = new Pistol() or something like that?  to set the base stats of the gun
     BoxCollider2D bc;
@@ -29,6 +30,7 @@ public class PickupSpawner : MonoBehaviour
         advancedKnife = new BasicKnife("Advanced Dagger", 100, .6f, "dagger 2");
         shitAxe = new BasicKnife("Shitty Axe", 35, .3f, "ShitAxe");
         advancedPistol = new BasicPistol("Advanced Pistol", 200, .1f, 1000f, 20, "gun 2");
+        pickupAudio = Resources.Load<AudioClip>("Audio/Basic Reload");
 
         if (spawnKnife && spawnGun)
         {

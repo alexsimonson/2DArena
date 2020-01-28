@@ -184,6 +184,7 @@ public class WeaponSystem : MonoBehaviour {
                 return;
             }
         }
+        Manager.sfxAudioSource.PlayOneShot(colObj.GetComponent<PickupSpawner>().pickupAudio);
 
         if (Manager.weaponSystem.weaponSlots[1] == null) {
             Manager.weaponSystem.activeWeaponSlot = 1;
@@ -293,7 +294,7 @@ public class WeaponSystem : MonoBehaviour {
     }
 
     private IEnumerator Reload () {
-        if (this.inHands.ammoPool > 0) {
+        if (this.inHands.ammoPool > 0 && this.inHands.type == 1 && this.inHands.ammoLoaded != this.inHands.magazineSize) {
             Manager.sfxAudioSource.PlayOneShot(Manager.weaponSystem.inHands.reloadAudio);
             yield return new WaitForSeconds(Manager.weaponSystem.inHands.reloadAudio.length);
             int ammoToLoad = this.inHands.magazineSize - this.inHands.ammoLoaded;
