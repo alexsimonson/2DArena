@@ -31,45 +31,18 @@ public class AiControl : MonoBehaviour
         weaponSlot = transform.GetChild(0).gameObject;
         weaponSlotLocation = weaponSlot.transform.localPosition;
         weaponSlot.GetComponent<SpriteRenderer>().sprite = inHands.icon;
+        weaponSlot.GetComponent<SpriteRenderer> ().sortingLayerName = "Weapons";
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // MoveDirection();
-        // LookRotation();
-    }
     void FixedUpdate()
     {
         Attack();
-    }
-
-    void MoveDirection()
-    {
-        float step = walkSpeed * Time.deltaTime;
-
-        Vector2 targetDirection = player.transform.position;
-
-        transform.position = Vector2.MoveTowards(transform.position, targetDirection, step);
-
-    }
-
-    void LookRotation()
-    {
-
-
-        Vector3 diff = player.transform.position - transform.position;
-        diff.Normalize();
-        float rotationZ = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, rotationZ - 90);
     }
 
     void Attack()
     {
 
         //should the bot choose to attack
-
-
         if (botShouldAttack)
         {
             //this will disable bot consecutive attacks
