@@ -14,7 +14,7 @@ public class GameTypes : MonoBehaviour
     public static int numberOfSpawnedEnemiesThisRound;
     public static int roundKillCount;
 
-    private static int numberOfSpawnedEnemiesCurrently;
+    public static int numberOfSpawnedEnemiesCurrently;
 
     public static bool gameStarted;
 
@@ -67,13 +67,21 @@ public class GameTypes : MonoBehaviour
     static void StartWaveRespawn()
     {
         ObtainAllSpawners();
-        StartNextRound();
+        StartNextRound(true);
     }
 
     static void UpdateWaveRespawn()
     {
         SpawnReinforcements();
-        IsRoundOver();
+        // IsRoundOver();
+    }
+
+    public static void PrintAllStats(){
+        Debug.Log("Rounds Survived: " + Manager.currentRound);
+        Debug.Log("number of enemies spawned this round: " + numberOfSpawnedEnemiesThisRound);
+        Debug.Log("Round KC: " + roundKillCount);
+        Debug.Log("number of enemies spawned currently: " + numberOfSpawnedEnemiesCurrently);
+        Debug.Log("Total Enemies This Round: " + totalNumberOfEnemiesThisRound);
     }
 
     static void ObtainAllSpawners()
@@ -101,10 +109,10 @@ public class GameTypes : MonoBehaviour
 
     static int WaveRespawnAlgorithm()
     {
-        return baseNumberOfEnemies + (Manager.roundsSurvived * Manager.roundsSurvived) + Manager.roundsSurvived;
+        return baseNumberOfEnemies + (Manager.currentRound * Manager.currentRound) + Manager.currentRound;
     }
 
-    static void IsRoundOver()
+    public static void IsRoundOver()
     {
         // Debug.Log("Enemies Left: " + (totalNumberOfEnemiesThisRound - roundKillCount));
         if (roundKillCount == totalNumberOfEnemiesThisRound)
@@ -114,11 +122,12 @@ public class GameTypes : MonoBehaviour
         }
     }
 
-    static void StartNextRound()
+    static void StartNextRound(bool firstRound = false)
     {
-        Manager.roundsSurvived++;
-        Manager.roundsSurvived++;
-        Debug.Log("Beginning round " + Manager.roundsSurvived);
+        if(!firstRound){
+            Manager.currentRound++;
+        }
+        Debug.Log("Beginning round " + Manager.currentRound);
         roundKillCount = 0;
         numberOfSpawnedEnemiesThisRound = 0;
         numberOfSpawnedEnemiesCurrently = 0;

@@ -37,7 +37,10 @@ public class Health : MonoBehaviour
         {
             Manager.enemiesKilled++;
             GameTypes.roundKillCount++;
+            GameTypes.numberOfSpawnedEnemiesCurrently--;
             Destroy(gameObject);
+            GameTypes.IsRoundOver();
+            
         }
         if (gameObject.tag == "Player" && !this.isDead)
         {

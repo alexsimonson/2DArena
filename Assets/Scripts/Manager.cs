@@ -38,7 +38,7 @@ public class Manager : MonoBehaviour
     public static string accuracy;
     public static int enemiesKilled;
     public static int damageDone;
-    public static int roundsSurvived;
+    public static int currentRound;
 
     // Start is called before the first frame update
     void Start()
@@ -137,7 +137,7 @@ public class Manager : MonoBehaviour
             var temp = (double)shotsHit / shotsFired;
             Manager.accuracy = ((double)temp * 100).ToString();
         }
-        Manager.authentication.SubmitScore(Manager.shotsFired, Manager.shotsHit, Manager.accuracy, Manager.enemiesKilled, Manager.damageDone, Manager.roundsSurvived);
+        Manager.authentication.SubmitScore(Manager.shotsFired, Manager.shotsHit, Manager.accuracy, Manager.enemiesKilled, Manager.damageDone, Manager.currentRound);
     }
 
 
@@ -154,7 +154,7 @@ public class Manager : MonoBehaviour
         shotsHit = 0;
         enemiesKilled = 0;
         damageDone = 0;
-        roundsSurvived = 0;
+        currentRound = 1;
     }
 
     public static void ResetGame()

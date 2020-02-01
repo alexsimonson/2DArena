@@ -56,6 +56,9 @@ public class PlayerControl : MonoBehaviour {
             BodyRotation ();
             SpeedManager ();
             DodgeRoll ();
+            if(Input.GetButtonDown("Debug")){
+                GameTypes.PrintAllStats();
+            }
         }
     }
 
