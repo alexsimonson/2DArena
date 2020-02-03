@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        Manager.gameMode = 1;
+        Manager.gameMode = 0;
         Manager.mainMenuCanvas.SetActive(false);
         SceneManager.LoadScene(2);
     }

@@ -14,6 +14,7 @@ public class PickupSpawner : MonoBehaviour
 
     [SerializeField] public bool spawnKnife;
     [SerializeField] public bool spawnGun;
+    [SerializeField] public bool spawnGun2;
     public AudioClip pickupAudio;
 
     //could I then do weapon = new Pistol() or something like that?  to set the base stats of the gun
@@ -55,6 +56,8 @@ public class PickupSpawner : MonoBehaviour
         else if (spawnGun)
         {
             spawnedWeapon = advancedPistol;
+        }else if (spawnGun2){
+            spawnedWeapon = basicPistol;
         }
         else
         {

@@ -44,6 +44,10 @@ public class GameTypes : MonoBehaviour
         GameTypes.gameStarted = shouldStart;
         switch (Manager.gameMode)
         {
+            case 0:
+                // developer testing
+                StartTesting();
+                break;
             case 1:
                 StartWaveRespawn();
                 break;
@@ -56,6 +60,10 @@ public class GameTypes : MonoBehaviour
     {
         switch (Manager.gameMode)
         {
+            case 0:
+                // developer testing
+                UpdateTesting();
+                break;
             case 1:
                 UpdateWaveRespawn();
                 break;
@@ -74,6 +82,15 @@ public class GameTypes : MonoBehaviour
     {
         SpawnReinforcements();
         // IsRoundOver();
+    }
+
+    static void StartTesting(){
+        ObtainAllSpawners();
+        RandomSpawn();
+    }
+
+    static void UpdateTesting(){
+
     }
 
     public static void PrintAllStats(){
@@ -97,14 +114,17 @@ public class GameTypes : MonoBehaviour
             {
                 if (numberOfSpawnedEnemiesThisRound < totalNumberOfEnemiesThisRound)
                 {
-
                     // pick random spawn point and spawn
-                    enemySpawners[Random.Range(0, enemySpawners.Length)].GetComponent<EnemySpawner>().SpawnEnemy();
-                    numberOfSpawnedEnemiesThisRound++;
-                    numberOfSpawnedEnemiesCurrently++;
+                    RandomSpawn();
                 }
             }
         }
+    }
+
+    private static void RandomSpawn(){
+        enemySpawners[Random.Range(0, enemySpawners.Length)].GetComponent<EnemySpawner>().SpawnEnemy();
+        numberOfSpawnedEnemiesThisRound++;
+        numberOfSpawnedEnemiesCurrently++;
     }
 
     static int WaveRespawnAlgorithm()

@@ -16,6 +16,7 @@ TagManager:
   - InventoryUI
   - Auth
   - PlayerSpawn
+  - PatrolPoint
   layers:
   - Default
   - TransparentFX
