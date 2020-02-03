@@ -7,7 +7,6 @@ public class WeaponSystem : MonoBehaviour {
     public GameObject bullet;
     public GameObject weaponSlotLeft;
     public GameObject weaponSlotRight;
-    public Fist fist;
     public Weapon inHands;
     public Weapon[] weaponSlots;
 
@@ -186,6 +185,7 @@ public class WeaponSystem : MonoBehaviour {
                 return;
             }
         }
+        spawnedWeapon.ammoLoaded = spawnedWeapon.magazineSize;
         Manager.sfxAudioSource.PlayOneShot(colObj.GetComponent<PickupSpawner>().pickupAudio);
 
         if (Manager.weaponSystem.weaponSlots[1] == null) {
@@ -199,10 +199,10 @@ public class WeaponSystem : MonoBehaviour {
             Manager.weaponSystem.currentWeaponSlot = 3;
         }
 
-        Manager.weaponSystem.weaponSlots[Manager.weaponSystem.currentWeaponSlot] = spawnedWeapon;
-        Manager.weaponSystem.inHands = Manager.weaponSystem.weaponSlots[Manager.weaponSystem.currentWeaponSlot];
+        Manager.weaponSystem.weaponSlots[Manager.weaponSystem.activeWeaponSlot] = spawnedWeapon;
+        Manager.weaponSystem.inHands = Manager.weaponSystem.weaponSlots[Manager.weaponSystem.activeWeaponSlot];
         Manager.playerUI.ReloadAmmoHud (Manager.weaponSystem.inHands.ammoPool, Manager.weaponSystem.inHands.ammoLoaded);
-        Manager.inventoryUI.UpdateImage (Manager.weaponSystem.currentWeaponSlot, Manager.weaponSystem.inHands.icon);
+        Manager.inventoryUI.UpdateImage (Manager.weaponSystem.activeWeaponSlot, Manager.weaponSystem.inHands.icon);
         SetWeaponSlotSprites ();
     }
 
@@ -215,6 +215,11 @@ public class WeaponSystem : MonoBehaviour {
             Manager.weaponSystem.weaponSlotRight.GetComponent<SpriteRenderer> ().sprite = Manager.weaponSystem.inHands.icon;
         }
         Manager.weaponSystem.UpdateUi ();
+    }
+
+    public static void ResetWeaponSlots(){
+        Manager.weaponSystem.weaponSlots = new Weapon[4];
+        Manager.weaponSystem.weaponSlots[0] = new Fist();
     }
 
     //check which weapon is out and set accordingly

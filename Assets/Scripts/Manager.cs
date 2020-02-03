@@ -162,12 +162,10 @@ public class Manager : MonoBehaviour
         Manager.ResetStats();
         Manager.ResetPlayerHealth();
         Manager.inventoryUI.HideInventory();
-        Manager.weaponSystem.weaponSlots[1] = null;
-        Manager.weaponSystem.weaponSlots[2] = null;
-        Manager.weaponSystem.weaponSlots[3] = null;
         PlayerControl.hasControl = true;
         Manager.player.transform.position = LevelSetup.playerSpawn.transform.position;
         Manager.weaponSystem.inHands = new Fist();
+        WeaponSystem.ResetWeaponSlots();
         WeaponSystem.SetWeaponSlotSprites();
     }
 }
