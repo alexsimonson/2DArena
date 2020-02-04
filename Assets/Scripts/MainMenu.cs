@@ -17,15 +17,7 @@ public class MainMenu : MonoBehaviour
 
     public void Options()
     {
-        if (Manager.leftHanded)
-        {
-            Manager.leftHanded = false;
-        }
-        else
-        {
-            Manager.leftHanded = true;
-        }
-        Debug.Log("leftHanded set to " + Manager.leftHanded);
+        Manager.leftHanded = !Manager.leftHanded;
     }
 
     public void Login()

@@ -21,6 +21,7 @@ public class PlayerControl : MonoBehaviour {
 
     // initializing local state variables
     public static bool hasControl;
+    public static bool isTrespassing;
     public bool lookingLeft = false;
     private bool isAttacking = false;
     private float defaultWalkSpeed = 7f;
@@ -31,6 +32,7 @@ public class PlayerControl : MonoBehaviour {
     // Use this for initialization
     void Start () {
         hasControl = true;
+        isTrespassing = false;
         walkSpeed = defaultWalkSpeed;
         rb = GetComponent<Rigidbody2D> ();
         bc = GetComponent<BoxCollider2D> ();
@@ -56,13 +58,14 @@ public class PlayerControl : MonoBehaviour {
             BodyRotation ();
             SpeedManager ();
             DodgeRoll ();
-            if(Input.GetButtonDown("Debug")){
-                GameTypes.PrintAllStats();
+            if(Input.GetButtonDown("SwitchHand")){
+                SwitchHand();
             }
         }
     }
 
     void SwitchHand () {
+        Manager.leftHanded = !Manager.leftHanded;
         weaponSlotLeft.SetActive (Manager.leftHanded);
         weaponSlotRight.SetActive (!Manager.leftHanded);
     }

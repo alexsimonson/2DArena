@@ -84,11 +84,6 @@ public class Manager : MonoBehaviour
         Debug.Log("Awaken my child");
     }
 
-    void OnSceneLoaded()
-    {
-        Manager.gameMode = 1;   // temporarily setting the game mode here
-    }
-
     //based on tag, add or remove to the count tracked by scoreboard
     public static void ScoreUpdate(string tagName, bool increase)
     {
