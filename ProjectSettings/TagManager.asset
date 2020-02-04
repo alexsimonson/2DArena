@@ -17,6 +17,7 @@ TagManager:
   - Auth
   - PlayerSpawn
   - PatrolPoint
+  - Vision
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - 
   - ColliderTilemap
   - GroundTilemap
-  - 
+  - Player
   - 
   - 
   - 

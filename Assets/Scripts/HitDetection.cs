@@ -18,20 +18,20 @@ public class HitDetection : MonoBehaviour
     {
         if (self != null)
         {
-            if (self.tag == "PlayerWeapon")
+            if (self.CompareTag("PlayerWeapon"))
             {
-                if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "EnemySpawner")
+                if (col.gameObject.CompareTag("Enemy") || col.gameObject.CompareTag("EnemySpawner"))
                 {
                     col.gameObject.GetComponent<Health>().TakeDamage(self.GetComponentInParent<WeaponSystem>().inHands.damage);
                 }
-                if (col.gameObject.tag == "EnemyWeapon")
+                if (col.gameObject.CompareTag("EnemyWeapon"))
                 {
                     // could maybe knock weapons out of enemies hands
                 }
             }
-            else if (self.tag == "EnemyWeapon")
+            else if (self.CompareTag("EnemyWeapon"))
             {
-                if (col.gameObject.tag == "Player")
+                if (col.gameObject.CompareTag("Player"))
                 {
                     col.gameObject.GetComponent<Health>().TakeDamage(self.GetComponentInParent<AiControl>().inHands.damage, true);
                 }
