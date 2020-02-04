@@ -244,7 +244,7 @@ public class WeaponSystem : MonoBehaviour {
         if (Input.GetButtonDown ("Fire1") && Manager.weaponSystem.isAttacking != true) {
             if (Manager.weaponSystem.inHands.type == 0) {
                 Manager.weaponSystem.StartCoroutine (Stab ());
-            } else if (Manager.weaponSystem.inHands.type == 1 && Manager.weaponSystem.inHands.ammoLoaded > 0) {
+            } else if (Manager.weaponSystem.inHands.type == 1 && Manager.weaponSystem.inHands.ammoLoaded > 0 && !Manager.playerControl.sprinting) {
                 Manager.weaponSystem.StartCoroutine (Shoot ());
             }
         }
