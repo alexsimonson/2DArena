@@ -198,7 +198,8 @@ public class WeaponSystem : MonoBehaviour {
             Manager.weaponSystem.activeWeaponSlot = 3;
             Manager.weaponSystem.currentWeaponSlot = 3;
         }
-
+        // if we make it here, make sure the weapon that is spawned has the default amount of ammo
+        spawnedWeapon.ammoPool = spawnedWeapon.magazineSize * 3;
         Manager.weaponSystem.weaponSlots[Manager.weaponSystem.activeWeaponSlot] = spawnedWeapon;
         Manager.weaponSystem.inHands = Manager.weaponSystem.weaponSlots[Manager.weaponSystem.activeWeaponSlot];
         Manager.playerUI.ReloadAmmoHud (Manager.weaponSystem.inHands.ammoPool, Manager.weaponSystem.inHands.ammoLoaded);
